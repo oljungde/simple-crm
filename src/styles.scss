@@ -26,12 +26,12 @@ $dark-theme:   mat-dark-theme((
 // Anwendung der Themen
 .light-theme {
     @include angular-material-theme($light-theme);
-    background-color: beige;
+    background-color: #f1f1f1;
 }
 
 .dark-theme {
     @include angular-material-theme($dark-theme);
-    background-color: darkslategrey;
+    background-color: #303030;
     color: white;
 }
 
