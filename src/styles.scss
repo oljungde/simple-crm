@@ -1,4 +1,78 @@
+@import '@angular/material/theming';
+
+// Include non-theme styles for core.
+@include mat-core();
+
+// Definieren Sie Ihr helles Thema
+$light-primary: mat-palette($mat-indigo);
+$light-accent:  mat-palette($mat-pink, A200, A100, A400);
+$light-theme:   mat-light-theme((
+    color: (
+        primary: $light-primary,
+        accent: $light-accent
+    )
+));
+
+// Definieren Sie Ihr dunkles Thema
+$dark-primary: mat-palette($mat-pink);
+$dark-accent:  mat-palette($mat-blue-gray, A200, A100, A400);
+$dark-theme:   mat-dark-theme((
+    color: (
+        primary: $dark-primary,
+        accent: $dark-accent
+    )
+));
+
+// Anwendung der Themen
+.light-theme {
+    @include angular-material-theme($light-theme);
+    background-color: beige;
+}
+
+.dark-theme {
+    @include angular-material-theme($dark-theme);
+    background-color: darkslategrey;
+    color: white;
+}
+
+
+mat-icon {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px; /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+  
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+  
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+  
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+  }
+
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, 
+body { 
+    margin: 0;
+    padding: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Roboto, "Helvetica Neue", sans-serif; 
+}
