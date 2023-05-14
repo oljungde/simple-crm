@@ -11,10 +11,14 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatDividerModule} from '@angular/material/divider';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { UserComponent } from './user/user.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DashboardComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
