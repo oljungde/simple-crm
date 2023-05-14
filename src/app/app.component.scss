@@ -3,6 +3,61 @@
     width: 100vw;
 }
 
+.light-theme {
+
+    .menu-items li:hover {
+        background-color: rgba(0,0,0,0.15);
+    }
+}
+
+.dark-theme {
+
+    .menu-items li:hover {
+        background-color: rgba(255,255,255,0.15);
+    }
+}
+
 mat-toolbar {
     justify-content: space-between;
+}
+
+.toolbar-left {
+    display: flex;
+    align-items: center;
+}
+
+.side-menu {
+    height: 100vh;
+    min-height: 100vh;
+}
+
+.side-menu-content {
+    padding: 8px 0;
+}
+
+.logo-container {
+    padding: 0 32px;
+
+    .logo {
+        height: 51px;
+        object-fit: cover;
+    }
+}
+
+.menu-items {
+    list-style-type: none;
+    margin: 32px 0 0;
+    padding: 0;
+
+    li {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 16px 32px;
+        cursor: pointer;
+
+        mat-icon {
+            font-family: 'Material Icons Outlined';
+        }
+    }
 }
