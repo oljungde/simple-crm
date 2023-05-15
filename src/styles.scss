@@ -1,9 +1,7 @@
 @import '@angular/material/theming';
-
-// Include non-theme styles for core.
 @include mat-core();
 
-// Definieren Sie Ihr helles Thema
+
 $light-primary: mat-palette($mat-indigo);
 $light-accent:  mat-palette($mat-pink, A200, A100, A400);
 $light-theme:   mat-light-theme((
@@ -13,7 +11,7 @@ $light-theme:   mat-light-theme((
     )
 ));
 
-// Definieren Sie Ihr dunkles Thema
+
 $dark-primary: mat-palette($mat-pink);
 $dark-accent:  mat-palette($mat-blue-gray, A200, A100, A400);
 $dark-theme:   mat-dark-theme((
@@ -23,7 +21,7 @@ $dark-theme:   mat-dark-theme((
     )
 ));
 
-// Anwendung der Themen
+
 .light-theme {
     @include angular-material-theme($light-theme);
     background-color: #f1f1f1;
@@ -35,33 +33,6 @@ $dark-theme:   mat-dark-theme((
     color: white;
 }
 
-
-mat-icon {
-    font-family: 'Material Icons';
-    font-weight: normal;
-    font-style: normal;
-    font-size: 24px; /* Preferred icon size */
-    display: inline-block;
-    line-height: 1;
-    text-transform: none;
-    letter-spacing: normal;
-    word-wrap: normal;
-    white-space: nowrap;
-    direction: ltr;
-  
-    /* Support for all WebKit browsers. */
-    -webkit-font-smoothing: antialiased;
-    /* Support for Safari and Chrome. */
-    text-rendering: optimizeLegibility;
-  
-    /* Support for Firefox. */
-    -moz-osx-font-smoothing: grayscale;
-  
-    /* Support for IE. */
-    font-feature-settings: 'liga';
-  }
-
-/* You can add global styles to this file, and also import other style files */
 
 html, 
 body { 
@@ -75,4 +46,23 @@ body {
 
 body {
     font: 16px 'Roboto', sans-serif !important;
+}
+
+mat-icon {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px; 
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: 'liga';
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
