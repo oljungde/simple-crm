@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ThemeService } from './theme.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -7,21 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
   title = 'simple-crm';
-  isLightTheme: boolean | undefined;
+  isLightTheme$!: Observable<boolean>;
+
+  constructor(private themeService: ThemeService) { }
 
   ngOnInit() {
-    let theme = localStorage.getItem('theme');
-    if (theme === null) {
-      localStorage.setItem('theme', 'light');
-      this.isLightTheme = true;
-    } else {
-      this.isLightTheme = theme === 'light' ? true : false;
-    }    
+    this.isLightTheme$ = this.themeService.isLightTheme$;
   }
 
 
   toggleTheme() {
-    this.isLightTheme = !this.isLightTheme;
-    localStorage.setItem('theme', this.isLightTheme ? 'light' : 'dark');
+    this.themeService.toggleTheme();
   }
 }

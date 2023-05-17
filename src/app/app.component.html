@@ -1,11 +1,9 @@
-<div [class.light-theme]="isLightTheme" [class.dark-theme]="!isLightTheme" class="site">
-  
-
+<div [class.light-theme]="isLightTheme$ | async" [class.dark-theme]="!(isLightTheme$ | async)" class="site">
   <mat-drawer-container autosize class="side-menu">
     <mat-drawer #drawer mode="side" [opened]="true" class="side-menu-content">
       <div class="logo-container">
-        <img *ngIf="isLightTheme" routerLink="dashboard" src="../assets/img/logo-light.png" alt="simpleCRM Logo" class="logo">
-        <img *ngIf="!isLightTheme" routerLink="dashboard" src="../assets/img/logo-dark.png" alt="simpleCRM Logo" class="logo">
+        <img *ngIf="(isLightTheme$ | async)" routerLink="dashboard" src="../assets/img/logo-light.png" alt="simpleCRM Logo" class="logo">
+        <img *ngIf="!(isLightTheme$ | async)" routerLink="dashboard" src="../assets/img/logo-dark.png" alt="simpleCRM Logo" class="logo">
       </div>
 
       <mat-divider></mat-divider>
@@ -25,8 +23,8 @@
       </div>
       
       <button (click)="toggleTheme()" mat-icon-button matTooltip="Change Color Mode" type="button">
-        <mat-icon *ngIf="isLightTheme">nights_stay</mat-icon>
-        <mat-icon *ngIf="!isLightTheme">light_mode</mat-icon>
+        <mat-icon *ngIf="isLightTheme$ | async">nights_stay</mat-icon>
+        <mat-icon *ngIf="!(isLightTheme$ | async)">light_mode</mat-icon>
       </button>
     </mat-toolbar> 
     <div class="router-container">

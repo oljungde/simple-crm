@@ -1,7 +1,7 @@
 
-<div>
+<div [class.light-theme]="isLightTheme$ | async" [class.dark-theme]="!(isLightTheme$ | async)">
     <h1 mat-dialog-title>Add user</h1>
-    <div mat-dialog-content>
+    <div mat-dialog-content >
         <p>It work's</p>
     </div>
     <div mat-dialog-actions>
