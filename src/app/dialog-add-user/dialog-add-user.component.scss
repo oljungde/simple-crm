@@ -5,3 +5,12 @@
         color: white;
     }
 }
+
+.form-row {
+    display: flex;
+    gap: 16px;
+}
+
+mat-form-field {
+    padding: 8px 0;
+}

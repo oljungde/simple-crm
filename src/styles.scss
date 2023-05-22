@@ -29,6 +29,7 @@ $dark-theme:   mat-dark-theme((
 
 .dark-theme {
     @include angular-material-theme($dark-theme);
+    @include all-component-colors($dark-theme);
     background-color: #303030;
     color: white;
 }
@@ -64,4 +65,9 @@ mat-icon {
 
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+.mat-mdc-dialog-surface{
+    border-radius: 4px !important;
+    background-color: black !important;
 }
