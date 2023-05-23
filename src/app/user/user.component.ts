@@ -1,18 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddUserComponent } from '../dialog-add-user/dialog-add-user.component';
+import { ThemeService } from '../theme.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss']
 })
-export class UserComponent {
+export class UserComponent implements OnInit {
+  isLightTheme: boolean = true;
     
-    constructor(public dialog: MatDialog) { }
+    constructor(public dialog: MatDialog, public themeService: ThemeService) { }
 
-
-    openDialog() {
-      this.dialog.open(DialogAddUserComponent);
+    ngOnInit() {
+      this.themeService.isLightTheme$.subscribe(isLightTheme => {
+        this.isLightTheme = isLightTheme;
+      }); 
     }
+
+
+    openDialog(isLightTheme: boolean) {
+      this.dialog.open(DialogAddUserComponent, {
+        panelClass: isLightTheme ? 'light-theme' : 'dark-theme'
+      });
+  }
 }

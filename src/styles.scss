@@ -1,38 +1,37 @@
-@import '@angular/material/theming';
-@include mat-core();
+@use '@angular/material' as mat;
+@include mat.core();
 
 
-$light-primary: mat-palette($mat-indigo);
-$light-accent:  mat-palette($mat-pink, A200, A100, A400);
-$light-theme:   mat-light-theme((
+$light-theme: mat.define-light-theme((
     color: (
-        primary: $light-primary,
-        accent: $light-accent
-    )
+        primary: mat.define-palette(mat.$indigo-palette),
+        accent: mat.define-palette(mat.$pink-palette),
+    ),
 ));
 
 
-$dark-primary: mat-palette($mat-pink);
-$dark-accent:  mat-palette($mat-blue-gray, A200, A100, A400);
-$dark-theme:   mat-dark-theme((
+$dark-theme: mat.define-dark-theme((
     color: (
-        primary: $dark-primary,
-        accent: $dark-accent
-    )
+        primary: mat.define-palette(mat.$pink-palette),
+        accent: mat.define-palette(mat.$blue-gray-palette),
+    ),
 ));
 
 
 .light-theme {
-    @include angular-material-theme($light-theme);
-    background-color: #f1f1f1;
+    @include mat.core-color($light-theme);
+    @include mat.all-component-themes($light-theme);
 }
 
 .dark-theme {
-    @include angular-material-theme($dark-theme);
-    @include all-component-colors($dark-theme);
-    background-color: #303030;
-    color: white;
+    @include mat.core-color($dark-theme);
+    @include mat.all-component-themes($dark-theme);
 }
+
+.dark-theme .mat-datepicker-content {
+    background-color: #303030;
+}
+
 
 html, 
 body { 
@@ -65,9 +64,4 @@ mat-icon {
 
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-}
-
-.mat-mdc-dialog-surface{
-    border-radius: 4px !important;
-    background-color: black !important;
 }

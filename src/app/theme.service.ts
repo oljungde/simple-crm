@@ -8,6 +8,19 @@ export class ThemeService {
   private _isLightTheme = new BehaviorSubject<boolean>(this.getInitialTheme());
   isLightTheme$ = this._isLightTheme.asObservable();
 
+  constructor() {
+    this.isLightTheme$.subscribe(isLightTheme => {
+      const body = document.body;
+      if (isLightTheme) {
+        body.classList.add('light-theme');
+        body.classList.remove('dark-theme');
+      } else {
+        body.classList.add('dark-theme');
+        body.classList.remove('light-theme');
+      }
+    });
+  }
+
 
   private getInitialTheme() {
     let theme = localStorage.getItem('theme');
