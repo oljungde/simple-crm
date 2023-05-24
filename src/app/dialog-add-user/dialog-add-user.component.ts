@@ -16,6 +16,7 @@ export class DialogAddUserComponent implements OnInit {
   user = new User();
   firestore: Firestore = inject(Firestore);
   usersCollection = collection(this.firestore, 'users');
+  loading: boolean = false;
 
 
   constructor(private themeService: ThemeService) { }
@@ -26,11 +27,13 @@ export class DialogAddUserComponent implements OnInit {
   }
 
   saveUser() {
+    this.loading = true;
     this.user.birthDate = this.birthDate?.getTime();
     console.log('Current user is ', this.user);
     addDoc(this.usersCollection, this.user.toJSON())
       .then((docRef: DocumentReference) => {
       console.log('User added successfully', docRef);
+      this.loading = false;
     });
   }
 }
