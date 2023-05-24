@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddUserComponent } from '../dialog-add-user/dialog-add-user.component';
 import { ThemeService } from '../theme.service';
-import { Observable } from 'rxjs';
+import { User } from '../models/user.class';
 
 @Component({
   selector: 'app-user',
@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 })
 export class UserComponent implements OnInit {
   isLightTheme: boolean = true;
+  user = new User();
     
     constructor(public dialog: MatDialog, public themeService: ThemeService) { }
 
