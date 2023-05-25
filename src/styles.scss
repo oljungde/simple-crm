@@ -21,15 +21,45 @@ $dark-theme: mat.define-dark-theme((
 .light-theme {
     @include mat.core-color($light-theme);
     @include mat.all-component-themes($light-theme);
+
+    .user-table {
+
+        tr {
+            border-bottom: 1px solid rgba(0,0,0,0.4);
+
+            &:hover {
+                background-color: rgba(0,0,0,0.15);
+            }
+        }
+
+        th {
+            color: rgba(0,0,0,0.4)
+        }
+    }
 }
 
 .dark-theme {
     @include mat.core-color($dark-theme);
     @include mat.all-component-themes($dark-theme);
-}
 
-.dark-theme .mat-datepicker-content {
-    background-color: #303030;
+    .mat-datepicker-content {
+        background-color: #303030;
+    }
+
+    .user-table {
+
+        tr {
+            border-bottom: 1px solid rgba(255,255,255,0.5);
+
+            &:hover {
+                background-color: rgba(255,255,255,0.15);
+            }
+        }
+
+        th {    
+            color: rgba(255,255,255,0.5)
+        }
+    }
 }
 
 

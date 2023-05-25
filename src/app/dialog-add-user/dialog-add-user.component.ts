@@ -1,5 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ThemeService  } from '../theme.service';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { User } from '../models/user.class';
 import { Firestore, collectionData, collection, addDoc, DocumentReference } from '@angular/fire/firestore';
@@ -19,7 +20,7 @@ export class DialogAddUserComponent implements OnInit {
   loading: boolean = false;
 
 
-  constructor(private themeService: ThemeService) { }
+  constructor(private themeService: ThemeService, public dialogRef: MatDialogRef<DialogAddUserComponent>) { }
 
 
   ngOnInit(): void {
@@ -33,6 +34,7 @@ export class DialogAddUserComponent implements OnInit {
     addDoc(this.usersCollection, this.user.toJSON())
       .then((docRef: DocumentReference) => {
       console.log('User added successfully', docRef);
+      this.dialogRef.close();
       this.loading = false;
     });
   }

@@ -1,4 +1,24 @@
-<p>user works!</p>
+<mat-card>
+    <mat-card-content>
+        <table class="user-table">
+            <tr>
+                <th>Name</th>
+                <th>E-Mail</th>
+                <th>City</th>
+            </tr>
+            <tr>
+                <td>Erster Name</td>
+                <td>erste@e-mail.de</td>
+                <td>Frankfurt</td>
+            </tr>
+            <tr>
+                <td>Zweiter Name</td>
+                <td>zweite@e-mail.de</td>
+                <td>Hamburg</td>
+            </tr>
+        </table>
+    </mat-card-content>
+</mat-card>
 
 <button (click)="openDialog(this.isLightTheme)" mat-fab color="primary" matTooltip="Add user" matTooltipPosition="above" class="add-user-btn">
     <mat-icon>add</mat-icon>
