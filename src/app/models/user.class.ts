@@ -5,6 +5,7 @@ export class User {
     street: string | undefined;
     postalCode: number | undefined;
     city: string | undefined;
+    email: string | undefined;
 
 
     constructor(obj?: any) {
@@ -14,6 +15,7 @@ export class User {
     this.street = obj ? obj.street : '';
     this.postalCode = obj ? obj.postalCode : '';
     this.city = obj ? obj.city : '';
+    this.email = obj ? obj.email : '';
     }
 
 
@@ -24,7 +26,8 @@ export class User {
             birthDate: this.birthDate,
             street: this.street,
             postalCode: this.postalCode,
-            city: this.city
+            city: this.city,
+            email: this.email,
         };
     }
 }

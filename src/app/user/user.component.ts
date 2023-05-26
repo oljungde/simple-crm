@@ -4,6 +4,7 @@ import { DialogAddUserComponent } from '../dialog-add-user/dialog-add-user.compo
 import { ThemeService } from '../theme.service';
 import { User } from '../models/user.class';
 import { Firestore, collection, doc, getDocs, onSnapshot } from '@angular/fire/firestore';
+import { idToken } from '@angular/fire/auth';
 
 
 @Component({
@@ -23,7 +24,9 @@ export class UserComponent implements OnInit {
       onSnapshot(this.usersCollection, (changes) => {
         let users: any = [];
         changes.forEach((change) => {
-          users.push(change.data());
+          let userData = change.data();
+          userData['id'] = change.id;
+          users.push(userData);
         });
         this.allUsers = users;
         console.log('Recieved changes: ', this.allUsers);

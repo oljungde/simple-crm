@@ -17,6 +17,13 @@
 
         <div class="form-row">
             <mat-form-field appearance="outline" class="w-100">
+                <mat-label>E-Mail</mat-label>
+                <input [(ngModel)]="user.email" [disabled]="loading" matInput placeholder="Enter your e-mail adress">
+            </mat-form-field>
+        </div>
+
+        <div class="form-row">
+            <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Date of birth</mat-label>
                 <input [(ngModel)]="birthDate" [disabled]="loading" matInput [matDatepicker]="picker">
                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
@@ -41,10 +48,10 @@
                 <mat-label>City</mat-label>
                 <input [(ngModel)]="user.city" [disabled]="loading" matInput placeholder="Enter your location">
             </mat-form-field>
-        </div>
+        </div> 
     </div>
     <div mat-dialog-actions>
-        <button [disabled]="loading" mat-button>Cancel</button>
+        <button [disabled]="loading" (click)="dialogRef.close()" mat-button>Cancel</button>
         <button [disabled]="loading" (click)="saveUser()" mat-button cdkFocusInitial>Save</button>
     </div>    
 </div>
