@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Firestore, collection, doc, getDoc } from '@angular/fire/firestore';
+import { User } from '../models/user.class';
 
 @Component({
   selector: 'app-user-detail',
@@ -8,6 +10,9 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class UserDetailComponent {
   userId: string = '';
+  user: User = new User();
+  firestore: Firestore = inject(Firestore);
+  usersCollection = collection(this.firestore, 'users');
 
 
   constructor(private route: ActivatedRoute) { }
@@ -17,6 +22,25 @@ export class UserDetailComponent {
     this.route.paramMap.subscribe(params => {
       this.userId = params.get('id') || '';
       console.log(this.userId);
+      this.getUser();
     });
+  }
+
+
+
+  async getUser() {
+    const docRef = doc(this.usersCollection, this.userId);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      this.user = new User(docSnap.data());
+      console.log('getUser is: ', this.user);
+    } else {
+      console.log('No such document!');
+    }    
+  }
+
+
+  openDialog() {
+
   }
 }

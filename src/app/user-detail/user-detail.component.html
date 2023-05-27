@@ -2,18 +2,21 @@
     <mat-card-content class="user-detail-header-content">
         <img src="./assets/img/profile.png" alt="">
         <div>
-            <h2>Max Mustermann</h2>
-            <p>mm@eine-seite.de</p>
+            <h2>{{ user.firstName }} {{ user.lastName }}</h2>
+            <p>{{ user.email }}</p>
         </div>
     </mat-card-content>
 </mat-card>
 
 <mat-card class="mt-32">
+    <button (click)="openDialog()" mat-icon-button class="btn-edit-user">
+        <mat-icon>more_vert</mat-icon>
+    </button>
     <mat-card-header>
         <mat-card-title>Address</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-        <p>Musterstraße 1</p>
-        <p>12345 Musterstadt</p>
+        <p>{{ user.street }}</p>
+        <p>{{ user.postalCode }} {{ user.city }}</p>
     </mat-card-content>
 </mat-card>
