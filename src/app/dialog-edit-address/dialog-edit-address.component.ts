@@ -4,6 +4,7 @@ import { ThemeService } from '../theme.service';
 import { User } from '../models/user.class';
 import { MatDialogRef } from '@angular/material/dialog';
 import { updateDoc, doc, Firestore, collection } from '@angular/fire/firestore';
+import { DatabaseService } from '../database.service';
 
 @Component({
   selector: 'app-dialog-edit-address',
@@ -12,15 +13,9 @@ import { updateDoc, doc, Firestore, collection } from '@angular/fire/firestore';
 })
 export class DialogEditAddressComponent implements OnInit {
   isLightTheme$!: Observable<boolean>;
-  loading: boolean = false;
-  user: User | undefined;
-  userId: string | undefined;
-  firestore: Firestore = inject(Firestore);
-  usersCollection = collection(this.firestore, 'users');
 
 
-
-  constructor(private themeService: ThemeService, public dialogRef: MatDialogRef<DialogEditAddressComponent>) { }
+  constructor(private themeService: ThemeService, public dialogRef: MatDialogRef<DialogEditAddressComponent>, public databaseService: DatabaseService) { }
 
 
   ngOnInit(): void {
@@ -29,13 +24,7 @@ export class DialogEditAddressComponent implements OnInit {
 
 
   saveUser() {
-    this.loading = true;
-    const docRef = doc(this.usersCollection, this.userId);
-    updateDoc(docRef, this.user?.toJSON())
-      .then(() => {
-        console.log('Document successfully updated! ', this.user);
-        this.loading = false;
-        this.dialogRef.close();
-      });
+    this.databaseService.updateUser();
+    this.dialogRef.close();
   }
 }

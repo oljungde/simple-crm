@@ -1,9 +1,9 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ThemeService  } from '../theme.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { User } from '../models/user.class';
-import { Firestore, collection, addDoc, DocumentReference } from '@angular/fire/firestore';
+import { DatabaseService } from '../database.service';
 
 
 @Component({
@@ -13,28 +13,31 @@ import { Firestore, collection, addDoc, DocumentReference } from '@angular/fire/
 })
 export class DialogAddUserComponent implements OnInit {
   isLightTheme$!: Observable<boolean>;
-  birthDate: Date | undefined; 
-  user = new User();
-  firestore: Firestore = inject(Firestore);
-  usersCollection = collection(this.firestore, 'users');
-  loading: boolean = false;
 
 
-  constructor(private themeService: ThemeService, public dialogRef: MatDialogRef<DialogAddUserComponent>) { }
+  constructor(private themeService: ThemeService, public dialogRef: MatDialogRef<DialogAddUserComponent>, public databaseService: DatabaseService) { }
 
 
   ngOnInit(): void {
     this.isLightTheme$ = this.themeService.isLightTheme$;
   }
 
+
+  resetForm() {
+    this.databaseService.newUser = new User();
+    this.databaseService.birthDate = undefined;
+  }
+
+
+  dialogClose() {
+    this.resetForm();
+    this.dialogRef.close();
+  }
+
+
   saveUser() {
-    this.loading = true;
-    this.user.birthDate = this.birthDate?.getTime();
-    console.log('Current user is ', this.user);
-    addDoc(this.usersCollection, this.user.toJSON())
-      .then((docRef: DocumentReference) => {
-      console.log('User added successfully', docRef);
-      this.loading = false;
-    });
+    this.databaseService.saveNewUser();
+    this.resetForm();
+    this.dialogRef.close();
   }
 }

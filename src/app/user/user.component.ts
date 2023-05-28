@@ -1,9 +1,8 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddUserComponent } from '../dialog-add-user/dialog-add-user.component';
 import { ThemeService } from '../theme.service';
-import { User } from '../models/user.class';
-import { Firestore, collection, onSnapshot } from '@angular/fire/firestore';
+import { DatabaseService } from '../database.service';
 
 
 
@@ -14,24 +13,8 @@ import { Firestore, collection, onSnapshot } from '@angular/fire/firestore';
 })
 export class UserComponent implements OnInit {
   isLightTheme: boolean = false;
-  user = new User();
-  firestore: Firestore = inject(Firestore);
-  usersCollection = collection(this.firestore, 'users');
-  allUsers: any = [];
 
-    
-    constructor(public dialog: MatDialog, public themeService: ThemeService) { 
-      onSnapshot(this.usersCollection, (changes) => {
-        let users: any = [];
-        changes.forEach((change) => {
-          let userData = change.data();
-          userData['id'] = change.id;
-          users.push(userData);
-        });
-        this.allUsers = users;
-        console.log('Recieved changes: ', this.allUsers);
-      });
-    }
+    constructor(public dialog: MatDialog, public themeService: ThemeService, public databaseService: DatabaseService) { }
 
 
     async ngOnInit() {
