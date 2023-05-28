@@ -3,7 +3,7 @@ import { ThemeService  } from '../theme.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { User } from '../models/user.class';
-import { Firestore, collectionData, collection, addDoc, DocumentReference } from '@angular/fire/firestore';
+import { Firestore, collection, addDoc, DocumentReference } from '@angular/fire/firestore';
 
 
 @Component({
