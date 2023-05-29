@@ -1,7 +1,25 @@
+<mat-card class="login-card">
+    <mat-card-header>
+        <mat-card-title>Log in</mat-card-title>
+    </mat-card-header>
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+        <mat-card-content class="mt-32">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label for="email">E-Mail</mat-label>
+                <input matInput type="email" id="email" formControlName="email" placeholder="Enter your e-mail adress">
+            </mat-form-field>
 
-<p>login works!</p>
-<mat-card>
-    <mat-card-content>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum dolor corporis, et veritatis repudiandae, eligendi possimus aliquid alias beatae iusto labore eveniet voluptate eaque, tenetur optio odio nulla cupiditate quaerat.
-    </mat-card-content>
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label for="password">Password</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" id="password" formControlName="password" placeholder="Enter your password">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field>
+
+            <mat-card-actions align="end">
+                <button mat-button type="submit">Log in</button>
+            </mat-card-actions>
+        </mat-card-content>
+    </form>
 </mat-card>

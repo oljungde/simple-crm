@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ThemeService } from '../theme.service';
+import { AuthService } from '../auth.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -8,8 +10,15 @@ import { ThemeService } from '../theme.service';
 })
 export class LoginComponent implements OnInit {
   isLightTheme: boolean = false;
+  loginForm: FormGroup;
+  hide = true;
 
-  constructor(public themeService: ThemeService) { }
+  constructor(public themeService: ThemeService, public authService: AuthService, private formBuilder: FormBuilder) { 
+    this.loginForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
+    });
+  }
 
 
   ngOnInit() {
@@ -17,5 +26,13 @@ export class LoginComponent implements OnInit {
       this.isLightTheme = isLightTheme;
       console.log(this.isLightTheme);
     });
+  }
+
+
+  login() {
+    const val = this.loginForm?.value;
+    if (val?.email && val?.password) {
+      this.authService.signInWithEmailAndPassword(val.email, val.password)
+    }
   }
 }
