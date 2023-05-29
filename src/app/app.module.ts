@@ -29,6 +29,7 @@ import { UserDetailComponent } from './user-detail/user-detail.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { DialogEditUserComponent } from './dialog-edit-user/dialog-edit-user.component';
 import { DialogEditAddressComponent } from './dialog-edit-address/dialog-edit-address.component';
+import { LoginComponent } from './login/login.component';
 
 
 
@@ -40,7 +41,8 @@ import { DialogEditAddressComponent } from './dialog-edit-address/dialog-edit-ad
     DialogAddUserComponent,
     UserDetailComponent,
     DialogEditUserComponent,
-    DialogEditAddressComponent
+    DialogEditAddressComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

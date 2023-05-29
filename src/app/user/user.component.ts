@@ -17,9 +17,10 @@ export class UserComponent implements OnInit {
     constructor(public dialog: MatDialog, public themeService: ThemeService, public databaseService: DatabaseService) { }
 
 
-    async ngOnInit() {
+    ngOnInit() {
       this.themeService.isLightTheme$.subscribe(isLightTheme => {
         this.isLightTheme = isLightTheme;
+        console.log(this.isLightTheme);
       });
     }
 

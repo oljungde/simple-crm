@@ -1,6 +1,8 @@
-<div [class.light-theme]="isLightTheme$ | async" [class.dark-theme]="!(isLightTheme$ | async)" class="site">
+
+
+<div  [class.light-theme]="isLightTheme$ | async" [class.dark-theme]="!(isLightTheme$ | async)" class="site">  
   <mat-drawer-container autosize class="side-menu">
-    <mat-drawer #drawer mode="side" [opened]="true" class="side-menu-content">
+    <mat-drawer #drawer mode="side" [opened]="authService.isUserLoggedIn" class="side-menu-content">
       <div class="logo-container">
         <img *ngIf="(isLightTheme$ | async)" routerLink="dashboard" src="../assets/img/logo-light.png" alt="simpleCRM Logo" class="logo">
         <img *ngIf="!(isLightTheme$ | async)" routerLink="dashboard" src="../assets/img/logo-dark.png" alt="simpleCRM Logo" class="logo">
@@ -16,7 +18,7 @@
 
     <mat-toolbar color="primary">
       <div class="toolbar-left">
-        <button (click)="drawer.toggle()" type="button" mat-icon-button matTooltip="Menu">
+        <button (click)="drawer.toggle()" [disabled]="!authService.isUserLoggedIn" type="button" mat-icon-button matTooltip="Menu">
           <mat-icon>menu</mat-icon>
         </button>
         <span>simpleCRM</span>
@@ -28,7 +30,8 @@
       </button>
     </mat-toolbar> 
     <div class="router-container">
-      <router-outlet></router-outlet>
+      <app-login *ngIf="!authService.isUserLoggedIn"></app-login>
+      <router-outlet *ngIf="authService.isUserLoggedIn"></router-outlet>
     </div>
   </mat-drawer-container>
 </div>
