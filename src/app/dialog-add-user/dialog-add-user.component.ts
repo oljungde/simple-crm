@@ -4,6 +4,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { User } from '../models/user.class';
 import { DatabaseService } from '../database.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 
 @Component({
@@ -13,9 +14,29 @@ import { DatabaseService } from '../database.service';
 })
 export class DialogAddUserComponent implements OnInit {
   isLightTheme$!: Observable<boolean>;
+  registerForm: FormGroup;
+  hide = true;
+  teams = [
+    'Sales',
+    'Marketing',
+    'Customer Service',
+  ]
 
 
-  constructor(private themeService: ThemeService, public dialogRef: MatDialogRef<DialogAddUserComponent>, public databaseService: DatabaseService) { }
+  constructor(
+    private themeService: ThemeService, 
+    public dialogRef: MatDialogRef<DialogAddUserComponent>, 
+    public databaseService: DatabaseService, 
+    private formBuilder: FormBuilder) {
+      this.registerForm = this.formBuilder.group({
+        firstName: ['', Validators.required],
+        lastName: ['', Validators.required],
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', Validators.required],
+        team: ['', Validators.required],
+        shortName: ['', Validators.required],
+      });
+    }
 
 
   ngOnInit(): void {
@@ -25,7 +46,6 @@ export class DialogAddUserComponent implements OnInit {
 
   resetForm() {
     this.databaseService.newUser = new User();
-    this.databaseService.birthDate = undefined;
   }
 
 

@@ -6,19 +6,19 @@
         <div class="form-row">
             <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Street, No.</mat-label>
-                <input *ngIf="databaseService.user" [(ngModel)]="databaseService.user.street" [disabled]="databaseService.loading" matInput placeholder="Enter your street and no.">
+                <input *ngIf="databaseService.user" [disabled]="databaseService.loading" matInput placeholder="Enter your street and no.">
             </mat-form-field>
         </div>
 
         <div class="form-row">
             <mat-form-field appearance="outline">
                 <mat-label>Postal code</mat-label>
-                <input *ngIf="databaseService.user" [(ngModel)]="databaseService.user.postalCode" [disabled]="databaseService.loading" matInput placeholder="Enter your postal code">
+                <input *ngIf="databaseService.user" [disabled]="databaseService.loading" matInput placeholder="Enter your postal code">
             </mat-form-field>
 
             <mat-form-field appearance="outline">
                 <mat-label>City</mat-label>
-                <input *ngIf="databaseService.user" [(ngModel)]="databaseService.user.city" [disabled]="databaseService.loading" matInput placeholder="Enter your location">
+                <input *ngIf="databaseService.user" [disabled]="databaseService.loading" matInput placeholder="Enter your location">
             </mat-form-field>
         </div> 
     </div>

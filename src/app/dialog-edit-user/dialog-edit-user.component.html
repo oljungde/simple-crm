@@ -24,7 +24,7 @@
         <div class="form-row">
             <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Date of birth</mat-label>
-                <input *ngIf="databaseService.user" [(ngModel)]="this.databaseService.birthDate" [disabled]="databaseService.loading" matInput [matDatepicker]="picker">
+                <input *ngIf="databaseService.user" [disabled]="databaseService.loading" matInput [matDatepicker]="picker">
                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>

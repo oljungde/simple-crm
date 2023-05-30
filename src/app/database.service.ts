@@ -10,7 +10,6 @@ export class DatabaseService {
   user = new User();
   newUser = new User();
   userId: string = '';
-  birthDate: Date | undefined; 
   firestore: Firestore = inject(Firestore);
   usersCollection = collection(this.firestore, 'users');
   allUsers: any = [];
@@ -30,7 +29,6 @@ export class DatabaseService {
 
 
   async getUser() {
-    this.birthDate = this.user?.birthDate ? new Date(this.user.birthDate) : undefined;
     const docRef = doc(this.usersCollection, this.userId);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
@@ -44,7 +42,6 @@ export class DatabaseService {
 
   saveNewUser() {
     this.loading = true;
-    this.user.birthDate = this.birthDate?.getTime();
     console.log('Current user is ', this.newUser);
     addDoc(this.usersCollection, this.newUser.toJSON())
       .then((docRef: DocumentReference) => {
@@ -56,7 +53,6 @@ export class DatabaseService {
 
   updateUser() {
     this.loading = true;
-    this.user.birthDate = this.birthDate?.getTime();
     const docRef = doc(this.usersCollection, this.userId);
     updateDoc(docRef, this.user?.toJSON())
       .then(() => {

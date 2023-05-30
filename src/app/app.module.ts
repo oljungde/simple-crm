@@ -31,6 +31,7 @@ import { DialogEditUserComponent } from './dialog-edit-user/dialog-edit-user.com
 import { DialogEditAddressComponent } from './dialog-edit-address/dialog-edit-address.component';
 import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
 
 
 
@@ -68,6 +69,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     provideFirestore(() => getFirestore()),
     MatMenuModule,
     ReactiveFormsModule,
+    MatSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
