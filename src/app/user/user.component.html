@@ -3,13 +3,15 @@
         <table class="user-table">
             <tr>
                 <th>Name</th>
+                <th>Short name</th>
                 <th>E-Mail</th>
-                <th>City</th>
+                <th>Team</th>
             </tr>
             <tr *ngFor="let user of databaseService.allUsers" [routerLink]="['/user/'+user.id]">
                 <td>{{ user.firstName }} {{ user.lastName }}</td>
+                <td>{{ user.shortName }}</td>
                 <td>{{ user.email }}</td>
-                <td>{{ user.city }}</td>
+                <td>{{ user.team }}</td>
             </tr>
         </table>
     </mat-card-content>

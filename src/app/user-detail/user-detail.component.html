@@ -7,15 +7,16 @@
             <button mat-menu-item (click)="editUserDetail()">Edit user</button>
         </mat-menu>
 
-        <img src="./assets/img/profile.png" alt="">
+        <!-- <img src="./assets/img/profile.png" alt=""> -->
         <div>
-            <h2>{{ databaseService.user.firstName }} {{ databaseService.user.lastName }}</h2>
+            <h2>{{ databaseService.user.firstName }} {{ databaseService.user.lastName }} ({{ databaseService.user.shortName }})</h2>
             <p>{{ databaseService.user.email }}</p>
+            <p>{{ databaseService.user.team }}</p>
         </div>
     </mat-card-content>
 </mat-card>
 
-<mat-card class="mt-32">
+<!-- <mat-card class="mt-32">
     <button mat-icon-button [matMenuTriggerFor]="addressMenu" class="btn-edit-user">
         <mat-icon>more_vert</mat-icon>
     </button>
@@ -29,4 +30,4 @@
     <mat-card-content>
         
     </mat-card-content>
-</mat-card>
+</mat-card> -->

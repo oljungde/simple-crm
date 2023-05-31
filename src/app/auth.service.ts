@@ -8,6 +8,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword  } from "fir
 })
 export class AuthService implements OnInit {
   isUserLoggedIn: boolean = true;
+  ;
 
   constructor(@Inject(Auth) private auth: Auth) { }
 

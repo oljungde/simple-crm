@@ -1,8 +1,7 @@
 .user-detail-header {
-    height: 200px;
-    background-color: #5c0080;
+    height: 150px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
 
     img {
         width: 80px;
@@ -15,11 +14,14 @@
         margin-bottom: 0;
     }
 
+    p {
+        margin-top: 8px;
+    }
+
     .user-detail-header-content {
         display: flex;
         flex-direction: row;
         align-items: center;
-        gap: 32px;
     }
 }
 

@@ -22,13 +22,15 @@
         </div>
 
         <div class="form-row">
-            <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Date of birth</mat-label>
-                <input *ngIf="databaseService.user" [disabled]="databaseService.loading" matInput [matDatepicker]="picker">
-                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
+            <mat-form-field appearance="outline">
+                <mat-label>Team</mat-label>
+                <input *ngIf="databaseService.user" [(ngModel)]="databaseService.user.team" [disabled]="databaseService.loading" matInput placeholder="Enter your team">
             </mat-form-field>
-        </div>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Short Name</mat-label>
+                <input *ngIf="databaseService.user" [(ngModel)]="databaseService.user.shortName" [disabled]="databaseService.loading" matInput placeholder="Enter your short name">
+            </mat-form-field>
     </div>
     <div mat-dialog-actions>
         <button [disabled]="databaseService.loading" (click)="dialogRef.close()" mat-button>Cancel</button>
