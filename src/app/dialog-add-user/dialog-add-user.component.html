@@ -5,43 +5,49 @@
         <form [formGroup]="registerForm" (ngSubmit)="saveUser()">
             <div class="form-row">
                 <mat-form-field appearance="outline">
-                    <mat-label for="firstName">First Name</mat-label>
-                    <input id="firstName" [(ngModel)]="databaseService.newUser.firstName" type="text" [disabled]="databaseService.loading" formControlName="firstName" matInput placeholder="Enter the first name">
+                    <mat-label for="firstName">First name</mat-label>
+                    <input id="firstName" type="text" [disabled]="databaseService.loading" formControlName="firstName" matInput placeholder="Enter the First name">
+                    <mat-error *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.errors?.['required']">Please enter a First name</mat-error>
                 </mat-form-field>
     
                 <mat-form-field appearance="outline">
-                    <mat-label>Last Name</mat-label>
-                    <input [(ngModel)]="databaseService.newUser.lastName" [disabled]="databaseService.loading" formControlName="lastName" matInput placeholder="Enter the last name">
+                    <mat-label for="lastName">Last Name</mat-label>
+                    <input id="lastName" [(ngModel)]="databaseService.newUser.lastName" [disabled]="databaseService.loading" formControlName="lastName" matInput required placeholder="Enter the last name">
+                    <mat-error *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.errors?.['required']">Please enter a Last Name</mat-error>
                 </mat-form-field>
             </div>
     
             <div class="form-row">
                 <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>E-Mail</mat-label>
-                    <input [(ngModel)]="databaseService.newUser.email" type="email" [disabled]="databaseService.loading" formControlName="email" matInput placeholder="Enter the e-mail adress">
+                    <mat-label for="email">E-Mail</mat-label>
+                    <input id="email" [(ngModel)]="databaseService.newUser.email" type="email" [disabled]="databaseService.loading" formControlName="email" matInput required placeholder="Enter the e-mail adress">
+                    <mat-error *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.errors?.['required']">Please enter a valid email address</mat-error>
                 </mat-form-field>
             </div>
     
             <mat-form-field appearance="outline" class="w-100">
                 <mat-label for="password">Password</mat-label>
-                <input matInput [type]="hide ? 'password' : 'text'" id="password" formControlName="password" placeholder="Enter a password">
+                <input matInput [type]="hide ? 'password' : 'text'" id="password" formControlName="password" required placeholder="Enter a password">
                 <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
+                <mat-error *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.errors?.['required']">Please enter a password</mat-error>
             </mat-form-field>
     
             <div class="form-row">
                 <mat-form-field appearance="outline">
-                    <mat-label>Team</mat-label>
-                    <mat-select [(ngModel)]="databaseService.newUser.team" [disabled]="databaseService.loading" formControlName="team" placeholder="Enter a team">
-                        <mat-option *ngFor="let team of teams; index as i" value="one">{{ teams[i] }}</mat-option>
+                    <mat-label for="team">Team</mat-label>
+                    <mat-select id="team" [(ngModel)]="databaseService.newUser.team" [disabled]="databaseService.loading" formControlName="team" required="" placeholder="Enter a team">
+                        <mat-option *ngFor="let team of teams; index as i" value="{{ team }}">{{ team }}</mat-option>
                     </mat-select>
+                    <mat-error *ngIf="registerForm.get('team')?.invalid && registerForm.get('team')?.errors?.['required']">Please select a team</mat-error>
                 </mat-form-field>
     
                 <mat-form-field appearance="outline">
-                    <mat-label>Short name</mat-label>
-                    <input [(ngModel)]="databaseService.newUser.shortName" maxlength="4" [disabled]="databaseService.loading" formControlName="shortName" matInput placeholder="Enter a short name">
+                    <mat-label for="shortName">Short name</mat-label>
+                    <input id="shortName" [(ngModel)]="databaseService.newUser.shortName" maxlength="4" [disabled]="databaseService.loading" formControlName="shortName" matInput required placeholder="Enter a short name">
                     <mat-hint align="start">max. 4 letters</mat-hint>
+                    <mat-error *ngIf="registerForm.get('shortName')?.invalid && registerForm.get('shortName')?.errors?.['required']">Please enter a short name</mat-error>
                 </mat-form-field>
             </div>
             <div mat-dialog-actions>

@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { User } from '../models/user.class';
 import { DatabaseService } from '../database.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AuthService } from '../auth.service';
 
 
 @Component({
@@ -26,7 +27,8 @@ export class DialogAddUserComponent implements OnInit {
   constructor(
     private themeService: ThemeService, 
     public dialogRef: MatDialogRef<DialogAddUserComponent>, 
-    public databaseService: DatabaseService, 
+    public databaseService: DatabaseService,
+    private authService: AuthService,
     private formBuilder: FormBuilder) {
       this.registerForm = this.formBuilder.group({
         firstName: ['', Validators.required],
@@ -56,8 +58,15 @@ export class DialogAddUserComponent implements OnInit {
 
 
   saveUser() {
-    this.databaseService.saveNewUser();
-    this.resetForm();
-    this.dialogRef.close();
+    if (this.registerForm.valid) {
+      const newUser = new User();
+      Object.assign(newUser, this.registerForm.value);
+      this.databaseService.saveNewUser(newUser);
+      this.authService.registerUser(this.registerForm.value.email, this.registerForm.value.password);
+      this.resetForm();
+      this.dialogRef.close();
+    } else {
+      console.log('Form is invalid');
+    }
   }
 }

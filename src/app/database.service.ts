@@ -40,10 +40,11 @@ export class DatabaseService {
   }
 
 
-  saveNewUser() {
+  saveNewUser(newUser?: User) {
     this.loading = true;
+    const userToSave = newUser ? newUser : this.newUser;
     console.log('Current user is ', this.newUser);
-    addDoc(this.usersCollection, this.newUser.toJSON())
+    addDoc(this.usersCollection, userToSave.toJSON())
       .then((docRef: DocumentReference) => {
       console.log('User added successfully', docRef);
       this.loading = false;
