@@ -22,7 +22,6 @@ export class AuthService implements OnInit {
       console.error('Firebase has not been initialized yet.');
       return;
     }
-
     createUserWithEmailAndPassword(this.auth, email, password)
     .then((userCredential) =>
     {

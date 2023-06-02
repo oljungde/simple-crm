@@ -3,6 +3,8 @@ import { Observable } from 'rxjs';
 import { ThemeService } from '../theme.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { DatabaseService } from '../database.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { User } from '../models/user.class';
 
 @Component({
   selector: 'app-dialog-edit-user',
@@ -11,17 +13,42 @@ import { DatabaseService } from '../database.service';
 })
 export class DialogEditUserComponent {
   isLightTheme$!: Observable<boolean>;
+  // updateForm: FormGroup | undefined;
+  updateForm = this.formBuilder.group({
+    firstName: [this.databaseService.user.firstName, Validators.required],
+    lastName: [this.databaseService.user.lastName, Validators.required],
+    email: [this.databaseService.user.email, [Validators.required, Validators.email]],
+    team: [this.databaseService.user.team, Validators.required],
+    shortName: [this.databaseService.user.shortName, Validators.required],
+  });
+  // hide = true;
+  teams = [
+    'Sales',
+    'Marketing',
+    'Customer Service',
+  ]
 
 
-  constructor(private themeService: ThemeService, public dialogRef: MatDialogRef<DialogEditUserComponent>, public databaseService: DatabaseService) { }
+  constructor(
+    private themeService: ThemeService, 
+    public dialogRef: MatDialogRef<DialogEditUserComponent>, 
+    public databaseService: DatabaseService,
+    private formBuilder: FormBuilder) {
+      
+    }
 
 
   ngOnInit(): void {
-    this.isLightTheme$ = this.themeService.isLightTheme$;    
+    this.isLightTheme$ = this.themeService.isLightTheme$; 
   }
 
+
   saveUser() {
-    this.databaseService.updateUser();
-    this.dialogRef.close();
+    if(this.updateForm.valid) {
+      const user = new User();
+      Object.assign(user, this.updateForm.value);
+      this.databaseService.updateUser(user);
+      this.dialogRef.close();
+    }
   }
 }

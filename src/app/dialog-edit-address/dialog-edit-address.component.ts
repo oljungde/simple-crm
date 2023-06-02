@@ -1,9 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ThemeService } from '../theme.service';
-import { User } from '../models/user.class';
 import { MatDialogRef } from '@angular/material/dialog';
-import { updateDoc, doc, Firestore, collection } from '@angular/fire/firestore';
 import { DatabaseService } from '../database.service';
 
 @Component({

@@ -52,10 +52,10 @@ export class DatabaseService {
   }
 
 
-  updateUser() {
+  updateUser(user?: User) {
     this.loading = true;
     const docRef = doc(this.usersCollection, this.userId);
-    updateDoc(docRef, this.user?.toJSON())
+    updateDoc(docRef, user?.toJSON())
       .then(() => {
         console.log('Document successfully updated! ', this.user);
         this.loading = false;
