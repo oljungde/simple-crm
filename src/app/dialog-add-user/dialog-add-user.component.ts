@@ -6,6 +6,7 @@ import { User } from '../models/user.class';
 import { DatabaseService } from '../database.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
+import { PasswordGenerateService } from '../password-generate.service';
 
 
 @Component({
@@ -16,7 +17,7 @@ import { AuthService } from '../auth.service';
 export class DialogAddUserComponent implements OnInit {
   isLightTheme$!: Observable<boolean>;
   registerForm: FormGroup;
-  hide = true;
+  hide = false;
   teams = [
     'Sales',
     'Marketing',
@@ -27,14 +28,16 @@ export class DialogAddUserComponent implements OnInit {
   constructor(
     private themeService: ThemeService, 
     public dialogRef: MatDialogRef<DialogAddUserComponent>, 
+    private passwordGenerate: PasswordGenerateService,
     public databaseService: DatabaseService,
     private authService: AuthService,
     private formBuilder: FormBuilder) {
+      const password = this.passwordGenerate.generatePassword();
       this.registerForm = this.formBuilder.group({
         firstName: ['', Validators.required],
         lastName: ['', Validators.required],
         email: ['', [Validators.required, Validators.email]],
-        password: ['', Validators.required],
+        password: [password, Validators.required],
         team: ['', Validators.required],
         shortName: ['', Validators.required],
       });

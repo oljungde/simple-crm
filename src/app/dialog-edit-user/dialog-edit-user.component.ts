@@ -5,6 +5,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { DatabaseService } from '../database.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { User } from '../models/user.class';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-dialog-edit-user',
@@ -33,18 +34,21 @@ export class DialogEditUserComponent {
     private themeService: ThemeService, 
     public dialogRef: MatDialogRef<DialogEditUserComponent>, 
     public databaseService: DatabaseService,
+    private authService: AuthService,
     private formBuilder: FormBuilder) {
       
     }
 
 
   ngOnInit(): void {
-    this.isLightTheme$ = this.themeService.isLightTheme$; 
+    this.isLightTheme$ = this.themeService.isLightTheme$;
+    this.updateForm.controls['email'].disable();
   }
 
 
   saveUser() {
     if(this.updateForm.valid) {
+      this.updateForm.controls['email'].enable();
       const user = new User();
       Object.assign(user, this.updateForm.value);
       this.databaseService.updateUser(user);
