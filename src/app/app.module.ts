@@ -31,6 +31,7 @@ import { DialogEditUserComponent } from './dialog-edit-user/dialog-edit-user.com
 import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
+import { DialogChangeUserLoginComponent } from './dialog-change-user-login/dialog-change-user-login.component';
 
 
 
@@ -43,6 +44,7 @@ import { MatSelectModule } from '@angular/material/select';
     UserDetailComponent,
     DialogEditUserComponent,
     LoginComponent,
+    DialogChangeUserLoginComponent,
   ],
   imports: [
     BrowserModule,

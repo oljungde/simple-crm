@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ThemeService } from './theme.service';
 import { Observable } from 'rxjs';
+import { DatabaseService } from './database.service';
 import { AuthService } from './auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogChangeUserLoginComponent } from './dialog-change-user-login/dialog-change-user-login.component';
+
 
 @Component({
   selector: 'app-root',
@@ -12,7 +17,12 @@ export class AppComponent implements OnInit {
   title = 'simple-crm';
   isLightTheme$!: Observable<boolean>;
 
-  constructor(private themeService: ThemeService, public authService: AuthService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private themeService: ThemeService, 
+    public databaseService: DatabaseService,
+    public authService: AuthService,
+    public dialog: MatDialog) { }
 
   ngOnInit() {
     this.isLightTheme$ = this.themeService.isLightTheme$;
@@ -23,7 +33,14 @@ export class AppComponent implements OnInit {
     this.themeService.toggleTheme();
   }
 
-  userSettings() {
+  async userSettings() {
     console.log('user settings');
+    console.log(this.authService.user.email);
+    await this.databaseService.getUserByEmail(this.authService.user.email)
+    console.log('');
+    
+    console.log(this.databaseService.user);
+    console.log(this.authService.user);
+    const dialog = this.dialog.open(DialogChangeUserLoginComponent);
   }
 }
