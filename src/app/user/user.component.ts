@@ -5,7 +5,6 @@ import { ThemeService } from '../theme.service';
 import { DatabaseService } from '../database.service';
 
 
-
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
@@ -20,7 +19,8 @@ export class UserComponent implements OnInit {
     ngOnInit() {
       this.themeService.isLightTheme$.subscribe(isLightTheme => {
         this.isLightTheme = isLightTheme;
-        console.log(this.isLightTheme);
+        // console.log(this.isLightTheme);
+        
       });
     }
 

@@ -28,7 +28,6 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { DialogEditUserComponent } from './dialog-edit-user/dialog-edit-user.component';
-import { DialogEditAddressComponent } from './dialog-edit-address/dialog-edit-address.component';
 import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
@@ -43,7 +42,6 @@ import { MatSelectModule } from '@angular/material/select';
     DialogAddUserComponent,
     UserDetailComponent,
     DialogEditUserComponent,
-    DialogEditAddressComponent,
     LoginComponent,
   ],
   imports: [

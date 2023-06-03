@@ -1,5 +1,3 @@
-
-
 <div  [class.light-theme]="isLightTheme$ | async" [class.dark-theme]="!(isLightTheme$ | async)" class="site">  
   <mat-drawer-container autosize class="side-menu">
     <mat-drawer #drawer mode="side" [opened]="authService.isUserLoggedIn" class="side-menu-content">
@@ -24,10 +22,16 @@
         <span>simpleCRM</span>
       </div>
       
-      <button (click)="toggleTheme()" mat-icon-button matTooltip="Change Color Mode" type="button">
-        <mat-icon *ngIf="isLightTheme$ | async">nights_stay</mat-icon>
-        <mat-icon *ngIf="!(isLightTheme$ | async)">light_mode</mat-icon>
-      </button>
+      <div class="toolbar-right">
+        <button (click)="toggleTheme()" mat-icon-button matTooltip="Change Color Mode" type="button">
+          <mat-icon *ngIf="isLightTheme$ | async">nights_stay</mat-icon>
+          <mat-icon *ngIf="!(isLightTheme$ | async)">light_mode</mat-icon>
+        </button>
+
+        <button (click)="authService.userSignOut()" mat-icon-button matTooltip="Logout" type="button">
+          <mat-icon>exit_to_app</mat-icon>
+        </button>
+      </div>
     </mat-toolbar> 
     <div class="router-container">
       <app-login *ngIf="!authService.isUserLoggedIn"></app-login>

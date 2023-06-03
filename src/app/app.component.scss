@@ -21,7 +21,8 @@ mat-toolbar {
     justify-content: space-between;
 }
 
-.toolbar-left {
+.toolbar-left,
+.toolbar-right {
     display: flex;
     align-items: center;
 }

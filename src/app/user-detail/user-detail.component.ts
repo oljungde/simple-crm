@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { User } from '../models/user.class';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogEditUserComponent } from '../dialog-edit-user/dialog-edit-user.component';
-import { DialogEditAddressComponent } from '../dialog-edit-address/dialog-edit-address.component';
 import { DatabaseService } from '../database.service';
 
 @Component({
@@ -34,13 +33,4 @@ export class UserDetailComponent {
     });
   }
 
-
-  async editUserAddress() {
-    const dialog = this.dialog.open(DialogEditAddressComponent);
-    dialog.componentInstance.databaseService.user = new User(this.databaseService.user.toJSON());
-    dialog.componentInstance.databaseService.userId = this.databaseService.userId;
-    dialog.afterClosed().subscribe(() => {
-      this.databaseService.getUser();
-    });
-  }
 }

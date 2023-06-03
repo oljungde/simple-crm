@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.themeService.isLightTheme$.subscribe(isLightTheme => {
       this.isLightTheme = isLightTheme;
-      console.log(this.isLightTheme);
+      // console.log(this.isLightTheme);
     });
   }
 
@@ -32,7 +32,14 @@ export class LoginComponent implements OnInit {
   login() {
     const val = this.loginForm?.value;
     if (val?.email && val?.password) {
-      this.authService.signInWithEmailAndPassword(val.email, val.password)
+      this.authService.userLogin(val.email, val.password);
+      // this.router.navigate(['/dashboard']);
     }
+  }
+
+
+  guestLogin() {
+    this.loginForm?.disable();
+    this.authService.userLogin('guest@oliver-jung.dev', '123456');
   }
 }
