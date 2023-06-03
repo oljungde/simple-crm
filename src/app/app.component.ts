@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
     this.themeService.toggleTheme();
   }
 
-  logout() {
-
+  userSettings() {
+    console.log('user settings');
   }
 }

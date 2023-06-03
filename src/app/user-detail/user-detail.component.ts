@@ -32,5 +32,4 @@ export class UserDetailComponent {
       this.databaseService.getUser();
     });
   }
-
 }

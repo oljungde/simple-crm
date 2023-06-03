@@ -23,14 +23,14 @@
       </div>
       
       <div class="toolbar-right">
-        <button (click)="toggleTheme()" mat-icon-button matTooltip="Change Color Mode" type="button">
-          <mat-icon *ngIf="isLightTheme$ | async">nights_stay</mat-icon>
-          <mat-icon *ngIf="!(isLightTheme$ | async)">light_mode</mat-icon>
+        <button mat-icon-button [matMenuTriggerFor]="userMenu" class="btn-edit-user">
+          <mat-icon>manage_accounts</mat-icon>
         </button>
-
-        <button (click)="authService.userSignOut()" mat-icon-button matTooltip="Logout" type="button">
-          <mat-icon>exit_to_app</mat-icon>
-        </button>
+        <mat-menu #userMenu="matMenu" xPosition="before">
+          <button *ngIf="isLightTheme$ | async" (click)="toggleTheme()" mat-menu-item><mat-icon fontIcon="nights_stay"></mat-icon>Dark Mode</button>
+          <button *ngIf="!(isLightTheme$ | async)" (click)="toggleTheme()" mat-menu-item><mat-icon fontIcon="light_mode"></mat-icon>Light Mode</button>
+          <button *ngIf="authService.isUserLoggedIn" (click)="authService.userSignOut()" mat-menu-item><mat-icon fontIcon="logout"></mat-icon>Logout</button>
+        </mat-menu>
       </div>
     </mat-toolbar> 
     <div class="router-container">
