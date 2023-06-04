@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddUserComponent } from '../dialog-add-user/dialog-add-user.component';
 import { ThemeService } from '../theme.service';
@@ -12,22 +12,41 @@ import { DatabaseService } from '../database.service';
 })
 export class UserComponent implements OnInit {
   isLightTheme: boolean = false;
-
-    constructor(public dialog: MatDialog, public themeService: ThemeService, public databaseService: DatabaseService) { }
-
-
-    ngOnInit() {
-      this.themeService.isLightTheme$.subscribe(isLightTheme => {
-        this.isLightTheme = isLightTheme;
-        // console.log(this.isLightTheme);
-        
-      });
-    }
+  @ViewChild('searchInput') searchInput: ElementRef | undefined;
+  filteredUsers: any = [];
 
 
-    openDialog(isLightTheme: boolean) {
-      this.dialog.open(DialogAddUserComponent, {
-        panelClass: isLightTheme ? 'light-theme' : 'dark-theme'
-      });
+    constructor(
+      public dialog: MatDialog, 
+      public themeService: ThemeService, 
+      public databaseService: DatabaseService) { }
+
+
+  ngOnInit() {
+    this.themeService.isLightTheme$.subscribe(isLightTheme => {
+      this.isLightTheme = isLightTheme;        
+    });
+    this.databaseService.allUsers.subscribe(users => {
+      this.filteredUsers = users;
+    });
+  }
+
+
+  searchUser() {
+    const searchTerm = this.searchInput?.nativeElement.value.toLowerCase();
+    this.filteredUsers = this.databaseService.allUsers$.value.filter((user: any) => {
+      return (user.firstName.toLowerCase().includes(searchTerm) ||
+        user.lastName.toLowerCase().includes(searchTerm) ||
+        user.email.toLowerCase().includes(searchTerm) ||
+        user.team.toLowerCase().includes(searchTerm) ||
+        user.shortName.toLowerCase().includes(searchTerm));
+    });
+  }
+
+
+  openDialog(isLightTheme: boolean) {
+    this.dialog.open(DialogAddUserComponent, {
+      panelClass: isLightTheme ? 'light-theme' : 'dark-theme'
+    });
   }
 }

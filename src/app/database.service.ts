@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { DocumentReference, Firestore, addDoc, collection, doc, getDoc, getDocs, onSnapshot, updateDoc } from '@angular/fire/firestore';
 import { User } from './models/user.class';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,9 @@ export class DatabaseService {
   userId: string = '';
   firestore: Firestore = inject(Firestore);
   usersCollection = collection(this.firestore, 'users');
-  allUsers: any = [];
+  allUsers$ = new BehaviorSubject<any[]>([]);
+  allUsers = this.allUsers$.asObservable();
+
 
   constructor() {
     onSnapshot(this.usersCollection, (changes) => {
@@ -22,8 +25,8 @@ export class DatabaseService {
         userData['id'] = change.id;
         users.push(userData);
       });
-      this.allUsers = users;
-      console.log('Recieved changes: ', this.allUsers);
+      this.allUsers$.next(users);
+      console.log('Recieved changes: ', this.allUsers$.value);
     });
   }
 

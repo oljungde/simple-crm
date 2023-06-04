@@ -22,6 +22,7 @@ export class DialogAddUserComponent implements OnInit {
     'Sales',
     'Marketing',
     'Customer Service',
+    'IT'
   ]
 
 

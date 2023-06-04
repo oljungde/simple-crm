@@ -11,9 +11,21 @@
     }
 }
 
+.user-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h2 {
+        font-size: 28px;
+    }
+}
+
 .user-table {
     width: 100%;
     border-collapse: collapse;
+    margin-top: 16px;
 
     tr {
         cursor: pointer;

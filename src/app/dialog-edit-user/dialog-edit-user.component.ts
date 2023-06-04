@@ -27,6 +27,7 @@ export class DialogEditUserComponent {
     'Sales',
     'Marketing',
     'Customer Service',
+    'IT'
   ]
 
 

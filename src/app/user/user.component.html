@@ -1,5 +1,13 @@
 <mat-card>
     <mat-card-content>
+        <div class="user-header">
+            <h2>User</h2>
+            <mat-form-field appearance="outline">
+                <mat-label>Search user</mat-label>
+                <input #searchInput (input)="searchUser()" matInput placeholder="Search">
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
         <table class="user-table">
             <tr>
                 <th>Name</th>
@@ -7,7 +15,7 @@
                 <th>E-Mail</th>
                 <th>Team</th>
             </tr>
-            <tr *ngFor="let user of databaseService.allUsers" [routerLink]="['/user/'+user.id]">
+            <tr *ngFor="let user of filteredUsers" [routerLink]="['/user/'+user.id]">
                 <td>{{ user.firstName }} {{ user.lastName }}</td>
                 <td>{{ user.shortName }}</td>
                 <td>{{ user.email }}</td>
