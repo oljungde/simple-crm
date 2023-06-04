@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { DocumentReference, Firestore, addDoc, collection, doc, getDoc, onSnapshot, updateDoc } from '@angular/fire/firestore';
+import { DocumentReference, Firestore, addDoc, collection, doc, getDoc, getDocs, onSnapshot, updateDoc } from '@angular/fire/firestore';
 import { User } from './models/user.class';
 
 @Injectable({
@@ -36,7 +36,7 @@ export class DatabaseService {
       console.log('getUser is: ', this.user);
     } else {
       console.log('No such document!');
-    }    
+    } 
   }
 
 

@@ -29,7 +29,7 @@
         <mat-menu #userMenu="matMenu" xPosition="before">
           <button *ngIf="isLightTheme$ | async" (click)="toggleTheme()" mat-menu-item><mat-icon fontIcon="nights_stay"></mat-icon>Dark Mode</button>
           <button *ngIf="!(isLightTheme$ | async)" (click)="toggleTheme()" mat-menu-item><mat-icon fontIcon="light_mode"></mat-icon>Light Mode</button>
-          <button *ngIf="authService.isUserLoggedIn" (click)="userSettings()" mat-menu-item><mat-icon fontIcon="home"></mat-icon>Edit Login Data</button>
+          <button *ngIf="!authService.isGuestLogin" (click)="changePassword()" mat-menu-item><mat-icon fontIcon="password"></mat-icon>Change password</button>
           <button *ngIf="authService.isUserLoggedIn" (click)="authService.userSignOut()" mat-menu-item><mat-icon fontIcon="logout"></mat-icon>Logout</button>
         </mat-menu>
       </div>

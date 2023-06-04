@@ -6,6 +6,7 @@ import { DatabaseService } from './database.service';
 import { AuthService } from './auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogChangeUserLoginComponent } from './dialog-change-user-login/dialog-change-user-login.component';
+import { User } from './models/user.class';
 
 
 @Component({
@@ -33,14 +34,7 @@ export class AppComponent implements OnInit {
     this.themeService.toggleTheme();
   }
 
-  async userSettings() {
-    console.log('user settings');
-    console.log(this.authService.user.email);
-    await this.databaseService.getUserByEmail(this.authService.user.email)
-    console.log('');
-    
-    console.log(this.databaseService.user);
-    console.log(this.authService.user);
-    const dialog = this.dialog.open(DialogChangeUserLoginComponent);
+  changePassword() {
+    const dialogRef = this.dialog.open(DialogChangeUserLoginComponent);
   }
 }

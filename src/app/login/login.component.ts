@@ -12,6 +12,7 @@ export class LoginComponent implements OnInit {
   isLightTheme: boolean = false;
   loginForm: FormGroup;
   hide = true;
+  
 
   constructor(public themeService: ThemeService, public authService: AuthService, private formBuilder: FormBuilder) { 
     this.loginForm = this.formBuilder.group({
@@ -33,13 +34,12 @@ export class LoginComponent implements OnInit {
     const val = this.loginForm?.value;
     if (val?.email && val?.password) {
       this.authService.userLogin(val.email, val.password);
-      // this.router.navigate(['/dashboard']);
     }
   }
 
 
-  guestLogin() {
+  loginAsGuest() {
     this.loginForm?.disable();
-    this.authService.userLogin('guest@oliver-jung.dev', '123456');
+    this.authService.guestLogin();
   }
 }

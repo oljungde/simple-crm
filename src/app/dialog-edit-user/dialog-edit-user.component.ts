@@ -36,7 +36,6 @@ export class DialogEditUserComponent {
     public databaseService: DatabaseService,
     private authService: AuthService,
     private formBuilder: FormBuilder) {
-      
     }
 
 
