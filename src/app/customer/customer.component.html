@@ -1,0 +1,23 @@
+<mat-card>
+    <mat-card-content>
+        <h2>Customer</h2>
+        <table class="customer-table">
+            <tr>
+                <th>Name</th>
+                <th>Short name</th>
+                <th>E-Mail</th>
+                <th>Team</th>
+            </tr>
+            <tr>
+                <td>Spalte 1</td>
+                <td>Spalte 2</td>
+                <td>Spalte 3</td>
+                <td>Spalte 4</td>
+            </tr>
+        </table>
+    </mat-card-content>
+</mat-card>
+
+<button (click)="openDialog(this.isLightTheme)" mat-fab color="accent" matTooltip="Add customer" matTooltipPosition="above" class="add-customer-btn">
+    <mat-icon>add</mat-icon>
+</button>

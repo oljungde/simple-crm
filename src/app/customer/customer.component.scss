@@ -1,0 +1,61 @@
+.add-customer-btn {
+    position: absolute;
+    right: 56px;
+    bottom: 56px;
+}
+
+.mat-mdc-card-content {
+
+    &:last-child {
+        padding-bottom: 8px;
+    }
+}
+
+.customer-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+
+    tr {
+        cursor: pointer;
+
+        &:first-child {
+            cursor: unset;
+
+            &:hover {
+                background-color: unset;
+            }
+        }
+
+        &:last-child {
+            border-bottom: unset;
+        }
+    }
+
+    th {
+        padding-bottom: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        text-align: start;
+
+        &:first-child {
+            padding-left: 16px;
+        }
+
+        &:last-child {
+            padding-right: 16px;;
+        }
+    }
+
+    td {
+        height: 48px;
+
+        &:first-child {
+            padding-left: 16px;
+        }
+
+        &:last-child {
+            padding-right: 16px;;
+        }
+    }
+}
