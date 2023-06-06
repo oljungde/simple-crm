@@ -4,16 +4,40 @@
     <div mat-dialog-content >
         <form [formGroup]="newCustomerForm" (ngSubmit)="saveCustomer()">
             <div class="form-row">
-                <mat-form-field appearance="outline">
-                    <mat-label for="firstName">First name</mat-label>
-                    <input id="firstName" type="text" [disabled]="databaseService.loading" formControlName="firstName" matInput placeholder="Enter the First name">
-                    <!-- <mat-error *ngIf="newCustomerForm.get('firstName')?.invalid && newCustomerForm.get('firstName')?.errors?.['required']">Please enter a First name</mat-error> -->
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label for="firstName">Name</mat-label>
+                    <input id="name" type="text" [disabled]="databaseService.loading" formControlName="name" matInput placeholder="Enter the name">
+                    <mat-error *ngIf="newCustomerForm.get('name')?.invalid && newCustomerForm.get('name')?.errors?.['required']">Please enter a name</mat-error>
                 </mat-form-field>
-    
+            </div>
+
+            <div class="form-row">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label for="street">Street</mat-label>
+                    <input id="street" [disabled]="databaseService.loading" formControlName="street" matInput required placeholder="Enter the street">
+                    <mat-error *ngIf="newCustomerForm.get('street')?.invalid && newCustomerForm.get('street')?.errors?.['required']">Please enter a street</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="form-row">
                 <mat-form-field appearance="outline">
-                    <mat-label for="lastName">Last Name</mat-label>
-                    <input id="lastName" [disabled]="databaseService.loading" formControlName="lastName" matInput required placeholder="Enter the last name">
-                    <!-- <mat-error *ngIf="newCustomerForm.get('lastName')?.invalid && newCustomerForm.get('lastName')?.errors?.['required']">Please enter a Last Name</mat-error> -->
+                    <mat-label for="zipCode">Zip</mat-label>
+                    <input id="zipCode" [disabled]="databaseService.loading" formControlName="zipCode" matInput required placeholder="Enter the zip code">
+                    <mat-error *ngIf="newCustomerForm.get('zipCode')?.invalid && newCustomerForm.get('zipCode')?.errors?.['required']">Please enter a zip code</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label for="city">City</mat-label>
+                    <input id="city" [disabled]="databaseService.loading" formControlName="city" matInput required placeholder="Enter the city">
+                    <mat-error *ngIf="newCustomerForm.get('city')?.invalid && newCustomerForm.get('city')?.errors?.['required']">Please enter a city</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="form-row">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label for="zip">Phone</mat-label>
+                    <input id="phone" [disabled]="databaseService.loading" formControlName="phone" matInput required placeholder="Enter the phone number">
+                    <mat-error *ngIf="newCustomerForm.get('phone')?.invalid && newCustomerForm.get('phone')?.errors?.['required']">Please enter a phone number</mat-error>
                 </mat-form-field>
             </div>
     
@@ -21,19 +45,17 @@
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label for="email">E-Mail</mat-label>
                     <input id="email" type="email" [disabled]="databaseService.loading" formControlName="email" matInput required placeholder="Enter the e-mail adress">
-                    <!-- <mat-error *ngIf="newCustomerForm.get('email')?.invalid && newCustomerForm.get('email')?.errors?.['required']">Please enter a valid email address</mat-error> -->
+                    <mat-error *ngIf="newCustomerForm.get('email')?.invalid && newCustomerForm.get('email')?.errors?.['required']">Please enter a valid email address</mat-error>
                 </mat-form-field>
             </div>
-    
+
             <div class="form-row">
-    
-                <mat-form-field appearance="outline">
-                    <mat-label for="shortName">Short name</mat-label>
-                    <input id="shortName" maxlength="4" [disabled]="databaseService.loading" formControlName="shortName" matInput required placeholder="Enter a short name">
-                    <mat-hint align="start">max. 4 letters</mat-hint>
-                    <!-- <mat-error *ngIf="newCustomerForm.get('shortName')?.invalid && newCustomerForm.get('shortName')?.errors?.['required']">Please enter a short name</mat-error> -->
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label for="zip">Homepage</mat-label>
+                    <input id="homepage" [disabled]="databaseService.loading" formControlName="homepage" matInput placeholder="Enter the homepage">
                 </mat-form-field>
             </div>
+    
             <div mat-dialog-actions>
                 <button [disabled]="databaseService.loading" (click)="dialogRef.close()" mat-button>Cancel</button>
                 <button type="submit" [disabled]="databaseService.loading" mat-button cdkFocusInitial>Save</button>

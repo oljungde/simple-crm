@@ -4,6 +4,7 @@ import { ThemeService } from '../theme.service';
 import { DatabaseService } from '../database.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { Customer } from '../models/customer.class';
 
 @Component({
   selector: 'app-dialog-add-customer',
@@ -21,10 +22,13 @@ export class DialogAddCustomerComponent implements OnInit {
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<DialogAddCustomerComponent>) {
       this.newCustomerForm = this.formBuilder.group({
-        firstName: ['', Validators.required],
-        lastName: ['', Validators.required],
+        name: ['', Validators.required],
+        street: ['', Validators.required],
+        zipCode: ['', Validators.required],
+        city: ['', Validators.required],
+        phone: ['', Validators.required],
+        homepage: [''],
         email: ['', [Validators.required, Validators.email]],
-        shortName: ['', Validators.required],
       });
     }
 
@@ -35,6 +39,15 @@ export class DialogAddCustomerComponent implements OnInit {
 
 
   saveCustomer() {
-
+    if (this.newCustomerForm.valid) {
+      const newCustomer = new Customer();
+      Object.assign(newCustomer, this.newCustomerForm.value);
+      this.databaseService.saveNewCustomer(newCustomer);
+      this.dialogRef.close();
+      console.log('new customer saved ', newCustomer);
+    } else {
+      console.log('invalid form');
+    }
+    
   }
 }

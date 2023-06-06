@@ -1,4 +1,5 @@
 export class User {
+    userId: string | undefined;
     firstName: string | undefined;
     lastName: string | undefined;
     email: string | undefined;
@@ -7,6 +8,7 @@ export class User {
     
 
     constructor(obj?: any) {
+    this.userId = obj ? obj.userId : '';
     this.firstName = obj ? obj.firstName : '';
     this.lastName = obj ? obj.lastName : '';
     this.email = obj ? obj.email : '';
@@ -17,6 +19,7 @@ export class User {
 
     public toJSON() {
         return {
+            userId: this.userId,
             firstName: this.firstName,
             lastName: this.lastName,
             email: this.email,

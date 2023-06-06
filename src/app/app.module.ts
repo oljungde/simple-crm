@@ -34,6 +34,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { DialogChangeUserLoginComponent } from './dialog-change-user-login/dialog-change-user-login.component';
 import { CustomerComponent } from './customer/customer.component';
 import { DialogAddCustomerComponent } from './dialog-add-customer/dialog-add-customer.component';
+import { CustomerDetailComponent } from './customer-detail/customer-detail.component';
 
 
 
@@ -49,6 +50,7 @@ import { DialogAddCustomerComponent } from './dialog-add-customer/dialog-add-cus
     DialogChangeUserLoginComponent,
     CustomerComponent,
     DialogAddCustomerComponent,
+    CustomerDetailComponent,
   ],
   imports: [
     BrowserModule,
