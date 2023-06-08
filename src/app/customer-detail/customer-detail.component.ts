@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Customer } from '../models/customer.class';
 import { MatDialog } from '@angular/material/dialog';
@@ -13,6 +13,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 })
 export class CustomerDetailComponent implements OnInit {
   panelOpenState = false;
+  // customerId = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -32,8 +33,8 @@ export class CustomerDetailComponent implements OnInit {
 
   editCustomerDetail() {
     const dialog = this.dialog.open(DialogEditCustomerComponent);
-    dialog.componentInstance['databaseService'].customer = new Customer(this.databaseService.customer.toJSON());
-    dialog.componentInstance['databaseService'].customerId = this.databaseService.customerId;
+    dialog.componentInstance.databaseService.customer = new Customer(this.databaseService.customer.toJSON());
+    dialog.componentInstance.databaseService.customerId = this.databaseService.customerId;
     dialog.afterClosed().subscribe(() => {
       this.databaseService.getCustomer();
     });
