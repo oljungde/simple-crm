@@ -38,6 +38,7 @@ import { CustomerDetailComponent } from './customer-detail/customer-detail.compo
 import {MatExpansionModule} from '@angular/material/expansion';
 import { DialogEditCustomerComponent } from './dialog-edit-customer/dialog-edit-customer.component';
 import { CustomerContactsComponent } from './customer-contacts/customer-contacts.component';
+import { DialogAddCustomerContactComponent } from './dialog-add-customer-contact/dialog-add-customer-contact.component';
 
 
 
@@ -56,6 +57,7 @@ import { CustomerContactsComponent } from './customer-contacts/customer-contacts
     CustomerDetailComponent,
     DialogEditCustomerComponent,
     CustomerContactsComponent,
+    DialogAddCustomerContactComponent,
   ],
   imports: [
     BrowserModule,

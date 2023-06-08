@@ -90,6 +90,8 @@ observeCustomers() {
     const docRef = doc(this.usersCollection, this.userId);
     updateDoc(docRef, user?.toJSON())
       .then(() => {
+        this.userId = docRef.id;
+        updateDoc(docRef, {userId: docRef.id});
         console.log('Document successfully updated! ', this.user);
         this.loading = false;
       });
@@ -129,6 +131,8 @@ observeCustomers() {
     const docRef = doc(this.customersCollection, this.customerId);
     updateDoc(docRef, customer?.toJSON())
       .then(() => {
+        this.customerId = docRef.id;
+        updateDoc(docRef, {customerId: docRef.id});
         console.log('Document successfully updated! ', this.customer);
         this.loading = false;
       });
