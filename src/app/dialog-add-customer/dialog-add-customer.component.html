@@ -5,7 +5,7 @@
         <form [formGroup]="newCustomerForm" (ngSubmit)="saveCustomer()">
             <div class="form-row">
                 <mat-form-field appearance="outline" class="w-100">
-                    <mat-label for="firstName">Name</mat-label>
+                    <mat-label for="name">Name</mat-label>
                     <input id="name" type="text" [disabled]="databaseService.loading" formControlName="name" matInput placeholder="Enter the name">
                     <mat-error *ngIf="newCustomerForm.get('name')?.invalid && newCustomerForm.get('name')?.errors?.['required']">Please enter a name</mat-error>
                 </mat-form-field>

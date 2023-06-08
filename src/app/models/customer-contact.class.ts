@@ -1,33 +1,34 @@
-class CustomerContact {
-    contactId: string = '';
-    customerRef: string | undefined;
-    firstName: string | undefined;
-    lastName: string | undefined;
-    phone: string | undefined;
-    email: string | undefined;
+export class CustomerContact {
+    customerContactId: string = '';
+    firstName: string = '';
+    lastName: string = '';
+    email: string = '';
+    phone: string = '';
     position: string | undefined;
+    customerRef: string = '';
+    customerId: string | undefined;
 
-
-    constructor(obj?: any) {
-        this.contactId = obj ? obj.contactId : '';
-        this.customerRef = obj ? obj.customerRef : '';
-        this.firstName = obj ? obj.firstName : '';
-        this.lastName = obj ? obj.lastName : '';
-        this.phone = obj ? obj.phone : '';
-        this.email = obj ? obj.email : '';
-        this.position = obj ? obj.position : '';
+    constructor(data?: any) {
+        if (data) {
+            this.customerContactId = data.customerContactId;
+            this.firstName = data.firstName;
+            this.lastName = data.lastName;
+            this.email = data.email;
+            this.phone = data.phone;
+            this.position = data.position;
+            this.customerRef = data.customerRef;
+        }
     }
 
-
-    public toJSON() {
+    toJSON() {
         return {
-            contactId: this.contactId,
-            customerRef: this.customerRef,
-            firstName: this.firstName,
-            lastName: this.lastName,
-            phone: this.phone,
-            email: this.email,
-            position: this.position
+        customerContactId: this.customerContactId,
+        firstName: this.firstName,
+        lastName: this.lastName,
+        email: this.email,
+        phone: this.phone,
+        position: this.position,
+        customerRef: this.customerRef
         };
     }
 }

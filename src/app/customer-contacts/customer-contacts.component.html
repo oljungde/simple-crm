@@ -1,5 +1,5 @@
 <div>
-    <button (click)="openDialog(this.isLightTheme, this.customerId)" mat-mini-fab color="primary">
+    <button (click)="openDialog(this.isLightTheme)" mat-mini-fab color="primary">
         <mat-icon>add</mat-icon>
     </button>
 </div>
@@ -11,16 +11,10 @@
         <th>Email</th>
         <th>Position</th>
     </tr>
-    <tr>
-        <td>Erster Name</td>
-        <td>01234 567890</td>
-        <td>erster.name@mail.de</td>
-        <td>Cheffe</td>
-    </tr>
-    <tr>
-        <td>Zweiter Name</td>
-        <td>01234 567892</td>
-        <td>zweiter.name@mail.de</td>
-        <td>Project Manager</td>
-    </tr>
+    <!-- <tr *ngFor="let customerContact of customerContacts">
+        <td>{{ customerContact.firstName }} {{ customerContact.lastName }} </td>
+        <td>{{ customerContact.phone }}</td>
+        <td>{{ customerContact.email }}</td>
+        <td>{{ customerContact.position }}</td>
+    </tr> -->
 </table>

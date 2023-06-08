@@ -1,8 +1,9 @@
 import { Injectable, inject } from '@angular/core';
-import { DocumentReference, Firestore, addDoc, collection, doc, getDoc, getDocs, onSnapshot, updateDoc } from '@angular/fire/firestore';
+import { DocumentReference, Firestore, addDoc, collection, doc, getDoc, getDocs, onSnapshot, query, updateDoc, where } from '@angular/fire/firestore';
 import { User } from './models/user.class';
 import { BehaviorSubject } from 'rxjs';
 import { Customer } from './models/customer.class';
+import { CustomerContact } from './models/customer-contact.class';
 
 @Injectable({
   providedIn: 'root'
@@ -24,10 +25,21 @@ export class DatabaseService {
   allCustomers$ = new BehaviorSubject<any[]>([]);
   allCustomers = this.allCustomers$.asObservable();
 
+  customerContact = new CustomerContact();
+  newCustomerContact = new CustomerContact();
+  customerContactId: string = '';
+  customerContactsCollection = collection(this.firestore, 'customerContacts');
+  allCustomerContacts$ = new BehaviorSubject<any[]>([]);
+  allCustomerContacts = this.allCustomerContacts$.asObservable();
+
+
+  customerContacts: any = [];
+
 
   constructor() {
     this.observeUsers();
     this.observeCustomers();
+    this.observeCustomerContacts();
   }
 
 
@@ -55,6 +67,20 @@ observeCustomers() {
     });
     this.allCustomers$.next(customers);
     console.log('Recieved customer changes: ', this.allCustomers$.value);
+  });
+}
+
+
+observeCustomerContacts() {
+  onSnapshot(this.customerContactsCollection, (changes) => {
+    let customerContacts: any = [];
+    changes.forEach((change) => {
+      let customerContactData = change.data();
+      customerContactData['id'] = change.id;
+      customerContacts.push(customerContactData);
+    });
+    this.allCustomerContacts$.next(customerContacts);
+    console.log('Recieved customer contact changes: ', this.allCustomerContacts$.value);
   });
 }
 
@@ -101,9 +127,10 @@ observeCustomers() {
   saveNewCustomer(newCustomer?: Customer) {
     this.loading = true;
     const customerToSave = newCustomer ? newCustomer : this.newCustomer;
-    console.log('Current customer is ', this.newCustomer);
-    console.log('Customer to save is ', customerToSave);
+    // console.log('Current customer is ', this.newCustomer);
+    // console.log('Customer to save is ', customerToSave);
     console.log('Customer to save is ', customerToSave.toJSON());
+    debugger;
     addDoc(this.customersCollection, customerToSave.toJSON())
       .then((docRef: DocumentReference) => {
       console.log('Customer added successfully', docRef);
@@ -136,5 +163,19 @@ observeCustomers() {
         console.log('Document successfully updated! ', this.customer);
         this.loading = false;
       });
+  }
+
+
+  saveNewCustomerContact(newCustomerContact?: CustomerContact) {
+    this.loading = true;
+    const customerContactToSave = newCustomerContact ? newCustomerContact : this.newCustomerContact;
+    console.log('Customer contact to save is ', customerContactToSave.toJSON());
+    addDoc(this.customerContactsCollection, customerContactToSave.toJSON())
+      .then((docRef: DocumentReference) => {
+      console.log('Customer contact added successfully', docRef);
+      this.customerContactId = docRef.id;
+      updateDoc(docRef, {customerContactId: docRef.id});
+      this.loading = false;
+    });
   }
 }

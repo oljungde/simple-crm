@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Customer } from '../models/customer.class';
 import { MatDialog } from '@angular/material/dialog';
@@ -13,7 +13,6 @@ import { MatExpansionModule } from '@angular/material/expansion';
 })
 export class CustomerDetailComponent implements OnInit {
   panelOpenState = false;
-  // customerId = '';
 
   constructor(
     private route: ActivatedRoute,
