@@ -9,6 +9,18 @@ export class Customer {
     email: string | undefined;
 
 
+    constructor(obj?: any) {
+        this.customerId = obj ? obj.customerId : '';
+        this.name = obj ? obj.name : '';
+        this.street = obj ? obj.street : '';
+        this.zipCode = obj ? obj.zipCode : '';
+        this.city = obj ? obj.city : '';
+        this.phone = obj ? obj.phone : '';
+        this.homepage = obj ? obj.homepage : '';
+        this.email = obj ? obj.email : '';
+    }
+
+
     public toJSON() {
         return {
             customerId: this.customerId,

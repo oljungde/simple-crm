@@ -110,4 +110,16 @@ observeCustomers() {
       this.loading = false;
     });
   }
+
+
+  async getCustomer() {
+    const docRef = doc(this.customersCollection, this.customerId);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      this.customer = new Customer(docSnap.data());
+      console.log('getCustomer is: ', this.customer);
+    } else {
+      console.log('No such document!');
+    } 
+  }
 }

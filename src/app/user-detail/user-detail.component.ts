@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { User } from '../models/user.class';
 import { MatDialog } from '@angular/material/dialog';
@@ -10,9 +10,12 @@ import { DatabaseService } from '../database.service';
   templateUrl: './user-detail.component.html',
   styleUrls: ['./user-detail.component.scss']
 })
-export class UserDetailComponent {
+export class UserDetailComponent implements OnInit {
   
-  constructor(private route: ActivatedRoute, public dialog: MatDialog, public databaseService: DatabaseService) { }
+  constructor(
+    private route: ActivatedRoute, 
+    public dialog: MatDialog, 
+    public databaseService: DatabaseService) { }
 
 
   ngOnInit() {

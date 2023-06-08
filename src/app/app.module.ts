@@ -35,6 +35,7 @@ import { DialogChangeUserLoginComponent } from './dialog-change-user-login/dialo
 import { CustomerComponent } from './customer/customer.component';
 import { DialogAddCustomerComponent } from './dialog-add-customer/dialog-add-customer.component';
 import { CustomerDetailComponent } from './customer-detail/customer-detail.component';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 
 
@@ -76,6 +77,7 @@ import { CustomerDetailComponent } from './customer-detail/customer-detail.compo
     MatMenuModule,
     ReactiveFormsModule,
     MatSelectModule,
+    MatExpansionModule
   ],
   providers: [],
   bootstrap: [AppComponent]
