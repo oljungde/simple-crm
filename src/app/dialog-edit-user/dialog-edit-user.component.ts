@@ -14,7 +14,6 @@ import { AuthService } from '../auth.service';
 })
 export class DialogEditUserComponent {
   isLightTheme$!: Observable<boolean>;
-  // updateForm: FormGroup | undefined;
   updateForm = this.formBuilder.group({
     firstName: [this.databaseService.user.firstName, Validators.required],
     lastName: [this.databaseService.user.lastName, Validators.required],
@@ -22,13 +21,12 @@ export class DialogEditUserComponent {
     team: [this.databaseService.user.team, Validators.required],
     shortName: [this.databaseService.user.shortName, Validators.required],
   });
-  // hide = true;
   teams = [
     'Sales',
     'Marketing',
     'Customer Service',
     'IT'
-  ]
+  ];
 
 
   constructor(

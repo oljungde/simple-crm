@@ -1,0 +1,65 @@
+<div [class.light-theme]="isLightTheme$ | async" [class.dark-theme]="!(isLightTheme$ | async)">
+    <mat-progress-bar *ngIf="databaseService.loading" mode="indeterminate"></mat-progress-bar>
+    <h1 mat-dialog-title>Add customer</h1>
+    <div mat-dialog-content >
+        <form [formGroup]="updateCustomerForm" (ngSubmit)="saveCustomer()">
+            <div class="form-row">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label for="firstName">Name</mat-label>
+                    <input id="name" type="text" [disabled]="databaseService.loading" formControlName="name" matInput placeholder="Enter the name">
+                    <mat-error *ngIf="updateCustomerForm.get('name')?.invalid && updateCustomerForm.get('name')?.errors?.['required']">Please enter a name</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="form-row">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label for="street">Street</mat-label>
+                    <input id="street" [disabled]="databaseService.loading" formControlName="street" matInput required placeholder="Enter the street">
+                    <mat-error *ngIf="updateCustomerForm.get('street')?.invalid && updateCustomerForm.get('street')?.errors?.['required']">Please enter a street</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="form-row">
+                <mat-form-field appearance="outline">
+                    <mat-label for="zipCode">Zip</mat-label>
+                    <input id="zipCode" [disabled]="databaseService.loading" formControlName="zipCode" matInput required placeholder="Enter the zip code">
+                    <mat-error *ngIf="updateCustomerForm.get('zipCode')?.invalid && updateCustomerForm.get('zipCode')?.errors?.['required']">Please enter a zip code</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label for="city">City</mat-label>
+                    <input id="city" [disabled]="databaseService.loading" formControlName="city" matInput required placeholder="Enter the city">
+                    <mat-error *ngIf="updateCustomerForm.get('city')?.invalid && updateCustomerForm.get('city')?.errors?.['required']">Please enter a city</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="form-row">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label for="zip">Phone</mat-label>
+                    <input id="phone" [disabled]="databaseService.loading" formControlName="phone" matInput required placeholder="Enter the phone number">
+                    <mat-error *ngIf="updateCustomerForm.get('phone')?.invalid && updateCustomerForm.get('phone')?.errors?.['required']">Please enter a phone number</mat-error>
+                </mat-form-field>
+            </div>
+    
+            <div class="form-row">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label for="email">E-Mail</mat-label>
+                    <input id="email" type="email" [disabled]="databaseService.loading" formControlName="email" matInput required placeholder="Enter the e-mail adress">
+                    <mat-error *ngIf="updateCustomerForm.get('email')?.invalid && updateCustomerForm.get('email')?.errors?.['required']">Please enter a valid email address</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="form-row">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label for="zip">Homepage</mat-label>
+                    <input id="homepage" [disabled]="databaseService.loading" formControlName="homepage" matInput placeholder="Enter the homepage">
+                </mat-form-field>
+            </div>
+    
+            <div mat-dialog-actions>
+                <button [disabled]="databaseService.loading" (click)="dialogRef.close()" mat-button>Cancel</button>
+                <button type="submit" [disabled]="databaseService.loading" mat-button cdkFocusInitial>Save</button>
+            </div>
+        </form>
+    </div>
+</div>

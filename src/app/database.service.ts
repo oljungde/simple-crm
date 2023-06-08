@@ -122,4 +122,15 @@ observeCustomers() {
       console.log('No such document!');
     } 
   }
+
+
+  updateCustomer(customer?: Customer) {
+    this.loading = true;
+    const docRef = doc(this.customersCollection, this.customerId);
+    updateDoc(docRef, customer?.toJSON())
+      .then(() => {
+        console.log('Document successfully updated! ', this.customer);
+        this.loading = false;
+      });
+  }
 }

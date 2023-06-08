@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Customer } from '../models/customer.class';
 import { MatDialog } from '@angular/material/dialog';
-// import { DialogEditCustomerComponent } from '../dialog-edit-customer/dialog-edit-customer.component';
+import { DialogEditCustomerComponent } from '../dialog-edit-customer/dialog-edit-customer.component';
 import { DatabaseService } from '../database.service';
 import { MatExpansionModule } from '@angular/material/expansion';
 
@@ -31,6 +31,11 @@ export class CustomerDetailComponent implements OnInit {
 
 
   editCustomerDetail() {
-    console.log('editCustomerDetail');
+    const dialog = this.dialog.open(DialogEditCustomerComponent);
+    dialog.componentInstance['databaseService'].customer = new Customer(this.databaseService.customer.toJSON());
+    dialog.componentInstance['databaseService'].customerId = this.databaseService.customerId;
+    dialog.afterClosed().subscribe(() => {
+      this.databaseService.getCustomer();
+    });
   }
 }
