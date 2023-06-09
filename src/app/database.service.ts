@@ -34,6 +34,7 @@ export class DatabaseService {
 
 
   customerContacts: any = [];
+  customerContacts$: any = [];
 
 
   constructor() {
@@ -127,8 +128,6 @@ observeCustomerContacts() {
   saveNewCustomer(newCustomer?: Customer) {
     this.loading = true;
     const customerToSave = newCustomer ? newCustomer : this.newCustomer;
-    // console.log('Current customer is ', this.newCustomer);
-    // console.log('Customer to save is ', customerToSave);
     console.log('Customer to save is ', customerToSave.toJSON());
     debugger;
     addDoc(this.customersCollection, customerToSave.toJSON())
@@ -176,6 +175,16 @@ observeCustomerContacts() {
       this.customerContactId = docRef.id;
       updateDoc(docRef, {customerContactId: docRef.id});
       this.loading = false;
+    });
+  }
+
+
+  async getCustomerContacts(customerRef: string) {
+    this.customerContacts = [];
+    const customerContactsQuery = query(this.customerContactsCollection, where('customerRef', '==', customerRef));
+    const querySnapshot = await getDocs(customerContactsQuery);
+    querySnapshot.forEach((doc) => {
+      this.customerContacts.push(doc.data());
     });
   }
 }

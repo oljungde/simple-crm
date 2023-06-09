@@ -1,3 +1,9 @@
+.contacts-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
 .contacts-table {
     width: 100%;
     border-collapse: collapse;

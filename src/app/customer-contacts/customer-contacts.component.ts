@@ -26,19 +26,8 @@ export class CustomerContactsComponent implements OnInit {
     this.themeService.isLightTheme$.subscribe(isLightTheme => {
       this.isLightTheme = isLightTheme;
     });
-    this.databaseService.allCustomerContacts$.value.filter((customerContact: any) => {
-      if(customerContact.customerRef === this.customerId) {
-        this.customerContacts.push(customerContact);
-      };
-    });
-    console.log('Kundenkontakte:', this.customerContacts);    
-  }
-
-  getCustomerContacts() {
-    debugger;
-    return this.databaseService.allCustomerContacts$.value.filter((customerContact: any) => {
-      return customerContact.customerRef === this.customerId;
-    });
+    console.log('customerId:', this.customerId);
+    this.databaseService.getCustomerContacts(this.customerId); 
   }
 
 
@@ -47,5 +36,9 @@ export class CustomerContactsComponent implements OnInit {
       panelClass: isLightTheme ? 'light-theme' : 'dark-theme'
     }); 
     dialogRef.componentInstance.customerRef = this.customerId;
+  }
+
+  searchContact() {
+    
   }
 }

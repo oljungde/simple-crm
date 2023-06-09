@@ -46,3 +46,7 @@ mat-panel-title {
 mat-expansion-panel {
     margin-top: 32px;
 }
+
+.mat-expansion-panel-header.mat-expanded {
+    height: 48px !important;
+}

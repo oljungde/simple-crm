@@ -39,13 +39,16 @@ export class DialogAddCustomerContactComponent implements OnInit {
   }
 
 
-  saveCustomerContact() {
+  async saveCustomerContact() {
     if (this.newCustomerContactForm.valid) {
       const newCustomerContact = new CustomerContact();
       newCustomerContact.customerRef = this.customerRef || '';
       Object.assign(newCustomerContact, this.newCustomerContactForm.value);
       console.log('new customer contact ', newCustomerContact.toJSON);
       this.databaseService.saveNewCustomerContact(newCustomerContact);
+      if (this.customerRef) {
+        await this.databaseService.getCustomerContacts(this.customerRef);
+      }
       this.dialogRef.close();
       console.log('new customer contact saved ', newCustomerContact.toJSON());
     } else {
