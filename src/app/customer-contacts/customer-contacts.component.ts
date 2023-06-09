@@ -13,6 +13,7 @@ import { DatabaseService } from '../database.service';
 export class CustomerContactsComponent implements OnInit {
   isLightTheme: boolean = false;
   @Input() customerId = '';
+  customerContacts: any = [];
   
 
   constructor(
@@ -24,6 +25,19 @@ export class CustomerContactsComponent implements OnInit {
   ngOnInit() {
     this.themeService.isLightTheme$.subscribe(isLightTheme => {
       this.isLightTheme = isLightTheme;
+    });
+    this.databaseService.allCustomerContacts$.value.filter((customerContact: any) => {
+      if(customerContact.customerRef === this.customerId) {
+        this.customerContacts.push(customerContact);
+      };
+    });
+    console.log('Kundenkontakte:', this.customerContacts);    
+  }
+
+  getCustomerContacts() {
+    debugger;
+    return this.databaseService.allCustomerContacts$.value.filter((customerContact: any) => {
+      return customerContact.customerRef === this.customerId;
     });
   }
 
