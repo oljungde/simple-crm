@@ -187,4 +187,18 @@ observeCustomerContacts() {
       this.customerContacts.push(doc.data());
     });
   }
+
+
+  updateCustomerContact(customerContact?: CustomerContact) {
+    this.loading = true;
+    let customerContactId = customerContact?.customerContactId;
+    const docRef = doc(this.customerContactsCollection, customerContactId);
+    updateDoc(docRef, customerContact?.toJSON())
+      .then(() => {
+        this.customerContactId = docRef.id;
+        updateDoc(docRef, {customerContactId: docRef.id});
+        console.log('Document successfully updated! ', this.customerContact);
+        this.loading = false;
+      });
+  }
 }

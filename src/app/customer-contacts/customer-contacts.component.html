@@ -5,7 +5,7 @@
         <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
     
-    <button (click)="openDialog(this.isLightTheme)" mat-mini-fab color="primary">
+    <button (click)="openDialogAddContact(this.isLightTheme)" mat-mini-fab color="primary">
         <mat-icon>add</mat-icon>
     </button>
 </div>
@@ -17,7 +17,7 @@
         <th>Email</th>
         <th>Position</th>
     </tr>
-    <tr *ngFor="let customerContact of databaseService.customerContacts">
+    <tr *ngFor="let customerContact of this.customerContacts" (click)="openDialogEditContact(this.isLightTheme, customerContact.customerContactId)">
         <td>{{ customerContact.firstName }} {{ customerContact.lastName }} </td>
         <td>{{ customerContact.phone }}</td>
         <td>{{ customerContact.email }}</td>
