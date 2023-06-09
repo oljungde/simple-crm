@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { DocumentReference, Firestore, addDoc, collection, doc, getDoc, getDocs, onSnapshot, query, updateDoc, where } from '@angular/fire/firestore';
 import { User } from './models/user.class';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Customer } from './models/customer.class';
 import { CustomerContact } from './models/customer-contact.class';
 
@@ -179,14 +179,31 @@ observeCustomerContacts() {
   }
 
 
-  async getCustomerContacts(customerRef: string) {
-    this.customerContacts = [];
-    const customerContactsQuery = query(this.customerContactsCollection, where('customerRef', '==', customerRef));
-    const querySnapshot = await getDocs(customerContactsQuery);
-    querySnapshot.forEach((doc) => {
-      this.customerContacts.push(doc.data());
+  getCustomerContacts(customerRef: string): Observable<any> {
+    return new Observable(observer => {
+      const customerContactsQuery = query(this.customerContactsCollection, where('customerRef', '==', customerRef));
+      const unsubscribe = onSnapshot(customerContactsQuery, (querySnapshot) => {
+        let customerContacts: any = [];
+        querySnapshot.forEach((doc) => {
+          let customerContactData = doc.data();
+          customerContactData['id'] = doc.id;
+          customerContacts.push(customerContactData);
+        });
+        observer.next(customerContacts);
+      });
+      return unsubscribe;
     });
   }
+
+
+  // async getCustomerContacts(customerRef: string) {
+  //   this.customerContacts = [];
+  //   const customerContactsQuery = query(this.customerContactsCollection, where('customerRef', '==', customerRef));
+  //   const querySnapshot = await getDocs(customerContactsQuery);
+  //   querySnapshot.forEach((doc) => {
+  //     this.customerContacts.push(doc.data());
+  //   });
+  // }
 
 
   updateCustomerContact(customerContact?: CustomerContact) {

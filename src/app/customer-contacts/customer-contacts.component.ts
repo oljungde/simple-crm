@@ -29,11 +29,18 @@ export class CustomerContactsComponent implements OnInit {
       this.isLightTheme = isLightTheme;
     });
     console.log('customerId:', this.customerId);
+
     this.databaseService.getCustomerContacts(this.customerId)
-    .then((customerContacts: any) => {
-      this.customerContacts = this.databaseService.customerContacts;
-      console.log('customerContacts:', this.customerContacts);      
-      }); 
+      .subscribe(data => {
+        this.customerContacts = data;
+        console.log('Diese Kundenkontakte', this.customerContacts);
+      });
+
+    // this.databaseService.getCustomerContacts(this.customerId)
+    // .then((customerContacts: any) => {
+    //   this.customerContacts = this.databaseService.customerContacts;
+    //   console.log('customerContacts:', this.customerContacts);      
+    //   }); 
   }
 
 
@@ -59,7 +66,7 @@ export class CustomerContactsComponent implements OnInit {
 
   openDialogEditContact(isLightTheme: boolean, contactId: any) {
     console.log('edit contact:', contactId);
-    let contact = this.databaseService.customerContacts.find((contact: any) => contact.customerContactId === contactId);
+    let contact = this.customerContacts.find((contact: any) => contact.customerContactId === contactId);
     console.log('contact:', contact);
     const dialog = this.dialog.open(DialogEditCustomerContactComponent);
     dialog.componentInstance.customerContact = contact;
