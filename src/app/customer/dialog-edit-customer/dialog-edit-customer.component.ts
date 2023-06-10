@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { DatabaseService } from '../shared/database.service';
+import { DatabaseService } from '../../shared/database.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ThemeService } from '../shared/theme.service';
-import { Customer } from '../models/customer.class';
+import { ThemeService } from '../../shared/theme.service';
+import { Customer } from '../../models/customer.class';
 import { Observable } from 'rxjs';
 
 @Component({

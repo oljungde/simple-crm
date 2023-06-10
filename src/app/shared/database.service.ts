@@ -129,7 +129,6 @@ observeCustomerContacts() {
     this.loading = true;
     const customerToSave = newCustomer ? newCustomer : this.newCustomer;
     console.log('Customer to save is ', customerToSave.toJSON());
-    debugger;
     addDoc(this.customersCollection, customerToSave.toJSON())
       .then((docRef: DocumentReference) => {
       console.log('Customer added successfully', docRef);
