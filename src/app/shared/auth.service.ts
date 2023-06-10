@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService implements OnInit {
-  isUserLoggedIn: boolean = true;
+  isUserLoggedIn: boolean = false;
   isGuestLogin: boolean = false;
   loginError: boolean = false;
   passwordChangeError: boolean = false;

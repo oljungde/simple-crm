@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ThemeService } from '../theme.service';
-import { DatabaseService } from '../database.service';
+import { ThemeService } from '../shared/theme.service';
+import { DatabaseService } from '../shared/database.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';

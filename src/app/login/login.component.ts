@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ThemeService } from '../theme.service';
-import { AuthService } from '../auth.service';
+import { ThemeService } from '../shared/theme.service';
+import { AuthService } from '../shared/auth.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({

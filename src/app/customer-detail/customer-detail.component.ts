@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Customer } from '../models/customer.class';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogEditCustomerComponent } from '../dialog-edit-customer/dialog-edit-customer.component';
-import { DatabaseService } from '../database.service';
+import { DatabaseService } from '../shared/database.service';
 import { MatExpansionModule } from '@angular/material/expansion';
 
 @Component({

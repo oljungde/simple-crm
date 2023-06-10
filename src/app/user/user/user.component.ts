@@ -1,8 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddUserComponent } from '../dialog-add-user/dialog-add-user.component';
-import { ThemeService } from '../theme.service';
-import { DatabaseService } from '../database.service';
+import { ThemeService } from '../../shared/theme.service';
+import { DatabaseService } from '../../shared/database.service';
 
 
 @Component({

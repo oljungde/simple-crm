@@ -1,8 +1,8 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { ThemeService } from '../theme.service';
+import { ThemeService } from '../shared/theme.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddCustomerContactComponent } from '../dialog-add-customer-contact/dialog-add-customer-contact.component';
-import { DatabaseService } from '../database.service';
+import { DatabaseService } from '../shared/database.service';
 import { DialogEditCustomerContactComponent } from '../dialog-edit-customer-contact/dialog-edit-customer-contact.component';
 
 

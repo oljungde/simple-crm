@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ThemeService } from './theme.service';
+import { ThemeService } from './shared/theme.service';
 import { Observable } from 'rxjs';
-import { DatabaseService } from './database.service';
-import { AuthService } from './auth.service';
+import { DatabaseService } from './shared/database.service';
+import { AuthService } from './shared/auth.service';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogChangeUserLoginComponent } from './dialog-change-user-login/dialog-change-user-login.component';
+import { DialogChangeUserLoginComponent } from './user/dialog-change-user-login/dialog-change-user-login.component';
 import { User } from './models/user.class';
 
 

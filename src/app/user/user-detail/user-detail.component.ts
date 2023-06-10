@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { User } from '../models/user.class';
+import { User } from '../../models/user.class';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogEditUserComponent } from '../dialog-edit-user/dialog-edit-user.component';
-import { DatabaseService } from '../database.service';
+import { DatabaseService } from '../../shared/database.service';
 
 @Component({
   selector: 'app-user-detail',

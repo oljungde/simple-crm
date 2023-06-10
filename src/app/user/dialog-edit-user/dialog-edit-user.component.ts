@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ThemeService } from '../theme.service';
+import { ThemeService } from '../../shared/theme.service';
 import { MatDialogRef } from '@angular/material/dialog';
-import { DatabaseService } from '../database.service';
+import { DatabaseService } from '../../shared/database.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { User } from '../models/user.class';
-import { AuthService } from '../auth.service';
+import { User } from '../../models/user.class';
+import { AuthService } from '../../shared/auth.service';
 
 @Component({
   selector: 'app-dialog-edit-user',

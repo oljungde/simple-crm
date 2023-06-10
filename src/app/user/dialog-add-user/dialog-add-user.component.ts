@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ThemeService  } from '../theme.service';
+import { ThemeService  } from '../../shared/theme.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { User } from '../models/user.class';
-import { DatabaseService } from '../database.service';
+import { User } from '../../models/user.class';
+import { DatabaseService } from '../../shared/database.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AuthService } from '../auth.service';
-import { PasswordGenerateService } from '../password-generate.service';
+import { AuthService } from '../../shared/auth.service';
+import { PasswordGenerateService } from '../../shared/password-generate.service';
 
 
 @Component({

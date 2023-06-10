@@ -1,9 +1,9 @@
 import { Injectable, inject } from '@angular/core';
 import { DocumentReference, Firestore, addDoc, collection, doc, getDoc, getDocs, onSnapshot, query, updateDoc, where } from '@angular/fire/firestore';
-import { User } from './models/user.class';
+import { User } from '../models/user.class';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { Customer } from './models/customer.class';
-import { CustomerContact } from './models/customer-contact.class';
+import { Customer } from '../models/customer.class';
+import { CustomerContact } from '../models/customer-contact.class';
 
 @Injectable({
   providedIn: 'root'

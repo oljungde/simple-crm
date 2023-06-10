@@ -1,8 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ThemeService } from '../theme.service';
+import { ThemeService } from '../shared/theme.service';
 import { DialogAddCustomerComponent } from '../dialog-add-customer/dialog-add-customer.component';
-import { DatabaseService } from '../database.service';
+import { DatabaseService } from '../shared/database.service';
 
 @Component({
   selector: 'app-customer',
