@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Customer } from '../../models/customer.class';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogEditCustomerComponent } from '../dialog-edit-customer/dialog-edit-customer.component';
-import { DatabaseService } from '../../shared/database.service';
+import { CustomerService } from '../../shared/customer.service';
 import { MatExpansionModule } from '@angular/material/expansion';
 
 @Component({
@@ -17,25 +17,25 @@ export class CustomerDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     public dialog: MatDialog,
-    public databaseService: DatabaseService,
+    public customerService: CustomerService,
     public expansionPanel: MatExpansionModule) { }
 
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
-      this.databaseService.customerId = params.get('id') || '';
-      console.log(this.databaseService.customerId);
-      this.databaseService.getCustomer();
+      this.customerService.customerId = params.get('id') || '';
+      console.log(this.customerService.customerId);
+      this.customerService.getCustomer();
     });
   }
 
 
   editCustomerDetail() {
     const dialog = this.dialog.open(DialogEditCustomerComponent);
-    dialog.componentInstance.databaseService.customer = new Customer(this.databaseService.customer.toJSON());
-    dialog.componentInstance.databaseService.customerId = this.databaseService.customerId;
+    dialog.componentInstance.customerService.customer = new Customer(this.customerService.customer.toJSON());
+    dialog.componentInstance.customerService.customerId = this.customerService.customerId;
     dialog.afterClosed().subscribe(() => {
-      this.databaseService.getCustomer();
+      this.customerService.getCustomer();
     });
   }
 }

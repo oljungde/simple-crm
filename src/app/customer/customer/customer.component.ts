@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ThemeService } from '../../shared/theme.service';
 import { DialogAddCustomerComponent } from '../dialog-add-customer/dialog-add-customer.component';
-import { DatabaseService } from '../../shared/database.service';
+import { CustomerService } from '../../shared/customer.service';
 
 @Component({
   selector: 'app-customer',
@@ -18,14 +18,14 @@ export class CustomerComponent implements OnInit {
   constructor(
     public dialog: MatDialog, 
     public themeService: ThemeService,
-    public databaseservice: DatabaseService) { }
+    public customerService: CustomerService) { }
 
 
   ngOnInit() {
     this.themeService.isLightTheme$.subscribe(isLightTheme => {
       this.isLightTheme = isLightTheme;
     });
-    this.databaseservice.allCustomers.subscribe(customers => {
+    this.customerService.allCustomers.subscribe(customers => {
       console.log('customers ', customers);
       this.filteredCustomers = customers;
     });
@@ -34,7 +34,7 @@ export class CustomerComponent implements OnInit {
 
   searchCustomer() {
     const searchTerm = this.searchInput?.nativeElement.value.toLowerCase();
-    this.filteredCustomers = this.databaseservice.allCustomers$.value.filter((customer: any) => {
+    this.filteredCustomers = this.customerService.allCustomers$.value.filter((customer: any) => {
       return (customer.name.toLowerCase().includes(searchTerm) ||
         customer.street.toLowerCase().includes(searchTerm) ||
         customer.zipCode.toLowerCase().includes(searchTerm) ||

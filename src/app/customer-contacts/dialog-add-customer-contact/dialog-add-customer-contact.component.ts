@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ThemeService } from '../../shared/theme.service';
-import { DatabaseService } from '../../shared/database.service';
+import { CustomerContactsService } from '../../shared/customer-contacts.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { CustomerContact } from '../../models/customer-contact.class';
@@ -18,7 +18,7 @@ export class DialogAddCustomerContactComponent implements OnInit {
 
   constructor(
     private themeService: ThemeService,
-    public databaseService: DatabaseService,
+    public customerContactsService: CustomerContactsService,
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<DialogAddCustomerContactComponent>
   ) { 
@@ -39,15 +39,15 @@ export class DialogAddCustomerContactComponent implements OnInit {
   }
 
 
-  async saveCustomerContact() {
+  saveCustomerContact() {
     if (this.newCustomerContactForm.valid) {
       const newCustomerContact = new CustomerContact();
       newCustomerContact.customerRef = this.customerRef || '';
       Object.assign(newCustomerContact, this.newCustomerContactForm.value);
       console.log('new customer contact ', newCustomerContact.toJSON);
-      this.databaseService.saveNewCustomerContact(newCustomerContact);
+      this.customerContactsService.saveNewCustomerContact(newCustomerContact);
       if (this.customerRef) {
-        await this.databaseService.getCustomerContacts(this.customerRef);
+        this.customerContactsService.getCustomerContacts(this.customerRef);
       }
       this.dialogRef.close();
       console.log('new customer contact saved ', newCustomerContact.toJSON());

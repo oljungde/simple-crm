@@ -1,18 +1,18 @@
 <div [class.light-theme]="isLightTheme$ | async" [class.dark-theme]="!(isLightTheme$ | async)">
-    <mat-progress-bar *ngIf="databaseService.loading" mode="indeterminate"></mat-progress-bar>
-    <h1 mat-dialog-title>Add user</h1>
+    <mat-progress-bar *ngIf="userService.loading" mode="indeterminate"></mat-progress-bar>
+    <h1 mat-dialog-title>Edit user</h1>
     <div mat-dialog-content >
         <form [formGroup]="updateForm" (ngSubmit)="saveUser()">
             <div class="form-row">
                 <mat-form-field appearance="outline">
                     <mat-label for="firstName">First name</mat-label>
-                    <input id="firstName" type="text" [disabled]="databaseService.loading" formControlName="firstName" matInput placeholder="Enter the First name">
+                    <input id="firstName" type="text" [disabled]="userService.loading" formControlName="firstName" matInput placeholder="Enter the First name">
                     <mat-error *ngIf="updateForm.get('firstName')?.invalid && updateForm.get('firstName')?.errors?.['required']">Please enter a First name</mat-error>
                 </mat-form-field>
     
                 <mat-form-field appearance="outline">
                     <mat-label for="lastName">Last Name</mat-label>
-                    <input id="lastName" [disabled]="databaseService.loading" [formControl]="updateForm.controls['lastName']" matInput required placeholder="Enter the last name">
+                    <input id="lastName" [disabled]="userService.loading" [formControl]="updateForm.controls['lastName']" matInput required placeholder="Enter the last name">
                     <mat-error *ngIf="updateForm.get('lastName')?.invalid && updateForm.get('lastName')?.errors?.['required']">Please enter a Last Name</mat-error>
                 </mat-form-field>
             </div>
@@ -27,7 +27,7 @@
             <div class="form-row">
                 <mat-form-field appearance="outline">
                     <mat-label for="team">Team</mat-label>
-                    <mat-select id="team" [disabled]="databaseService.loading" [formControl]="updateForm.controls['team']" required="" placeholder="Enter a team">
+                    <mat-select id="team" [disabled]="userService.loading" [formControl]="updateForm.controls['team']" required="" placeholder="Enter a team">
                         <mat-option *ngFor="let team of teams; index as i" value="{{ team }}">{{ team }}</mat-option>
                     </mat-select>
                     <mat-error *ngIf="updateForm.get('team')?.invalid && updateForm.get('team')?.errors?.['required']">Please select a team</mat-error>
@@ -35,14 +35,14 @@
     
                 <mat-form-field appearance="outline">
                     <mat-label for="shortName">Short name</mat-label>
-                    <input id="shortName" maxlength="4" [disabled]="databaseService.loading" [formControl]="updateForm.controls['shortName']" matInput required placeholder="Enter a short name">
+                    <input id="shortName" maxlength="4" [disabled]="userService.loading" [formControl]="updateForm.controls['shortName']" matInput required placeholder="Enter a short name">
                     <mat-hint align="start">max. 4 letters</mat-hint>
                     <mat-error *ngIf="updateForm.get('shortName')?.invalid && updateForm.get('shortName')?.errors?.['required']">Please enter a short name</mat-error>
                 </mat-form-field>
             </div>
             <div mat-dialog-actions>
-                <button [disabled]="databaseService.loading" (click)="dialogRef.close()" mat-button>Cancel</button>
-                <button type="submit" [disabled]="databaseService.loading" mat-button cdkFocusInitial>Save</button>
+                <button [disabled]="userService.loading" (click)="dialogRef.close()" mat-button>Cancel</button>
+                <button type="submit" [disabled]="userService.loading" mat-button cdkFocusInitial>Save</button>
             </div>
         </form>
     </div>

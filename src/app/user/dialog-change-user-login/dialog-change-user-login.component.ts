@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AuthService } from '../../shared/auth.service';
 import { Observable } from 'rxjs';
 import { ThemeService } from '../../shared/theme.service';
-import { DatabaseService } from '../../shared/database.service';
+import { UserService } from '../../shared/user.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PasswordGenerateService } from '../../shared/password-generate.service';
@@ -22,7 +22,7 @@ export class DialogChangeUserLoginComponent {
   constructor(
     public authService: AuthService,
     private themeService: ThemeService,
-    public databaseService: DatabaseService,
+    public userService: UserService,
     private passwordGenerate: PasswordGenerateService,
     public dialogRef: MatDialogRef<DialogChangeUserLoginComponent>,
     private formBuilder: FormBuilder) { 

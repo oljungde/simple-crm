@@ -8,15 +8,15 @@
         </mat-menu>
 
         <div>
-            <h2>{{ databaseService.customer.name }}</h2>
-            <p>{{ databaseService.customer.street }}</p>
-            <p> {{ databaseService.customer.zipCode }} {{ databaseService.customer.city }}</p>
+            <h2>{{ customerService.customer.name }}</h2>
+            <p>{{ customerService.customer.street }}</p>
+            <p> {{ customerService.customer.zipCode }} {{ customerService.customer.city }}</p>
         </div>
 
         <div>
-            <p><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="call"></mat-icon> {{ databaseService.customer.phone }}</p>
-            <p><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="email"></mat-icon> {{ databaseService.customer.email }}</p>
-            <p><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="public"></mat-icon> {{ databaseService.customer.homepage }}</p>
+            <p><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="call"></mat-icon> {{ customerService.customer.phone }}</p>
+            <p><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="email"></mat-icon> {{ customerService.customer.email }}</p>
+            <p><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="public"></mat-icon> {{ customerService.customer.homepage }}</p>
         </div>
     </mat-card-content>
 </mat-card>
@@ -27,5 +27,5 @@
         Contacts
     </mat-panel-title>
     </mat-expansion-panel-header>
-    <app-customer-contacts [customerId]="databaseService.customerId"></app-customer-contacts>
+    <app-customer-contacts [customerId]="customerService.customerId"></app-customer-contacts>
 </mat-expansion-panel>

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ThemeService } from './shared/theme.service';
 import { Observable } from 'rxjs';
-import { DatabaseService } from './shared/database.service';
 import { AuthService } from './shared/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogChangeUserLoginComponent } from './user/dialog-change-user-login/dialog-change-user-login.component';
@@ -21,7 +20,6 @@ export class AppComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private themeService: ThemeService, 
-    public databaseService: DatabaseService,
     public authService: AuthService,
     public dialog: MatDialog) { }
 

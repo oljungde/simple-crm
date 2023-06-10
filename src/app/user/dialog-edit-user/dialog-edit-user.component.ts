@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ThemeService } from '../../shared/theme.service';
 import { MatDialogRef } from '@angular/material/dialog';
-import { DatabaseService } from '../../shared/database.service';
+import { UserService } from '../../shared/user.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { User } from '../../models/user.class';
 import { AuthService } from '../../shared/auth.service';
@@ -15,11 +15,11 @@ import { AuthService } from '../../shared/auth.service';
 export class DialogEditUserComponent {
   isLightTheme$!: Observable<boolean>;
   updateForm = this.formBuilder.group({
-    firstName: [this.databaseService.user.firstName, Validators.required],
-    lastName: [this.databaseService.user.lastName, Validators.required],
-    email: [this.databaseService.user.email, [Validators.required, Validators.email]],
-    team: [this.databaseService.user.team, Validators.required],
-    shortName: [this.databaseService.user.shortName, Validators.required],
+    firstName: [this.userService.user.firstName, Validators.required],
+    lastName: [this.userService.user.lastName, Validators.required],
+    email: [this.userService.user.email, [Validators.required, Validators.email]],
+    team: [this.userService.user.team, Validators.required],
+    shortName: [this.userService.user.shortName, Validators.required],
   });
   teams = [
     'Sales',
@@ -32,7 +32,7 @@ export class DialogEditUserComponent {
   constructor(
     private themeService: ThemeService, 
     public dialogRef: MatDialogRef<DialogEditUserComponent>, 
-    public databaseService: DatabaseService,
+    public userService: UserService,
     private authService: AuthService,
     private formBuilder: FormBuilder) {
     }
@@ -49,7 +49,7 @@ export class DialogEditUserComponent {
       this.updateForm.controls['email'].enable();
       const user = new User();
       Object.assign(user, this.updateForm.value);
-      this.databaseService.updateUser(user);
+      this.userService.updateUser(user);
       this.dialogRef.close();
     }
   }

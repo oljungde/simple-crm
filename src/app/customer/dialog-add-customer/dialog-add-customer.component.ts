@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ThemeService } from '../../shared/theme.service';
-import { DatabaseService } from '../../shared/database.service';
+import { CustomerService } from '../../shared/customer.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Customer } from '../../models/customer.class';
@@ -18,7 +18,7 @@ export class DialogAddCustomerComponent implements OnInit {
 
   constructor(
     private themeService: ThemeService,
-    public databaseService: DatabaseService,
+    public customerService: CustomerService,
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<DialogAddCustomerComponent>) {
       this.newCustomerForm = this.formBuilder.group({
@@ -42,7 +42,7 @@ export class DialogAddCustomerComponent implements OnInit {
     if (this.newCustomerForm.valid) {
       const newCustomer = new Customer();
       Object.assign(newCustomer, this.newCustomerForm.value);
-      this.databaseService.saveNewCustomer(newCustomer);
+      this.customerService.saveNewCustomer(newCustomer);
       this.dialogRef.close();
       console.log('new customer saved ', newCustomer);
     } else {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ThemeService } from '../../shared/theme.service';
-import { DatabaseService } from '../../shared/database.service';
+import { CustomerContactsService } from '../../shared/customer-contacts.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
@@ -19,7 +19,7 @@ export class DialogEditCustomerContactComponent implements OnInit {
 
   constructor(
     public themeService: ThemeService,
-    public databaseService: DatabaseService,
+    public customerContactsService: CustomerContactsService,
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<DialogEditCustomerContactComponent>) { }
 
@@ -43,7 +43,7 @@ export class DialogEditCustomerContactComponent implements OnInit {
       customerContact.customerContactId = this.customerContact.customerContactId;
       customerContact.customerRef = this.customerContact.customerRef;   
       Object.assign(customerContact, this.updateCustomerContactForm.value);  
-      this.databaseService.updateCustomerContact(customerContact);
+      this.customerContactsService.updateCustomerContact(customerContact);
       this.dialogRef.close();
     }
   }

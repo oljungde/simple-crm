@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddUserComponent } from '../dialog-add-user/dialog-add-user.component';
 import { ThemeService } from '../../shared/theme.service';
-import { DatabaseService } from '../../shared/database.service';
+import { UserService } from '../../shared/user.service';
 
 
 @Component({
@@ -19,14 +19,14 @@ export class UserComponent implements OnInit {
     constructor(
       public dialog: MatDialog, 
       public themeService: ThemeService, 
-      public databaseService: DatabaseService) { }
+      public userService: UserService) { }
 
 
   ngOnInit() {
     this.themeService.isLightTheme$.subscribe(isLightTheme => {
       this.isLightTheme = isLightTheme;        
     });
-    this.databaseService.allUsers.subscribe(users => {
+    this.userService.allUsers.subscribe(users => {
       this.filteredUsers = users;
     });
   }
@@ -34,7 +34,7 @@ export class UserComponent implements OnInit {
 
   searchUser() {
     const searchTerm = this.searchInput?.nativeElement.value.toLowerCase();
-    this.filteredUsers = this.databaseService.allUsers$.value.filter((user: any) => {
+    this.filteredUsers = this.userService.allUsers$.value.filter((user: any) => {
       return (user.firstName.toLowerCase().includes(searchTerm) ||
         user.lastName.toLowerCase().includes(searchTerm) ||
         user.email.toLowerCase().includes(searchTerm) ||

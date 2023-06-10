@@ -3,7 +3,7 @@ import { ThemeService  } from '../../shared/theme.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { User } from '../../models/user.class';
-import { DatabaseService } from '../../shared/database.service';
+import { UserService } from 'src/app/shared/user.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../shared/auth.service';
 import { PasswordGenerateService } from '../../shared/password-generate.service';
@@ -30,7 +30,7 @@ export class DialogAddUserComponent implements OnInit {
     private themeService: ThemeService, 
     public dialogRef: MatDialogRef<DialogAddUserComponent>, 
     private passwordGenerate: PasswordGenerateService,
-    public databaseService: DatabaseService,
+    public userService: UserService,
     private authService: AuthService,
     private formBuilder: FormBuilder) {
       const password = this.passwordGenerate.generatePassword();
@@ -51,7 +51,7 @@ export class DialogAddUserComponent implements OnInit {
 
 
   resetForm() {
-    this.databaseService.newUser = new User();
+    this.userService.newUser = new User();
   }
 
 
@@ -65,7 +65,7 @@ export class DialogAddUserComponent implements OnInit {
     if (this.registerForm.valid) {
       const newUser = new User();
       Object.assign(newUser, this.registerForm.value);
-      this.databaseService.saveNewUser(newUser);
+      this.userService.saveNewUser(newUser);
       this.authService.registerUser(this.registerForm.value.email, this.registerForm.value.password);
       this.resetForm();
       this.dialogRef.close();

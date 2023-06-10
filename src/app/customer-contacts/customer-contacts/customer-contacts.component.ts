@@ -2,7 +2,7 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ThemeService } from '../../shared/theme.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddCustomerContactComponent } from '../dialog-add-customer-contact/dialog-add-customer-contact.component';
-import { DatabaseService } from '../../shared/database.service';
+import { CustomerContactsService } from '../../shared/customer-contacts.service';
 import { DialogEditCustomerContactComponent } from '../dialog-edit-customer-contact/dialog-edit-customer-contact.component';
 
 
@@ -21,7 +21,7 @@ export class CustomerContactsComponent implements OnInit {
   constructor(
     public themeService: ThemeService,
     public dialog: MatDialog,
-    public databaseService: DatabaseService) { }
+    public customerContactsService: CustomerContactsService) { }
 
 
   ngOnInit() {
@@ -30,17 +30,11 @@ export class CustomerContactsComponent implements OnInit {
     });
     console.log('customerId:', this.customerId);
 
-    this.databaseService.getCustomerContacts(this.customerId)
+    this.customerContactsService.getCustomerContacts(this.customerId)
       .subscribe(data => {
         this.customerContacts = data;
         console.log('Diese Kundenkontakte', this.customerContacts);
       });
-
-    // this.databaseService.getCustomerContacts(this.customerId)
-    // .then((customerContacts: any) => {
-    //   this.customerContacts = this.databaseService.customerContacts;
-    //   console.log('customerContacts:', this.customerContacts);      
-    //   }); 
   }
 
 
@@ -54,7 +48,7 @@ export class CustomerContactsComponent implements OnInit {
 
   searchContact() {
     const searchTerm = this.searchInput?.nativeElement.value.toLowerCase();
-    this.customerContacts = this.databaseService.customerContacts.filter((contact: any) => {
+    this.customerContacts = this.customerContactsService.customerContacts.filter((contact: any) => {
       return (contact.firstName.toLowerCase().includes(searchTerm) ||
         contact.lastName.toLowerCase().includes(searchTerm) ||
         contact.email.toLowerCase().includes(searchTerm) ||
