@@ -37,9 +37,9 @@ import { DialogAddCustomerComponent } from './customer/dialog-add-customer/dialo
 import { CustomerDetailComponent } from './customer/customer-detail/customer-detail.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { DialogEditCustomerComponent } from './customer/dialog-edit-customer/dialog-edit-customer.component';
-import { CustomerContactsComponent } from './customer-contacts/customer-contacts.component';
-import { DialogAddCustomerContactComponent } from './dialog-add-customer-contact/dialog-add-customer-contact.component';
-import { DialogEditCustomerContactComponent } from './dialog-edit-customer-contact/dialog-edit-customer-contact.component';
+import { CustomerContactsComponent } from './customer-contacts/customer-contacts/customer-contacts.component';
+import { DialogAddCustomerContactComponent } from './customer-contacts/dialog-add-customer-contact/dialog-add-customer-contact.component';
+import { DialogEditCustomerContactComponent } from './customer-contacts/dialog-edit-customer-contact/dialog-edit-customer-contact.component';
 
 
 

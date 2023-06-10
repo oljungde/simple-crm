@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ThemeService } from '../shared/theme.service';
-import { DatabaseService } from '../shared/database.service';
+import { ThemeService } from '../../shared/theme.service';
+import { DatabaseService } from '../../shared/database.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { CustomerContact } from '../models/customer-contact.class';
+import { CustomerContact } from '../../models/customer-contact.class';
 
 @Component({
   selector: 'app-dialog-add-customer-contact',
