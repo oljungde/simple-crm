@@ -24,7 +24,8 @@ $dark-theme: mat.define-dark-theme((
 
     .user-table,
     .customer-table,
-    .contacts-table {
+    .contacts-table,
+    .request-table {
 
         tr {
             border-bottom: 1px solid rgba(0,0,0,0.4);
@@ -38,6 +39,11 @@ $dark-theme: mat.define-dark-theme((
             color: rgba(0,0,0,0.4)
         }
     }
+
+    .customer-requests-card {
+        background-color: #eeeeee;
+        margin-top: 24px;
+    }
 }
 
 .dark-theme {
@@ -50,7 +56,8 @@ $dark-theme: mat.define-dark-theme((
 
     .user-table,
     .customer-table,
-    .contacts-table {
+    .contacts-table,
+    .request-table {
 
         tr {
             border-bottom: 1px solid rgba(255,255,255,0.5);
@@ -63,6 +70,11 @@ $dark-theme: mat.define-dark-theme((
         th {    
             color: rgba(255,255,255,0.5)
         }
+    }
+
+    .customer-requests-card {
+        background-color: #525252;
+        margin-top: 24px;
     }
 }
 

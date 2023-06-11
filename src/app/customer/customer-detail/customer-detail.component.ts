@@ -12,7 +12,6 @@ import { MatExpansionModule } from '@angular/material/expansion';
   styleUrls: ['./customer-detail.component.scss'],
 })
 export class CustomerDetailComponent implements OnInit {
-  panelOpenState = false;
 
   constructor(
     private route: ActivatedRoute,

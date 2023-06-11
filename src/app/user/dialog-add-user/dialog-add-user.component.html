@@ -35,13 +35,7 @@
             </mat-form-field>
     
             <div class="form-row">
-                <mat-form-field appearance="outline">
-                    <mat-label for="team">Team</mat-label>
-                    <mat-select id="team" [disabled]="userService.loading" formControlName="team" required="" placeholder="Enter a team">
-                        <mat-option *ngFor="let team of teams; index as i" value="{{ team }}">{{ team }}</mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="registerForm.get('team')?.invalid && registerForm.get('team')?.errors?.['required']">Please select a team</mat-error>
-                </mat-form-field>
+                
     
                 <mat-form-field appearance="outline">
                     <mat-label for="shortName">Short name</mat-label>

@@ -21,11 +21,6 @@
     </mat-card-content>
 </mat-card>
 
-<mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-    <mat-expansion-panel-header>
-    <mat-panel-title>
-        Contacts
-    </mat-panel-title>
-    </mat-expansion-panel-header>
-    <app-customer-contacts [customerId]="customerService.customerId"></app-customer-contacts>
-</mat-expansion-panel>
+<app-customer-contacts [customerId]="customerService.customerId"></app-customer-contacts>
+
+<app-customer-requests [customerId]="customerService.customerId"></app-customer-requests>

@@ -40,6 +40,8 @@ import { DialogEditCustomerComponent } from './customer/dialog-edit-customer/dia
 import { CustomerContactsComponent } from './customer-contacts/customer-contacts/customer-contacts.component';
 import { DialogAddCustomerContactComponent } from './customer-contacts/dialog-add-customer-contact/dialog-add-customer-contact.component';
 import { DialogEditCustomerContactComponent } from './customer-contacts/dialog-edit-customer-contact/dialog-edit-customer-contact.component';
+import { CustomerRequestsComponent } from './customer-requests/customer-requests/customer-requests.component';
+import { DialogAddCustomerRequestComponent } from './customer-requests/dialog-add-customer-request/dialog-add-customer-request.component';
 
 
 
@@ -60,6 +62,8 @@ import { DialogEditCustomerContactComponent } from './customer-contacts/dialog-e
     CustomerContactsComponent,
     DialogAddCustomerContactComponent,
     DialogEditCustomerContactComponent,
+    CustomerRequestsComponent,
+    DialogAddCustomerRequestComponent,
   ],
   imports: [
     BrowserModule,

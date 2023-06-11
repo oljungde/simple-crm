@@ -13,6 +13,7 @@ import { DialogEditCustomerContactComponent } from '../dialog-edit-customer-cont
 })
 export class CustomerContactsComponent implements OnInit {
   isLightTheme: boolean = false;
+  panelOpenState = false;
   @Input() customerId = '';
   customerContacts: any = [];
   @ViewChild('searchInput') searchInput: ElementRef | undefined;

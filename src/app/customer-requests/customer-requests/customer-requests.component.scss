@@ -1,0 +1,61 @@
+.customer-requests-header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+
+    .btn {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+}
+
+.request-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+
+    tr {
+        cursor: pointer;
+
+        &:first-child {
+            cursor: unset;
+
+            &:hover {
+                background-color: unset;
+            }
+        }
+
+        &:last-child {
+            border-bottom: unset;
+        }
+    }
+
+    th {
+        padding-bottom: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        text-align: start;
+
+        &:first-child {
+            padding-left: 16px;
+        }
+
+        &:last-child {
+            padding-right: 16px;;
+        }
+    }
+
+    td {
+        height: 32px;
+
+        &:first-child {
+            padding-left: 16px;
+        }
+
+        &:last-child {
+            padding-right: 16px;;
+        }
+    }
+}

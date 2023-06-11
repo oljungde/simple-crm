@@ -1,0 +1,39 @@
+<mat-card class="customer-requests-card">
+    <mat-card-content>
+        <div class="customer-requests-header">
+                <h2>Customer requests</h2>
+                <mat-form-field appearance="outline">
+                    <mat-label>Search customer request</mat-label>
+                    <input #searchInput matInput placeholder="Search">
+                    <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>
+            
+            
+            <button (click)="openDialog(this.isLightTheme)" mat-mini-fab color="accent" matTooltip="Add customer request" matTooltipPosition="above" class="btn">
+                <mat-icon>add</mat-icon>
+            </button>
+        </div>
+        <table class="request-table">
+            <tr>
+                <th>Name</th>
+                <th>Short name</th>
+                <th>E-Mail</th>
+                <th>Team</th>
+            </tr>
+            <tr>
+                <td>Spalte 1</td>
+                <td>Spalte 2</td>
+                <td>Spalte 3</td>
+                <td>Spalte 4</td>
+            </tr>
+            <tr>
+                <td>Spalte 1</td>
+                <td>Spalte 2</td>
+                <td>Spalte 3</td>
+                <td>Spalte 4</td>
+            </tr>
+        </table>
+    </mat-card-content>
+</mat-card>
+
+

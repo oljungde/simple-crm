@@ -6,7 +6,7 @@ export class CustomerContact {
     phone: string = '';
     position: string | undefined;
     customerRef: string = '';
-    customerId: string | undefined;
+
 
     constructor(data?: any) {
         if (data) {
@@ -19,6 +19,7 @@ export class CustomerContact {
             this.customerRef = data.customerRef;
         }
     }
+
 
     toJSON() {
         return {
