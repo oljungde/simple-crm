@@ -42,6 +42,8 @@ import { DialogAddCustomerContactComponent } from './customer-contacts/dialog-ad
 import { DialogEditCustomerContactComponent } from './customer-contacts/dialog-edit-customer-contact/dialog-edit-customer-contact.component';
 import { CustomerRequestsComponent } from './customer-requests/customer-requests/customer-requests.component';
 import { DialogAddCustomerRequestComponent } from './customer-requests/dialog-add-customer-request/dialog-add-customer-request.component';
+import { DateAdapter } from '@angular/material/core'; 
+import { StartWeekMonday } from './models/start-week-monday.class';
 
 
 
@@ -91,7 +93,9 @@ import { DialogAddCustomerRequestComponent } from './customer-requests/dialog-ad
     MatSelectModule,
     MatExpansionModule
   ],
-  providers: [],
+  providers: [
+    { provide: DateAdapter, useClass: StartWeekMonday }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
