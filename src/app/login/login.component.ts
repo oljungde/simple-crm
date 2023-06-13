@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ThemeService } from '../shared/theme.service';
 import { AuthService } from '../shared/auth.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UserService } from '../shared/user.service';
 
 @Component({
   selector: 'app-login',
@@ -12,9 +13,15 @@ export class LoginComponent implements OnInit {
   isLightTheme: boolean = false;
   loginForm: FormGroup;
   hide = true;
+  userloggedInEmail: string = '';
+  loggedInUserId: string = '';
   
 
-  constructor(public themeService: ThemeService, public authService: AuthService, private formBuilder: FormBuilder) { 
+  constructor(
+    public themeService: ThemeService, 
+    public authService: AuthService, 
+    private formBuilder: FormBuilder,
+    public userService: UserService) { 
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
@@ -25,16 +32,26 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.themeService.isLightTheme$.subscribe(isLightTheme => {
       this.isLightTheme = isLightTheme;
-      // console.log(this.isLightTheme);
     });
   }
 
 
-  login() {
+  async login() {
     const val = this.loginForm?.value;
     if (val?.email && val?.password) {
-      this.authService.userLogin(val.email, val.password);
+      await this.authService.userLogin(val.email, val.password);
+      this.userloggedInEmail = val.email;
+      console.log('user logged in email is ', this.userloggedInEmail);
+      this.getUserId(this.userloggedInEmail);
     }
+  }
+
+
+  async getUserId(userloggedInEmail: string) {
+    // debugger;
+    await this.userService.getUserIdByEmail(userloggedInEmail);
+    this.loggedInUserId = this.userService.userLoggedInId
+    console.log('user logged in id is ', this.loggedInUserId);
   }
 
 

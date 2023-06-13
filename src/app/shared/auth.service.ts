@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService implements OnInit {
-  isUserLoggedIn: boolean = true;
+  isUserLoggedIn: boolean = false;
   isGuestLogin: boolean = false;
   loginError: boolean = false;
   passwordChangeError: boolean = false;
@@ -42,6 +42,7 @@ export class AuthService implements OnInit {
       const userCredential = await signInWithEmailAndPassword(this.auth, email, password);
       this.isUserLoggedIn = true;
       this.user = userCredential.user;
+      console.log('auth user is ', this.user);
       this.loginError = false;
       this.router.navigate(['/dashboard']);
     } catch (error) {

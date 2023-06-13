@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { User } from '../models/user.class';
-import { DocumentReference, Firestore, addDoc, collection, doc, getDoc, onSnapshot, updateDoc } from '@angular/fire/firestore';
+import { DocumentReference, Firestore, addDoc, collection, doc, getDoc, getDocs, onSnapshot, query, updateDoc, where } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -15,6 +15,7 @@ export class UserService {
   usersCollection = collection(this.firestore, 'users');
   allUsers$ = new BehaviorSubject<any[]>([]);
   allUsers = this.allUsers$.asObservable();
+  userLoggedInId: any;
 
   constructor() {
     this.observeUsers();
@@ -45,6 +46,17 @@ export class UserService {
       console.log('No such document!');
     } 
   }
+
+
+  async getUserIdByEmail(email: string) {
+    const usersQuery = query(this.usersCollection, where('email', '==', email));
+    const querySnapshot = await getDocs(usersQuery);
+    querySnapshot.forEach((doc) => {
+        console.log('User ID is: ', doc.id);
+        this.userLoggedInId = doc.id;
+    });
+}
+
 
 
   saveNewUser(newUser?: User) {
