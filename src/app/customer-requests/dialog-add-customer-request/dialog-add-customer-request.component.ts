@@ -5,6 +5,9 @@ import { CustomerRequestsService } from 'src/app/shared/customer-requests.servic
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { UserService } from 'src/app/shared/user.service';
+import { CustomerRequest } from '../../models/customer-request.class';
+import { CustomerService } from 'src/app/shared/customer.service';
+import { CustomerContactsService } from 'src/app/shared/customer-contacts.service';
 
 @Component({
   selector: 'app-dialog-add-customer-request',
@@ -26,6 +29,7 @@ export class DialogAddCustomerRequestComponent implements OnInit {
   ];
   minDate = new Date();
   userNames: any = [];
+  customerContactNames: any = [];
 
 
   constructor(
@@ -33,11 +37,14 @@ export class DialogAddCustomerRequestComponent implements OnInit {
   public customerRequestsService: CustomerRequestsService,
   private formBuilder: FormBuilder,
   public dialogRef: MatDialogRef<DialogAddCustomerRequestComponent>,
-  public userService: UserService) { 
+  public userService: UserService,
+  public customerService: CustomerService,
+  public customerContactsService: CustomerContactsService) { 
     this.newCustomerRequestForm = this.formBuilder.group({
       subjectArea: ['', Validators.required], 
       title: ['', Validators.required], 
-      description: ['', Validators.required], 
+      description: ['', Validators.required],
+      customerContactName: ['', Validators.required], 
       priority: ['', Validators.required],
       status: ['', Validators.required], 
       dateRequested: this.getCurrentDate(),
@@ -59,12 +66,24 @@ export class DialogAddCustomerRequestComponent implements OnInit {
     ).subscribe(userNames => {
       this.userNames = userNames;
     });
-    console.log(this.userService.userId);
-    
+    this.customerContactsService.allCustomerContacts$.pipe(
+      map(customerContacts => customerContacts.filter(customerContacts => customerContacts.customerRef === this.customerService.customerId))
+      ).subscribe(customerContacts => { 
+        this.customerContactNames = customerContacts.map(customerContact => (`${customerContact.firstName}, ${customerContact.lastName}`));
+        this.customerContactNames = this.customerContactNames.sort();
+      });
   }
 
 
   saveCustomerRequest() {
-
+    if(this.newCustomerRequestForm.valid) {
+      const newCustomerRequest = new CustomerRequest();
+      Object.assign(newCustomerRequest, this.newCustomerRequestForm.value);
+      newCustomerRequest.userRef = this.userService.userLoggedInId;
+      newCustomerRequest.customerRef = this.customerService.customerId;
+      
+      this.customerRequestsService.saveNewCustomerRequest(newCustomerRequest);
+      this.dialogRef.close();
+    }
   }
 }

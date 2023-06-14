@@ -65,10 +65,10 @@ export class UserService {
     console.log('Current user is ', this.newUser);
     addDoc(this.usersCollection, userToSave.toJSON())
       .then((docRef: DocumentReference) => {
-      console.log('User added successfully', docRef);
-      this.userId = docRef.id;
-      updateDoc(docRef, {userId: docRef.id});
-      this.loading = false;
+        console.log('User added successfully', docRef);
+        this.userId = docRef.id;
+        updateDoc(docRef, {userId: docRef.id});
+        this.loading = false;
     });
   }
 

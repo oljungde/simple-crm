@@ -2,7 +2,7 @@
     <mat-progress-bar *ngIf="customerRequestsService.loading" mode="indeterminate"></mat-progress-bar>
     <h1 mat-dialog-title>Add customer request</h1>
     <div mat-dialog-content>
-        <form [formGroup]="newCustomerRequestForm" (ngSubmit)="saveCustomerRequest">
+        <form [formGroup]="newCustomerRequestForm" (ngSubmit)="saveCustomerRequest()">
             <div class="form-row">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label for="subjectArea">Subject area</mat-label>
@@ -24,6 +24,16 @@
                     <mat-label for="description">Description</mat-label>
                     <textarea id="description" [disabled]="customerRequestsService.loading" formControlName="description" matInput placeholder="Enter the description"></textarea>
                     <mat-error *ngIf="newCustomerRequestForm.get('description')?.invalid && newCustomerRequestForm.get('description')?.errors?.['required']">Please enter a description</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="form-row">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label for="customerContactName">Customer contact</mat-label>
+                    <mat-select id="customerContactName" [disabled]="customerRequestsService.loading" formControlName="customerContactName" required="" placeholder="Customer contact">
+                        <mat-option *ngFor="let customerContactName of customerContactNames" value="{{ customerContactName }}">{{ customerContactName }}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="newCustomerRequestForm.get('customerContactName')?.invalid && newCustomerRequestForm.get('customerContactName')?.errors?.['required']">Please select a customer contact</mat-error>
                 </mat-form-field>
             </div>
             
@@ -59,7 +69,7 @@
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label for="assignedTo">Assign to</mat-label>
                     <mat-select id="assignedTo" [disabled]="customerRequestsService.loading" formControlName="assignedTo" required="" placeholder="Assign to">
-                        <mat-option *ngFor="let userName of userNames; index as i" value="{{ userName }}">{{ userName }}</mat-option>
+                        <mat-option *ngFor="let userName of userNames" value="{{ userName }}">{{ userName }}</mat-option>
                     </mat-select>
                     <mat-error *ngIf="newCustomerRequestForm.get('assignedTo')?.invalid && newCustomerRequestForm.get('assignedTo')?.errors?.['required']">Please select a priority</mat-error>
                 </mat-form-field>
