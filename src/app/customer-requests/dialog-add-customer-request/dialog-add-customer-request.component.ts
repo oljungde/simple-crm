@@ -76,14 +76,20 @@ export class DialogAddCustomerRequestComponent implements OnInit {
 
 
   saveCustomerRequest() {
+    debugger;
     if(this.newCustomerRequestForm.valid) {
       const newCustomerRequest = new CustomerRequest();
       Object.assign(newCustomerRequest, this.newCustomerRequestForm.value);
       newCustomerRequest.userRef = this.userService.userLoggedInId;
       newCustomerRequest.customerRef = this.customerService.customerId;
-      
       this.customerRequestsService.saveNewCustomerRequest(newCustomerRequest);
+      if (newCustomerRequest.customerRef) {
+        this.customerRequestsService.getCustomerRequests(newCustomerRequest.customerRef);
+      }
       this.dialogRef.close();
+      console.log('new customer request saved ', newCustomerRequest.toJSON());
+    } else {
+      console.log('invalid form');
     }
   }
 }

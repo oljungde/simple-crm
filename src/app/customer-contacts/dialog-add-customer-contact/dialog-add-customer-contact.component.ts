@@ -35,7 +35,6 @@ export class DialogAddCustomerContactComponent implements OnInit {
   ngOnInit() {
     this.isLightTheme$ = this.themeService.isLightTheme$;
     console.log('add contact ', this.customerRef);
-    
   }
 
 

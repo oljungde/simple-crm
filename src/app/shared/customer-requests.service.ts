@@ -1,8 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { CustomerRequest } from '../models/customer-request.class';
-import { DocumentReference, Firestore, addDoc, collection, onSnapshot, updateDoc, where } from '@angular/fire/firestore';
+import { DocumentReference, Firestore, addDoc, collection, doc, onSnapshot, query, updateDoc, where } from '@angular/fire/firestore';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { query } from '@angular/animations';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +14,10 @@ export class CustomerRequestsService {
   customerRequestsCollection = collection(this.firestore, 'customerRequests');
   allCustomerRequests$ = new BehaviorSubject<any[]>([]);
   allCustomerRequests = this.allCustomerRequests$.asObservable();
+
+
+  customerRequests: any = [];
+  customerRequests$: any = [];
 
   constructor() {
     this.observeCustomerRequests();
@@ -49,19 +52,18 @@ export class CustomerRequestsService {
   }
 
 
-  getCustomerRequests(customerRef: string): any {
+  getCustomerRequests(customerRef: string): Observable<any> {
     return new Observable(observer => {
       const customerRequestsQuery = query(this.customerRequestsCollection, where('customerRef', '==', customerRef));
       const unsubscribe = onSnapshot(customerRequestsQuery, (querySnapshot) => {
-        let customerRequestsData: any = [];
-        querySnapshot.forEach((customerRequest: any) => {
-          let customerRequestData = customerRequest.payload.doc.data();
-          customerRequestData['id'] = customerRequest.payload.doc.id;
-          customerRequestsData.push(customerRequestData);
+        let customerRequests: any = [];
+        querySnapshot.forEach((doc) => {
+          let customerRequestData = doc.data();
+          customerRequestData['id'] = doc.id;
+          customerRequests.push(customerRequestData);
         });
-        observer.next(customerRequestsData);
+        observer.next(customerRequests);
       });
-      return unsubscribe;
     });
   }
 }

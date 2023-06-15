@@ -15,22 +15,22 @@
         </div>
         <table class="request-table">
             <tr>
-                <th>Name</th>
-                <th>Short name</th>
-                <th>E-Mail</th>
-                <th>Team</th>
+                <th>Request date</th>
+                <th>Subject area</th>
+                <th>Title</th>
+                <th>Contact Person</th>
+                <th>Status</th>
+                <th>Assigned to</th>
+                <th>Created by</th>
             </tr>
-            <tr>
-                <td>Spalte 1</td>
-                <td>Spalte 2</td>
-                <td>Spalte 3</td>
-                <td>Spalte 4</td>
-            </tr>
-            <tr>
-                <td>Spalte 1</td>
-                <td>Spalte 2</td>
-                <td>Spalte 3</td>
-                <td>Spalte 4</td>
+            <tr *ngFor="let customerRequest of this.customerRequests">
+                <td>{{ customerRequest.dateRequested }}</td>
+                <td>{{ customerRequest.subjectArea }}</td>
+                <td>{{ customerRequest.title }}</td>
+                <td>{{ customerRequest.customerContactName }}</td>
+                <td>{{ customerRequest.status }}</td>
+                <td>{{ customerRequest.assignedTo }}</td>
+                <td>{{ customerRequest.createdBy }}</td>
             </tr>
         </table>
     </mat-card-content>

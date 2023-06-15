@@ -71,7 +71,7 @@
                     <mat-select id="assignedTo" [disabled]="customerRequestsService.loading" formControlName="assignedTo" required="" placeholder="Assign to">
                         <mat-option *ngFor="let userName of userNames" value="{{ userName }}">{{ userName }}</mat-option>
                     </mat-select>
-                    <mat-error *ngIf="newCustomerRequestForm.get('assignedTo')?.invalid && newCustomerRequestForm.get('assignedTo')?.errors?.['required']">Please select a priority</mat-error>
+                    <mat-error *ngIf="newCustomerRequestForm.get('assignedTo')?.invalid && newCustomerRequestForm.get('assignedTo')?.errors?.['required']">Please assign request</mat-error>
                 </mat-form-field>
             </div>
 

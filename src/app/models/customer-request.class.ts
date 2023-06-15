@@ -47,7 +47,7 @@ export class CustomerRequest {
         dateRequested: this.dateRequested,
         subjectArea: this.subjectArea,
         dueDate: this.dueDate,
-        assingedTo: this.assignedTo
+        assignedTo: this.assignedTo
         };
     }
 }
