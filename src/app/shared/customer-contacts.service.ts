@@ -70,6 +70,11 @@ export class CustomerContactsService {
   }
 
 
+  getCustomerContactId(customerContactLastName: string) {
+
+  }
+
+
   updateCustomerContact(customerContact?: CustomerContact) {
     this.loading = true;
     let customerContactId = customerContact?.customerContactId;
