@@ -86,12 +86,13 @@ export class DialogAddCustomerRequestComponent implements OnInit {
   }
 
 
-  saveCustomerRequest() {
+  async saveCustomerRequest() {
     // debugger;
     if(this.newCustomerRequestForm.valid) {
       const newCustomerRequest = new CustomerRequest();
       Object.assign(newCustomerRequest, this.newCustomerRequestForm.value);
       newCustomerRequest.userRef = this.userService.userLoggedInId;
+      newCustomerRequest.createdBy = await this.userService.getUserShortNameById(this.userService.userLoggedInId);
       newCustomerRequest.customerRef = this.customerService.customerId;  
       this.identifyCustomerContactId(this.newCustomerRequestForm.value.customerContactName); 
       newCustomerRequest.customerContactRef = this.customerContactRef; 

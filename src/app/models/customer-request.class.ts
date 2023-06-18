@@ -12,6 +12,7 @@ export class CustomerRequest {
     dueDate: string = '';
     subjectArea: string = '';
     assignedTo: string = '';
+    createdBy: string = '';
 
 
     constructor(data?: any) {
@@ -29,6 +30,7 @@ export class CustomerRequest {
             this.subjectArea = data.subjectArea;
             this.dueDate = data.dueDate;
             this.assignedTo = data.assingedTo;
+            this.createdBy = data.createdBy;
         }
     }
 
@@ -47,7 +49,8 @@ export class CustomerRequest {
         dateRequested: this.dateRequested,
         subjectArea: this.subjectArea,
         dueDate: this.dueDate,
-        assignedTo: this.assignedTo
+        assignedTo: this.assignedTo,
+        createdBy: this.createdBy
         };
     }
 }
