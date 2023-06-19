@@ -8,8 +8,8 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService implements OnInit {
-  isUserLoggedIn: boolean = false;
-  isGuestLogin: boolean = false;
+  isUserLoggedIn: boolean = sessionStorage.getItem('isUserLoggedIn') === 'true';
+  isGuestLogin: boolean = sessionStorage.getItem('isGuestLogin') === 'true';
   loginError: boolean = false;
   passwordChangeError: boolean = false;
   user: User | null = null;
@@ -40,7 +40,8 @@ export class AuthService implements OnInit {
     this.loginError = false;
     try {
       const userCredential = await signInWithEmailAndPassword(this.auth, email, password);
-      this.isUserLoggedIn = true;
+      sessionStorage.setItem('isUserLoggedIn', 'true');
+      this.isUserLoggedIn = sessionStorage.getItem('isUserLoggedIn') === 'true';
       this.user = userCredential.user;
       console.log('auth user is ', this.user);
       this.loginError = false;
@@ -59,8 +60,10 @@ export class AuthService implements OnInit {
     this.loginError = false;
     try {
       const userCredential = await signInWithEmailAndPassword(this.auth, 'guest@oliver-jung.dev', '123456');
-      this.isGuestLogin = true;
-      this.isUserLoggedIn = true;
+      sessionStorage.setItem('isGuestLogin', 'true');
+      this.isGuestLogin = sessionStorage.getItem('isGuestLogin') === 'true';
+      sessionStorage.setItem('isUserLoggedIn', 'true');
+      this.isUserLoggedIn = sessionStorage.getItem('isUserLoggedIn') === 'true';
       this.user = userCredential.user;
       this.loginError = false;
       this.router.navigate(['/dashboard']);
@@ -77,8 +80,11 @@ export class AuthService implements OnInit {
     }
     signOut(this.auth)
     .then(() => {
-      this.isUserLoggedIn = false;
-      this.isGuestLogin = false;
+      sessionStorage.setItem('isUserLoggedIn', 'false');
+      this.isUserLoggedIn = sessionStorage.getItem('isUserLoggedIn') === 'true';
+      sessionStorage.setItem('isGuestLogin', 'false');
+      this.isGuestLogin = sessionStorage.getItem('isGuestLogin') === 'true';
+      this.router.navigate(['/login']);
       console.log('User signed out!');
     });
   }
