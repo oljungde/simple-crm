@@ -64,6 +64,7 @@ export class CustomerRequestsService {
         });
         observer.next(customerRequests);
       });
+      return unsubscribe;
     });
   }
 }

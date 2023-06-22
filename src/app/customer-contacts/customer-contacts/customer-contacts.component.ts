@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogAddCustomerContactComponent } from '../dialog-add-customer-contact/dialog-add-customer-contact.component';
 import { CustomerContactsService } from '../../shared/customer-contacts.service';
 import { DialogEditCustomerContactComponent } from '../dialog-edit-customer-contact/dialog-edit-customer-contact.component';
+import { map } from 'rxjs';
 
 
 @Component({
@@ -49,12 +50,18 @@ export class CustomerContactsComponent implements OnInit {
 
   searchContact() {
     const searchTerm = this.searchInput?.nativeElement.value.toLowerCase();
-    this.customerContacts = this.customerContactsService.customerContacts.filter((contact: any) => {
-      return (contact.firstName.toLowerCase().includes(searchTerm) ||
-        contact.lastName.toLowerCase().includes(searchTerm) ||
-        contact.email.toLowerCase().includes(searchTerm) ||
-        contact.phone.toLowerCase().includes(searchTerm) ||
-        contact.position.toLowerCase().includes(searchTerm));
+    this.customerContactsService.getCustomerContacts(this.customerId).pipe(
+      map((data: any) => {
+        return Array.isArray(data) ? data : [];
+      })
+    ).subscribe((data: any) => {
+      this.customerContacts = data.filter((contact: any) => {
+        return (contact.firstName.toLowerCase().includes(searchTerm) ||
+          contact.lastName.toLowerCase().includes(searchTerm) ||
+          contact.email.toLowerCase().includes(searchTerm) ||
+          contact.phone.toLowerCase().includes(searchTerm) ||
+          contact.position.toLowerCase().includes(searchTerm));
+      });
     });
   }
 

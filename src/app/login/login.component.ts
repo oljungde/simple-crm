@@ -58,5 +58,6 @@ export class LoginComponent implements OnInit {
   loginAsGuest() {
     this.loginForm?.disable();
     this.authService.guestLogin();
+    this.getUserId('guest@oliver-jung.dev');
   }
 }

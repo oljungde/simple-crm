@@ -4,7 +4,7 @@
                 <h2>Customer requests</h2>
                 <mat-form-field appearance="outline">
                     <mat-label>Search customer request</mat-label>
-                    <input #searchInput matInput placeholder="Search">
+                    <input #searchInput (input)="searchCustomerRequest()" matInput placeholder="Search">
                     <mat-icon matSuffix>search</mat-icon>
                 </mat-form-field>
             
