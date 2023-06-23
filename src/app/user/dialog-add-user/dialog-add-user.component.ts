@@ -17,6 +17,7 @@ import { PasswordGenerateService } from '../../shared/password-generate.service'
 export class DialogAddUserComponent implements OnInit {
   isLightTheme$!: Observable<boolean>;
   registerForm: FormGroup;
+  emailIsRegistered: boolean = false;
   hide = false;
   teams = [
     'Sales',
@@ -31,7 +32,7 @@ export class DialogAddUserComponent implements OnInit {
     public dialogRef: MatDialogRef<DialogAddUserComponent>, 
     private passwordGenerate: PasswordGenerateService,
     public userService: UserService,
-    private authService: AuthService,
+    public authService: AuthService,
     private formBuilder: FormBuilder) {
       const password = this.passwordGenerate.generatePassword();
       this.registerForm = this.formBuilder.group({
@@ -65,12 +66,30 @@ export class DialogAddUserComponent implements OnInit {
     if (this.registerForm.valid) {
       const newUser = new User();
       Object.assign(newUser, this.registerForm.value);
-      this.userService.saveNewUser(newUser);
-      this.authService.registerUser(this.registerForm.value.email, this.registerForm.value.password);
-      this.resetForm();
-      this.dialogRef.close();
+      this.authService.registerUser(this.registerForm.value.email, this.registerForm.value.password)
+        .then(() => {
+          this.emailIsRegistered = false;
+          this.userService.saveNewUser(newUser);
+          this.resetForm();
+          this.dialogRef.close();
+        })
+        .catch((error) => {
+          this.emailIsRegistered = true;
+          console.error('Registrierung fehlgeschlagen: ', error);
+        });
     } else {
       console.log('Form is invalid');
     }
+
+    // if (this.registerForm.valid) {
+    //   const newUser = new User();
+    //   Object.assign(newUser, this.registerForm.value);
+    //   this.userService.saveNewUser(newUser);
+    //   this.authService.registerUser(this.registerForm.value.email, this.registerForm.value.password);
+    //   this.resetForm();
+    //   this.dialogRef.close();
+    // } else {
+    //   console.log('Form is invalid');
+    // }
   }
 }

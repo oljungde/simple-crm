@@ -22,12 +22,43 @@ export class AuthService implements OnInit {
   }
 
 
-  registerUser(email: string, password: string){
-    if (!this.auth) {
-      console.error('Firebase has not been initialized yet.');
-      return;
-    }
-    createUserWithEmailAndPassword(this.auth, email, password);
+  registerUser(email: string, password: string): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      if(!this.auth){
+        console.error('Firebase has not been initialized yet.');
+        reject('Firebase has not been initialized yet.');
+        return;
+      }
+      createUserWithEmailAndPassword(this.auth, email, password)
+        .then((userCredential) => {
+          resolve();
+        })
+        .catch((error) => {
+          if(error.code === 'auth/email-already-in-use'){
+            console.error('Email already in use');
+            reject('Email already in use');
+          } else {
+            console.error(error);
+          }
+          reject(error);
+        });
+    });
+    // if (!this.auth) {
+    //   console.error('Firebase has not been initialized yet.');
+    //   return;
+    // }
+    // createUserWithEmailAndPassword(this.auth, email, password)
+    //   .then((userCredential) => {
+    //     this.emailIsRegistered = false;
+    //   })
+    //   .catch((error) => {
+    //     if(error.code === 'auth/email-already-in-use'){
+    //       this.emailIsRegistered = true;
+    //     } else {
+    //       this.emailIsRegistered = false;
+    //       console.error(error);
+    //     }
+    //   });
   }
 
 

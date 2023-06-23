@@ -22,6 +22,7 @@
                     <mat-label for="email">E-Mail</mat-label>
                     <input id="email" type="email" [disabled]="userService.loading" formControlName="email" matInput required placeholder="Enter the e-mail adress">
                     <mat-error *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.errors?.['required']">Please enter a valid email address</mat-error>
+                    <mat-hint *ngIf="this.emailIsRegistered" class="error-hint">This email address is already registered</mat-hint>
                 </mat-form-field>
             </div>
     
