@@ -6,7 +6,9 @@
             <div class="form-row">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label for="subjectArea">Subject area</mat-label>
-                    <input id="subjectArea" type="text" [disabled]="customerRequestsService.loading" formControlName="subjectArea" matInput placeholder="Enter the subject area">
+                    <mat-select id="subjectArea" [disabled]="customerRequestsService.loading" formControlName="subjectArea" required="" placeholder="Enter a subject area">
+                        <mat-option *ngFor="let subjectArea of subjectAreas; index as i" value="{{ subjectArea }}">{{ subjectArea }}</mat-option>
+                    </mat-select>
                     <mat-error *ngIf="newCustomerRequestForm.get('subjectArea')?.invalid && newCustomerRequestForm.get('subjectArea')?.errors?.['required']">Please enter a subject area</mat-error>
                 </mat-form-field>
             </div>
@@ -35,10 +37,16 @@
                     </mat-select>
                     <mat-error *ngIf="newCustomerRequestForm.get('customerContactName')?.invalid && newCustomerRequestForm.get('customerContactName')?.errors?.['required']">Please select a customer contact</mat-error>
                 </mat-form-field>
+
+                <mat-form-field *ngIf="showTurnover()" appearance="outline" class="w-100">
+                    <mat-label for="turnover">Turnover</mat-label>
+                    <input id="turnover" type="text" [disabled]="customerRequestsService.loading" formControlName="turnover" matInput placeholder="Enter the turnover">
+                    <mat-error *ngIf="newCustomerRequestForm.get('description')?.invalid && newCustomerRequestForm.get('description')?.errors?.['required']">Please enter a turnover</mat-error>
+                </mat-form-field>
             </div>
             
             <div class="form-row">
-                <mat-form-field appearance="outline">
+                <mat-form-field appearance="outline" class="w-50">
                     <mat-label for="priority">Priority</mat-label>
                     <mat-select id="priority" [disabled]="customerRequestsService.loading" formControlName="priority" required="" placeholder="Enter a priorty">
                         <mat-option *ngFor="let priority of priorities; index as i" value="{{ priority }}">{{ priority }}</mat-option>
@@ -46,7 +54,7 @@
                     <mat-error *ngIf="newCustomerRequestForm.get('priority')?.invalid && newCustomerRequestForm.get('priority')?.errors?.['required']">Please select a priority</mat-error>
                 </mat-form-field>
 
-                <mat-form-field appearance="outline">
+                <mat-form-field appearance="outline" class="w-50">
                     <mat-label for="status">Status</mat-label>
                     <mat-select id="status" [disabled]="customerRequestsService.loading" formControlName="status" required="" placeholder="Enter a status">
                         <mat-option *ngFor="let status of statuses; index as i" value="{{ status }}">{{ status }}</mat-option>
@@ -56,22 +64,18 @@
             </div>
 
             <div class="form-row">
-                <mat-form-field appearance="outline" class="w-100">  
+                <mat-form-field appearance="outline" class="w-50">
+                    <mat-label for="assignedTo">Assign to</mat-label>
+                    <mat-select id="assignedTo" [disabled]="customerRequestsService.loading" formControlName="assignedTo" placeholder="Assign to">
+                        <mat-option *ngFor="let userName of userNames" value="{{ userName }}">{{ userName }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-50">  
                     <mat-label>Choose a due date</mat-label>
                     <input matInput [disabled]="customerRequestsService.loading" [min]="minDate" [matDatepicker]="picker" formControlName="dueDate">
                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
-                    <mat-error *ngIf="newCustomerRequestForm.get('dueDate')?.invalid && newCustomerRequestForm.get('dueDate')?.errors?.['required']">Please select a status</mat-error>
-                </mat-form-field>
-            </div>
-
-            <div class="form-row">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label for="assignedTo">Assign to</mat-label>
-                    <mat-select id="assignedTo" [disabled]="customerRequestsService.loading" formControlName="assignedTo" required="" placeholder="Assign to">
-                        <mat-option *ngFor="let userName of userNames" value="{{ userName }}">{{ userName }}</mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="newCustomerRequestForm.get('assignedTo')?.invalid && newCustomerRequestForm.get('assignedTo')?.errors?.['required']">Please assign request</mat-error>
                 </mat-form-field>
             </div>
 

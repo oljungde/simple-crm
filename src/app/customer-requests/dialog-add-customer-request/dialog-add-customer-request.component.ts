@@ -27,6 +27,13 @@ export class DialogAddCustomerRequestComponent implements OnInit {
     'in progress',
     'closed'
   ];
+  subjectAreas = [
+    'Customer Service',
+    'Offer',
+    'Order',
+    'Sales',
+    'Invoice'
+  ];
   minDate = new Date();
   userNames: any = [];
   customerContacts: any = [];
@@ -47,11 +54,12 @@ export class DialogAddCustomerRequestComponent implements OnInit {
       title: ['', Validators.required], 
       description: ['', Validators.required],
       customerContactName: ['', Validators.required], 
+      turnover: ['', Validators.required],
       priority: ['', Validators.required],
       status: ['', Validators.required], 
       dateRequested: this.getCurrentDate(),
-      dueDate: ['', Validators.required],
-      assignedTo: ['', Validators.required] 
+      dueDate: ['',],
+      assignedTo: ['',] 
     });
   }
 
@@ -69,13 +77,16 @@ export class DialogAddCustomerRequestComponent implements OnInit {
       this.userNames = userNames;
     });
     this.customerContactsService.allCustomerContacts$.pipe(
-      map(customerContacts => customerContacts.filter(customerContacts => customerContacts.customerRef === this.customerService.customerId))
-      ).subscribe(customerContacts => { 
+      map(customerContacts => customerContacts.filter(customerContacts => customerContacts.customerRef === this.customerService.customerId)))
+        .subscribe(customerContacts => { 
         this.customerContacts = customerContacts;
         console.log('customerContacts ', customerContacts);
         this.customerContactNames = customerContacts.map(customerContact => (`${customerContact.firstName}, ${customerContact.lastName}`));
         this.customerContactNames = this.customerContactNames.sort();
       });
+    this.newCustomerRequestForm.get('subjectArea')?.valueChanges.subscribe(subjectAreaValue => {
+      this.showTurnover();
+    });
   }
 
 
@@ -83,6 +94,21 @@ export class DialogAddCustomerRequestComponent implements OnInit {
     const customerContact = this.customerContacts.find((customerContact: { firstName: string; lastName: string; }) => (`${customerContact.firstName}, ${customerContact.lastName}`) === customerContactName);
     this.customerContactRef = customerContact.customerContactId;
     console.log('customerContactRef ', this.customerContactRef);
+  }
+
+
+  showTurnover(): boolean {
+    const subjectAreaValue = this.newCustomerRequestForm.get('subjectArea')?.value;
+    const validValuesForTurnover = ['Offer', 'Order', 'Invoice'];
+    const showTurnover = validValuesForTurnover.includes(subjectAreaValue);
+    const turnoverControl = this.newCustomerRequestForm.get('turnover');
+    if (showTurnover) {
+      turnoverControl?.setValidators([Validators.required]);
+    } else {
+      turnoverControl?.setValidators([]);
+    }
+    turnoverControl?.updateValueAndValidity();
+    return showTurnover;
   }
 
 
