@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { CustomerRequest } from '../models/customer-request.class';
-import { DocumentReference, Firestore, addDoc, collection, doc, onSnapshot, query, updateDoc, where } from '@angular/fire/firestore';
+import { DocumentReference, Firestore, addDoc, collection, doc, onSnapshot, orderBy, query, updateDoc, where } from '@angular/fire/firestore';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
@@ -54,7 +54,10 @@ export class CustomerRequestsService {
 
   getCustomerRequests(customerRef: string): Observable<any> {
     return new Observable(observer => {
-      const customerRequestsQuery = query(this.customerRequestsCollection, where('customerRef', '==', customerRef));
+      const customerRequestsQuery = query(
+        this.customerRequestsCollection, where('customerRef', '==', customerRef),
+        orderBy('dateRequested', 'desc')
+      );
       const unsubscribe = onSnapshot(customerRequestsQuery, (querySnapshot) => {
         let customerRequests: any = [];
         querySnapshot.forEach((doc) => {

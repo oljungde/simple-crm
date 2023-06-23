@@ -57,7 +57,8 @@ export class DialogAddCustomerRequestComponent implements OnInit {
       turnover: ['', Validators.required],
       priority: ['', Validators.required],
       status: ['', Validators.required], 
-      dateRequested: this.getCurrentDate(),
+      // dateRequested: this.getCurrentDate(),
+      dateRequested: new Date().toLocaleString('de-DE', { timeZone: 'Europe/Berlin', timeStyle: 'short', dateStyle: 'short' }),
       dueDate: ['',],
       assignedTo: ['',] 
     });
