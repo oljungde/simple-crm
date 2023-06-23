@@ -6,6 +6,7 @@ export class CustomerRequest {
     title: string = '';
     description: string = '';
     customerContactName: string = '';
+    turnover: string = '';
     status: string = '';
     priority: string = '';
     dateRequested: string = '';
@@ -24,6 +25,7 @@ export class CustomerRequest {
             this.title = data.title;
             this.description = data.description;
             this.customerContactName = data.customerContactName;
+            this.turnover = data.turnover;
             this.status = data.status;
             this.priority = data.priority;
             this.dateRequested = data.dateRequested;
@@ -44,6 +46,7 @@ export class CustomerRequest {
         title: this.title,
         description: this.description,
         customerContactName: this.customerContactName,
+        turnover: this.turnover,
         status: this.status,
         priority: this.priority,
         dateRequested: this.dateRequested,
