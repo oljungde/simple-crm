@@ -1,0 +1,61 @@
+<mat-card class="customer-request-detail-header">
+    <mat-card-content class="customer-request-detail-header-content">
+        <button mat-icon-button [matMenuTriggerFor]="customerRequestMenu" class="btn-edit-customer-request">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #customerRequestMenu="matMenu" xPosition="before">
+            <button mat-menu-item (click)="editCustomerRequestDetail()">Edit customer request</button>
+        </mat-menu>
+
+        <div class="w-100">
+            <h2>{{ this.customerRequestToShow.title }}</h2>
+
+            <div class="customer-request-detail-row">
+                <div class="w-50">
+                    <p>{{ this.customerName }}</p>
+                    <p class="customer-request-description">Customer name</p>
+                </div>
+
+                <div class="w-50">
+                    <p>{{ this.customerRequestToShow.customerContactName }}</p>
+                    <p class="customer-request-description">Customer contact name</p>
+                </div>
+            </div>
+
+            <div class="customer-request-detail-row">
+                <div class="w-50">
+                    <p>{{ this.customerRequestToShow.subjectArea }}</p>
+                    <p class="customer-request-description">Subject area</p>
+                </div>
+
+                <div class="w-50">
+                    <p>{{ this.customerRequestToShow.dateRequested }}</p>
+                    <p class="customer-request-description">Request date</p>
+                </div>
+            </div>
+
+            <p>{{ this.customerRequestToShow.description }}</p>
+            <p class="customer-request-description">Description</p>
+            
+            <p>{{ this.customerRequestToShow.assignedTo }}</p>
+            <p class="customer-request-description">Assigned to</p>
+            
+            <p>{{ this.customerRequestToShow.createdBy }}</p>
+            <p class="customer-request-description">Created by</p>
+            
+           
+            
+            <p>{{ this.customerRequestToShow.dueDate }}</p>
+            <p class="customer-request-description">Due date</p>
+
+            <p>{{ this.customerRequestToShow.priority }}</p>
+            <p class="customer-request-description">Priority</p>
+
+            <p>{{ this.customerRequestToShow.status }}</p>
+            <p class="customer-request-description">Status</p>
+
+            <p>{{ this.customerRequestToShow.turnover }}</p>
+            <p class="customer-request-description">Turnover</p>
+        </div>
+    </mat-card-content>
+</mat-card>

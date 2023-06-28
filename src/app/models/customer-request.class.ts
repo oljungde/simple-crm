@@ -31,7 +31,7 @@ export class CustomerRequest {
             this.dateRequested = data.dateRequested;
             this.subjectArea = data.subjectArea;
             this.dueDate = data.dueDate;
-            this.assignedTo = data.assingedTo;
+            this.assignedTo = data.assignedTo;
             this.createdBy = data.createdBy;
         }
     }

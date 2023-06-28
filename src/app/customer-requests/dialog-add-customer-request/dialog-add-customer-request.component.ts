@@ -76,7 +76,7 @@ export class DialogAddCustomerRequestComponent implements OnInit {
         .subscribe(customerContacts => { 
         this.customerContacts = customerContacts;
         console.log('customerContacts ', customerContacts);
-        this.customerContactNames = customerContacts.map(customerContact => (`${customerContact.firstName}, ${customerContact.lastName}`));
+        this.customerContactNames = customerContacts.map(customerContact => (`${customerContact.firstName} ${customerContact.lastName}`));
         this.customerContactNames = this.customerContactNames.sort();
       });
     this.newCustomerRequestForm.get('subjectArea')?.valueChanges.subscribe(subjectAreaValue => {
@@ -86,7 +86,7 @@ export class DialogAddCustomerRequestComponent implements OnInit {
 
 
   identifyCustomerContactId(customerContactName: string) {
-    const customerContact = this.customerContacts.find((customerContact: { firstName: string; lastName: string; }) => (`${customerContact.firstName}, ${customerContact.lastName}`) === customerContactName);
+    const customerContact = this.customerContacts.find((customerContact: { firstName: string; lastName: string; }) => (`${customerContact.firstName} ${customerContact.lastName}`) === customerContactName);
     this.customerContactRef = customerContact.customerContactId;
     console.log('customerContactRef ', this.customerContactRef);
   }
@@ -117,6 +117,8 @@ export class DialogAddCustomerRequestComponent implements OnInit {
       newCustomerRequest.customerRef = this.customerService.customerId;  
       this.identifyCustomerContactId(this.newCustomerRequestForm.value.customerContactName); 
       newCustomerRequest.customerContactRef = this.customerContactRef; 
+      newCustomerRequest.dueDate = new Date(this.newCustomerRequestForm.value.dueDate).toLocaleString('de-DE', { timeZone: 'Europe/Berlin', dateStyle: 'short' });
+      console.log('Due date is: ', newCustomerRequest.dueDate);
       this.customerRequestsService.saveNewCustomerRequest(newCustomerRequest);
       if (newCustomerRequest.customerRef) {
         this.customerRequestsService.getCustomerRequests(newCustomerRequest.customerRef);

@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { CustomerRequest } from '../models/customer-request.class';
-import { DocumentReference, Firestore, addDoc, collection, doc, onSnapshot, orderBy, query, updateDoc, where } from '@angular/fire/firestore';
+import { DocumentReference, Firestore, addDoc, collection, doc, getDoc, onSnapshot, orderBy, query, updateDoc, where } from '@angular/fire/firestore';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
@@ -10,6 +10,7 @@ export class CustomerRequestsService {
   loading: boolean = false;
   newCustomerRequest = new CustomerRequest();
   customerRequestId: string = '';
+  currentCustomerRequest: any;
   firestore: Firestore = inject(Firestore);
   customerRequestsCollection = collection(this.firestore, 'customerRequests');
   allCustomerRequests$ = new BehaviorSubject<any[]>([]);
@@ -69,5 +70,16 @@ export class CustomerRequestsService {
       });
       return unsubscribe;
     });
+  }
+
+
+  async getCurrentCustomerRequest() {
+    const docRef = doc(this.customerRequestsCollection, this.customerRequestId);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      this.currentCustomerRequest = new CustomerRequest(docSnap.data());
+    } else {
+      console.log('No such document!');
+    }
   }
 }

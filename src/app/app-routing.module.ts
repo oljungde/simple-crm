@@ -6,6 +6,8 @@ import { UserDetailComponent } from './user/user-detail/user-detail.component';
 import { LoginComponent } from './login/login.component';
 import { CustomerComponent } from './customer/customer/customer.component';
 import { CustomerDetailComponent } from './customer/customer-detail/customer-detail.component';
+import { CustomerRequestsDetailComponent } from './customer-requests/customer-requests-detail/customer-requests-detail.component';
+
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -14,7 +16,8 @@ const routes: Routes = [
   { path: 'user', component: UserComponent },
   { path: 'user/:id', component: UserDetailComponent },
   { path: 'customer', component: CustomerComponent },
-  { path: 'customer/:id', component: CustomerDetailComponent }
+  { path: 'customer/:id', component: CustomerDetailComponent },
+  { path: 'customer-requests/:id', component: CustomerRequestsDetailComponent}
 ];
 
 @NgModule({

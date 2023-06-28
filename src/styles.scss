@@ -36,8 +36,12 @@ $dark-theme: mat.define-dark-theme((
         }
 
         th {
-            color: rgba(0,0,0,0.4)
+            color: rgba(0, 0, 0, 0.4)
         }
+    }
+
+    .customer-request-description {
+        color: rgba(0, 0, 0, 0.4);
     }
 
     .customer-requests-card {
@@ -68,8 +72,12 @@ $dark-theme: mat.define-dark-theme((
         }
 
         th {    
-            color: rgba(255,255,255,0.5)
+            color: rgba(255, 255, 255, 0.50)
         }
+    }
+
+    .customer-request-description {
+        color: rgba(255, 255, 255, 0.50);
     }
 
     .customer-requests-card {

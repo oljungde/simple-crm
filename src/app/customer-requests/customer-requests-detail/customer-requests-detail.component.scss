@@ -1,0 +1,45 @@
+.customer-request-detail-header {
+    min-height: 150px;
+    display: flex;
+    justify-content: center;
+
+    img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+
+    h2,
+    p {
+        margin-bottom: 0;
+    }
+
+    p {
+        margin-top: 24px;
+    }
+
+    .customer-request-detail-header-content {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+}
+
+.btn-edit-customer-request {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+}
+
+.customer-request-detail-row {
+    display: flex;
+}
+
+.customer-request-description {
+    font-size: 12px;
+    margin: 0 !important;
+}

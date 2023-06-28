@@ -44,7 +44,7 @@ import { CustomerRequestsComponent } from './customer-requests/customer-requests
 import { DialogAddCustomerRequestComponent } from './customer-requests/dialog-add-customer-request/dialog-add-customer-request.component';
 import { DateAdapter } from '@angular/material/core'; 
 import { StartWeekMonday } from './models/start-week-monday.class';
-
+import { CustomerRequestsDetailComponent } from './customer-requests/customer-requests-detail/customer-requests-detail.component';
 
 
 @NgModule({
@@ -66,6 +66,7 @@ import { StartWeekMonday } from './models/start-week-monday.class';
     DialogEditCustomerContactComponent,
     CustomerRequestsComponent,
     DialogAddCustomerRequestComponent,
+    CustomerRequestsDetailComponent
   ],
   imports: [
     BrowserModule,
