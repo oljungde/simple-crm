@@ -30,8 +30,18 @@ export class CustomerRequestsDetailComponent implements OnInit {
       this.customerRef = this.customerRequestToShow.customerRef;
       console.log('Customer Request to show: ', this.customerRequestToShow);
       console.log('Due date is: ', this.customerRequestToShow.dueDate);
-      console.log('Customer Ref from ts is', this.customerRequestToShow.customerRef);      
+      console.log('Customer Ref from ts is', this.customerRequestToShow.customerRef);   
+      await this.getCustomerName(this.customerRef);  
     });
+  }
+
+
+  async getCustomerName(customerRef: string) {
+    this.customerService.customerId = customerRef;
+    await this.customerService.getCustomer();
+    const customer = this.customerService.customer;
+    this.customerName = customer.name || '';
+    console.log('Customer name is: ', this.customerName);
   }
 
 

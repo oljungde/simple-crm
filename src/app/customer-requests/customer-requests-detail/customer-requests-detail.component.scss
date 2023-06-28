@@ -11,15 +11,11 @@
 
     h2 {
         font-size: 24px;
-    }
-
-    h2,
-    p {
         margin-bottom: 0;
     }
 
     p {
-        margin-top: 24px;
+        margin: 0;
     }
 
     .customer-request-detail-header-content {
@@ -37,9 +33,9 @@
 
 .customer-request-detail-row {
     display: flex;
+    margin: 16px 0;
 }
 
 .customer-request-description {
     font-size: 12px;
-    margin: 0 !important;
 }
