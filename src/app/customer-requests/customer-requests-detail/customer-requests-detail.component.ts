@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CustomerRequestsService } from '../../shared/customer-requests.service';
 import { CustomerService } from '../../shared/customer.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogEditCustomerRequestComponent } from '../dialog-edit-customer-request/dialog-edit-customer-request.component';
 
 @Component({
   selector: 'app-customer-request-detail',
@@ -16,7 +18,8 @@ export class CustomerRequestsDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     public customerRequestsService: CustomerRequestsService,
-    public customerService: CustomerService
+    public customerService: CustomerService,
+    public dialog: MatDialog
   ) { }
 
 
@@ -47,6 +50,12 @@ export class CustomerRequestsDetailComponent implements OnInit {
 
   editCustomerRequestDetail() {
     console.log('Edit customer request detail clicked');
-    
+    const dialog = this.dialog.open(DialogEditCustomerRequestComponent);
+    dialog.componentInstance.customerRequestsService.currentCustomerRequest = this.customerRequestToShow;
+    dialog.componentInstance.customerRequestsService.customerRequestId = this.customerRequestsService.customerRequestId;
+    dialog.componentInstance.customerName = this.customerName;
+    dialog.afterClosed().subscribe(() => {
+      this.customerRequestsService.getCurrentCustomerRequest();
+    });
   }
 }

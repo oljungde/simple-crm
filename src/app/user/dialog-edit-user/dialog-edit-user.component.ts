@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { ThemeService } from '../../shared/theme.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { UserService } from '../../shared/user.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { User } from '../../models/user.class';
 import { AuthService } from '../../shared/auth.service';
 

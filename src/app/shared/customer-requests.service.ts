@@ -82,4 +82,15 @@ export class CustomerRequestsService {
       console.log('No such document!');
     }
   }
+
+
+  async updateCustomerRequest(customerRequest: CustomerRequest) {
+    this.loading = true;
+    const docRef = doc(this.customerRequestsCollection, this.customerRequestId);
+    await updateDoc(docRef, customerRequest.toJSON())
+      .then(() => {
+        console.log('Customer Request updated');
+        this.loading = false;
+      });
+  }
 }
