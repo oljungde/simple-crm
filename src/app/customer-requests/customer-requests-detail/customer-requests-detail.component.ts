@@ -26,16 +26,11 @@ export class CustomerRequestsDetailComponent implements OnInit {
 
   async ngOnInit() {
     this.route.paramMap.subscribe(async (params: any) => {
-      console.log('Params are: ', params.get('id'));
       this.customerRequestsService.customerRequestId = params.get('id') || '';
-      console.log('From Service: ', this.customerRequestsService.customerRequestId);
       await this.customerRequestsService.getCurrentCustomerRequest();
       this.customerRequestToShow = this.customerRequestsService.currentCustomerRequest;
       this.customerRef = this.customerRequestToShow.customerRef;
-      console.log('Customer Request to show: ', this.customerRequestToShow);
-      console.log('Due date is: ', new Date(this.customerRequestToShow.dueDate).toLocaleDateString());
-      this.dueDate = new Date(this.customerRequestToShow.dueDate).toLocaleDateString();
-      console.log('Customer Ref from ts is', this.customerRequestToShow.customerRef);   
+      this.dueDate = new Date(this.customerRequestToShow.dueDate).toLocaleDateString(); 
       await this.getCustomerName(this.customerRef);  
     });
   }
@@ -50,14 +45,16 @@ export class CustomerRequestsDetailComponent implements OnInit {
   }
 
 
-  editCustomerRequestDetail() {
+  async editCustomerRequestDetail() {
     console.log('Edit customer request detail clicked');
     const dialog = this.dialog.open(DialogEditCustomerRequestComponent);
     dialog.componentInstance.customerRequestsService.currentCustomerRequest = this.customerRequestToShow;
     dialog.componentInstance.customerRequestsService.customerRequestId = this.customerRequestsService.customerRequestId;
     dialog.componentInstance.customerName = this.customerName;
-    dialog.afterClosed().subscribe(() => {
-      this.customerRequestsService.getCurrentCustomerRequest();
+    dialog.afterClosed().subscribe(async () => {
+      await this.customerRequestsService.getCurrentCustomerRequest();
+      this.customerRequestToShow = this.customerRequestsService.currentCustomerRequest;
+      this.dueDate = new Date(this.customerRequestToShow.dueDate).toLocaleDateString();
     });
   }
 }
