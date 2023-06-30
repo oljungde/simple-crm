@@ -10,7 +10,7 @@ export class CustomerRequest {
     status: string = '';
     priority: string = '';
     dateRequested: string = '';
-    dueDate: string = '';
+    dueDate: number | undefined;
     subjectArea: string = '';
     assignedTo: string = '';
     createdBy: string = '';

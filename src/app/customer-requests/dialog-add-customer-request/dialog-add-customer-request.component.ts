@@ -58,7 +58,7 @@ export class DialogAddCustomerRequestComponent implements OnInit {
       priority: ['', Validators.required],
       status: ['', Validators.required], 
       dateRequested: new Date().toLocaleString('de-DE', { timeZone: 'Europe/Berlin', timeStyle: 'short', dateStyle: 'short' }),
-      dueDate: ['',],
+      dueDate: [new Date().getTime(),],
       assignedTo: ['',] 
     });
   }
@@ -117,7 +117,9 @@ export class DialogAddCustomerRequestComponent implements OnInit {
       newCustomerRequest.customerRef = this.customerService.customerId;  
       this.identifyCustomerContactId(this.newCustomerRequestForm.value.customerContactName); 
       newCustomerRequest.customerContactRef = this.customerContactRef; 
-      newCustomerRequest.dueDate = new Date(this.newCustomerRequestForm.value.dueDate).toLocaleString('de-DE', { timeZone: 'Europe/Berlin', dateStyle: 'short' });
+      console.log('Due Date from new Request is: ', new Date(this.newCustomerRequestForm.value.dueDate).getTime());
+      newCustomerRequest.dueDate = new Date(this.newCustomerRequestForm.value.dueDate).getTime();
+      // newCustomerRequest.dueDate = new Date(this.newCustomerRequestForm.value.dueDate).toLocaleString('de-DE', { timeZone: 'Europe/Berlin', dateStyle: 'short' });
       console.log('Due date is: ', newCustomerRequest.dueDate);
       this.customerRequestsService.saveNewCustomerRequest(newCustomerRequest);
       if (newCustomerRequest.customerRef) {

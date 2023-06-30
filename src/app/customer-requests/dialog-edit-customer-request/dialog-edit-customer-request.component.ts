@@ -38,7 +38,7 @@ export class DialogEditCustomerRequestComponent implements OnInit {
   ];
   userNames: any = [];
   minDate = new Date();
-  dueDate = new FormControl(new Date(this.customerRequestsService.currentCustomerRequest.dueDate));
+  dueDate = new FormControl(new Date(this.customerRequestsService.currentCustomerRequest.dueDate));  
   updateCustomerRequestForm = this.formBuilder.group({
     title: [this.customerRequestsService.currentCustomerRequest.title, Validators.required],
     customerContactName: [this.customerRequestsService.currentCustomerRequest.customerContactName, Validators.required],
@@ -47,7 +47,7 @@ export class DialogEditCustomerRequestComponent implements OnInit {
     priority: [this.customerRequestsService.currentCustomerRequest.priority, Validators.required],
     status: [this.customerRequestsService.currentCustomerRequest.status, Validators.required],
     assignedTo: [this.customerRequestsService.currentCustomerRequest.assignedTo, Validators.required],
-    dueDate: [this.customerRequestsService.currentCustomerRequest.dueDate, Validators.required],
+    dueDate: [this.dueDate.value, Validators.required],
     turnover: [this.customerRequestsService.currentCustomerRequest.turnover, Validators.required],
   });
 
@@ -80,6 +80,7 @@ export class DialogEditCustomerRequestComponent implements OnInit {
         this.showTurnover();
       });
       console.log('Timestamp is',new Date(this.customerRequestsService.currentCustomerRequest.dueDate).getTime());
+      console.log(this.dueDate.value);
     }
 
 
@@ -108,7 +109,7 @@ export class DialogEditCustomerRequestComponent implements OnInit {
         customerRequest.customerRequestId = this.customerRequestsService.currentCustomerRequest.customerRequestId;
         customerRequest.createdBy = this.customerRequestsService.currentCustomerRequest.createdBy;
         customerRequest.dateRequested = this.customerRequestsService.currentCustomerRequest.dateRequested;
-        customerRequest.dueDate = this.updateCustomerRequestForm.value.dueDate ? new Date(this.updateCustomerRequestForm.value.dueDate).toLocaleDateString() : '';
+        customerRequest.dueDate = this.updateCustomerRequestForm.value.dueDate?.getTime();
         customerRequest.userRef = this.customerRequestsService.currentCustomerRequest.userRef;
         this.customerRequestsService.updateCustomerRequest(customerRequest);
         this.dialogRef.close();

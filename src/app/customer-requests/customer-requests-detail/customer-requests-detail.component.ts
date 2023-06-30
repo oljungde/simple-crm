@@ -14,6 +14,7 @@ export class CustomerRequestsDetailComponent implements OnInit {
   customerRequestToShow: any = {};
   customerRef: string = '';
   customerName: string = '';
+  dueDate: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -32,7 +33,8 @@ export class CustomerRequestsDetailComponent implements OnInit {
       this.customerRequestToShow = this.customerRequestsService.currentCustomerRequest;
       this.customerRef = this.customerRequestToShow.customerRef;
       console.log('Customer Request to show: ', this.customerRequestToShow);
-      console.log('Due date is: ', this.customerRequestToShow.dueDate);
+      console.log('Due date is: ', new Date(this.customerRequestToShow.dueDate).toLocaleDateString());
+      this.dueDate = new Date(this.customerRequestToShow.dueDate).toLocaleDateString();
       console.log('Customer Ref from ts is', this.customerRequestToShow.customerRef);   
       await this.getCustomerName(this.customerRef);  
     });
