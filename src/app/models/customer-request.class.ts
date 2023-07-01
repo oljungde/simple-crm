@@ -39,21 +39,21 @@ export class CustomerRequest {
 
     toJSON() {
         return {
-        customerRequestId: this.customerRequestId,
-        customerRef: this.customerRef,
-        userRef: this.userRef,
-        customerContactRef: this.customerContactRef,
-        title: this.title,
-        description: this.description,
-        customerContactName: this.customerContactName,
-        turnover: this.turnover,
-        status: this.status,
-        priority: this.priority,
-        dateRequested: this.dateRequested,
-        subjectArea: this.subjectArea,
-        dueDate: this.dueDate,
-        assignedTo: this.assignedTo,
-        createdBy: this.createdBy
+            customerRequestId: this.customerRequestId,
+            customerRef: this.customerRef,
+            userRef: this.userRef,
+            customerContactRef: this.customerContactRef,
+            title: this.title,
+            description: this.description,
+            customerContactName: this.customerContactName,
+            turnover: this.turnover,
+            status: this.status,
+            priority: this.priority,
+            dateRequested: this.dateRequested,
+            subjectArea: this.subjectArea,
+            dueDate: this.dueDate,
+            assignedTo: this.assignedTo,
+            createdBy: this.createdBy
         };
     }
 }

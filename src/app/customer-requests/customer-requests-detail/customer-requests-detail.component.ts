@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ThemeService } from '../../shared/theme.service';
 import { CustomerRequestsService } from '../../shared/customer-requests.service';
 import { CustomerService } from '../../shared/customer.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogEditCustomerRequestComponent } from '../dialog-edit-customer-request/dialog-edit-customer-request.component';
+import { DialogAddCustomerRequestNoteComponent } from '../dialog-add-customer-request-note/dialog-add-customer-request-note.component';
 
 @Component({
   selector: 'app-customer-request-detail',
@@ -11,6 +13,7 @@ import { DialogEditCustomerRequestComponent } from '../dialog-edit-customer-requ
   styleUrls: ['./customer-requests-detail.component.scss']
 })
 export class CustomerRequestsDetailComponent implements OnInit {
+  isLightTheme: boolean = false;
   customerRequestToShow: any = {};
   customerRef: string = '';
   customerName: string = '';
@@ -18,6 +21,7 @@ export class CustomerRequestsDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    public themeService: ThemeService,
     public customerRequestsService: CustomerRequestsService,
     public customerService: CustomerService,
     public dialog: MatDialog
@@ -32,6 +36,9 @@ export class CustomerRequestsDetailComponent implements OnInit {
       this.customerRef = this.customerRequestToShow.customerRef;
       this.dueDate = new Date(this.customerRequestToShow.dueDate).toLocaleDateString(); 
       await this.getCustomerName(this.customerRef);  
+    });
+    this.themeService.isLightTheme$.subscribe(isLightTheme => {
+      this.isLightTheme = isLightTheme;        
     });
   }
 
@@ -55,6 +62,13 @@ export class CustomerRequestsDetailComponent implements OnInit {
       await this.customerRequestsService.getCurrentCustomerRequest();
       this.customerRequestToShow = this.customerRequestsService.currentCustomerRequest;
       this.dueDate = new Date(this.customerRequestToShow.dueDate).toLocaleDateString();
+    });
+  }
+
+
+  openDialog(isLightTheme: boolean) {
+    this.dialog.open(DialogAddCustomerRequestNoteComponent, {
+      panelClass: isLightTheme ? 'light-theme' : 'dark-theme'
     });
   }
 }
