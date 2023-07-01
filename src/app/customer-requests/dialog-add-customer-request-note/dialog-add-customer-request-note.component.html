@@ -3,6 +3,14 @@
     <h1 mat-dialog-title>Add customer request note</h1>
     <div mat-dialog-content>
         <form [formGroup]="newCustomerRequestNoteForm" (ngSubmit)="saveCustomerRequestNote()">
+            <div class="form-row">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label for="description">note</mat-label>
+                    <textarea id="note" [disabled]="customerRequestsNotesService.loading" formControlName="note" matInput placeholder="Enter your note"></textarea>
+                    <mat-error *ngIf="newCustomerRequestNoteForm.get('note')?.invalid && newCustomerRequestNoteForm.get('note')?.errors?.['required']">Please enter a note</mat-error>
+                </mat-form-field>
+            </div>
+
             <!-- <div class="form-row">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label for="subjectArea">Subject area</mat-label>
@@ -21,13 +29,7 @@
                 </mat-form-field>
             </div>
 
-            <div class="form-row">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label for="description">Description</mat-label>
-                    <textarea id="description" [disabled]="customerRequestsService.loading" formControlName="description" matInput placeholder="Enter the description"></textarea>
-                    <mat-error *ngIf="newCustomerRequestForm.get('description')?.invalid && newCustomerRequestForm.get('description')?.errors?.['required']">Please enter a description</mat-error>
-                </mat-form-field>
-            </div>
+            
 
             <div class="form-row">
                 <mat-form-field appearance="outline" class="w-100">

@@ -43,22 +43,6 @@ export class AuthService implements OnInit {
           reject(error);
         });
     });
-    // if (!this.auth) {
-    //   console.error('Firebase has not been initialized yet.');
-    //   return;
-    // }
-    // createUserWithEmailAndPassword(this.auth, email, password)
-    //   .then((userCredential) => {
-    //     this.emailIsRegistered = false;
-    //   })
-    //   .catch((error) => {
-    //     if(error.code === 'auth/email-already-in-use'){
-    //       this.emailIsRegistered = true;
-    //     } else {
-    //       this.emailIsRegistered = false;
-    //       console.error(error);
-    //     }
-    //   });
   }
 
 
