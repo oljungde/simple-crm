@@ -47,6 +47,7 @@ import { StartWeekMonday } from './models/start-week-monday.class';
 import { CustomerRequestsDetailComponent } from './customer-requests/customer-requests-detail/customer-requests-detail.component';
 import { DialogEditCustomerRequestComponent } from './customer-requests/dialog-edit-customer-request/dialog-edit-customer-request.component';
 import { DialogAddCustomerRequestNoteComponent } from './customer-requests/dialog-add-customer-request-note/dialog-add-customer-request-note.component';
+import { CustomerRequestNotesComponent } from './customer-requests/customer-request-notes/customer-request-notes.component';
 
 
 @NgModule({
@@ -70,7 +71,8 @@ import { DialogAddCustomerRequestNoteComponent } from './customer-requests/dialo
     DialogAddCustomerRequestComponent,
     CustomerRequestsDetailComponent,
     DialogEditCustomerRequestComponent,
-    DialogAddCustomerRequestNoteComponent
+    DialogAddCustomerRequestNoteComponent,
+    CustomerRequestNotesComponent
   ],
   imports: [
     BrowserModule,
