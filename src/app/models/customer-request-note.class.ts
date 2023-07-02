@@ -3,7 +3,7 @@ export class CustomerRequestNote {
     note: string = '';
     customerRequestRef: string = '';
     userRef: string = '';
-    dateCreated: Date = new Date();
+    dateCreated: number = new Date().getTime();
 
 
     constructor(data?: any) {

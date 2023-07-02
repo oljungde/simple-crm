@@ -6,6 +6,8 @@ import { CustomerService } from '../../shared/customer.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogEditCustomerRequestComponent } from '../dialog-edit-customer-request/dialog-edit-customer-request.component';
 import { DialogAddCustomerRequestNoteComponent } from '../dialog-add-customer-request-note/dialog-add-customer-request-note.component';
+import { CustomerRequestsNotesService } from '../../shared/customer-requests-notes.service';
+import { UserService } from '../../shared/user.service';
 
 @Component({
   selector: 'app-customer-request-detail',
@@ -18,13 +20,18 @@ export class CustomerRequestsDetailComponent implements OnInit {
   customerRef: string = '';
   customerName: string = '';
   dueDate: string = '';
+  customerRequestNotes: any = [];
+  customerRequestNoteUser: string = '';
+
 
   constructor(
     private route: ActivatedRoute,
     public themeService: ThemeService,
     public customerRequestsService: CustomerRequestsService,
     public customerService: CustomerService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public customerRequestsNotesService: CustomerRequestsNotesService,
+    public userService: UserService
   ) { }
 
 
@@ -40,6 +47,12 @@ export class CustomerRequestsDetailComponent implements OnInit {
     this.themeService.isLightTheme$.subscribe(isLightTheme => {
       this.isLightTheme = isLightTheme;        
     });
+    this.customerRequestsNotesService.getNotesByRequestRef(this.customerRequestsService.customerRequestId)
+      .subscribe(data => {
+        this.customerRequestNotes = data;
+        console.log('Diese Request Notes', this.customerRequestNotes);
+    });
+    this.customerRequestNoteUser = await this.userService.getUserShortNameById(this.userService.userLoggedInId);
   }
 
 
