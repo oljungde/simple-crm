@@ -24,7 +24,7 @@
                 <th>Created by</th>
             </tr>
             <tr *ngFor="let customerRequest of this.customerRequests" [routerLink]="['/customer-requests/'+customerRequest.id]">
-                <td>{{ customerRequest.dateRequested }}</td>
+                <td>{{ customerRequest.dateRequested | date:'dd.MM.yy, HH:mm':'':'de' }}</td>
                 <td>{{ customerRequest.subjectArea }}</td>
                 <td>{{ customerRequest.title }}</td>
                 <td>{{ customerRequest.customerContactName }}</td>

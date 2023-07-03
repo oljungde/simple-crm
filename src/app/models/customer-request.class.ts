@@ -9,7 +9,7 @@ export class CustomerRequest {
     turnover: string = '';
     status: string = '';
     priority: string = '';
-    dateRequested: string = '';
+    dateRequested: number | undefined;
     dueDate: number | undefined;
     subjectArea: string = '';
     assignedTo: string = '';

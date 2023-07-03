@@ -51,7 +51,7 @@
                 </div>
 
                 <div class="w-50">
-                    <p>{{ this.customerRequestToShow.dateRequested }}</p>
+                    <p>{{ this.customerRequestToShow.dateRequested | date:'dd.MM.yy, HH:mm':'':'de' }}</p>
                     <p class="customer-request-description">Request date</p>
                 </div>
             </div>

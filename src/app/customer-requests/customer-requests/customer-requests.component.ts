@@ -15,6 +15,7 @@ export class CustomerRequestsComponent implements OnInit {
   @Input() customerId = '';
   customerRequests: any = [];
   @ViewChild('searchInput') searchInput: ElementRef | undefined;
+  dateRequestedString: string = '';
 
 
   constructor(
@@ -32,7 +33,8 @@ export class CustomerRequestsComponent implements OnInit {
       .subscribe(data => {
         this.customerRequests = data;
         console.log('Diese Kundenanfragen', this.customerRequests);
-      });
+    });
+    // this.dateRequestedString = new Date().toLocaleString('de-DE', { timeZone: 'Europe/Berlin', timeStyle: 'short', dateStyle: 'short' });
   }
 
 

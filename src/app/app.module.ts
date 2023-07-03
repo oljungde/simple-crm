@@ -48,6 +48,11 @@ import { CustomerRequestsDetailComponent } from './customer-requests/customer-re
 import { DialogEditCustomerRequestComponent } from './customer-requests/dialog-edit-customer-request/dialog-edit-customer-request.component';
 import { DialogAddCustomerRequestNoteComponent } from './customer-requests/dialog-add-customer-request-note/dialog-add-customer-request-note.component';
 import { CustomerRequestNotesComponent } from './customer-requests/customer-request-notes/customer-request-notes.component';
+import { registerLocaleData } from '@angular/common';
+import localeDe from '@angular/common/locales/de';
+
+
+registerLocaleData(localeDe);
 
 
 @NgModule({
