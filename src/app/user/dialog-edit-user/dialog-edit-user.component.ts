@@ -19,7 +19,6 @@ export class DialogEditUserComponent {
     lastName: [this.userService.user.lastName, Validators.required],
     email: [this.userService.user.email, [Validators.required, Validators.email]],
     team: [this.userService.user.team, Validators.required],
-    shortName: [this.userService.user.shortName, Validators.required],
   });
   teams = [
     'Sales',
@@ -49,6 +48,7 @@ export class DialogEditUserComponent {
       this.updateForm.controls['email'].enable();
       const user = new User();
       Object.assign(user, this.updateForm.value);
+      user.fullName = `${user.firstName} ${user.lastName}`;
       this.userService.updateUser(user);
       this.dialogRef.close();
     }

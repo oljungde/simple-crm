@@ -52,7 +52,7 @@ export class CustomerRequestsDetailComponent implements OnInit {
         this.customerRequestNotes = data;
         console.log('Diese Request Notes', this.customerRequestNotes);
     });
-    this.customerRequestNoteUser = await this.userService.getUserShortNameById(this.userService.userLoggedInId);
+    this.customerRequestNoteUser = await this.userService.getUserFullNameById(this.userService.userLoggedInId);
   }
 
 

@@ -38,8 +38,7 @@ export class UserComponent implements OnInit {
       return (user.firstName.toLowerCase().includes(searchTerm) ||
         user.lastName.toLowerCase().includes(searchTerm) ||
         user.email.toLowerCase().includes(searchTerm) ||
-        user.team.toLowerCase().includes(searchTerm) ||
-        user.shortName.toLowerCase().includes(searchTerm));
+        user.team.toLowerCase().includes(searchTerm));
     });
   }
 

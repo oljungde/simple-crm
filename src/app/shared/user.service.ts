@@ -16,7 +16,7 @@ export class UserService {
   allUsers$ = new BehaviorSubject<any[]>([]);
   allUsers = this.allUsers$.asObservable();
   userLoggedInId: any;
-  userLoggedInShortName: any;
+  userLoggedInFullName: any;
 
   constructor() {
     this.observeUsers();
@@ -60,12 +60,11 @@ export class UserService {
 }
 
 
-async getUserShortNameById(userId: string) {
+async getUserFullNameById(userId: string) {
   const docRef = doc(this.usersCollection, userId);
   const docSnap = await getDoc(docRef);
   if (docSnap.exists()) {
-    console.log('Short name is: ', docSnap.data()['shortName']);
-    return docSnap.data()['shortName'];
+    return docSnap.data()['fullName'];
   } else {
     console.log('No such document!');
   }

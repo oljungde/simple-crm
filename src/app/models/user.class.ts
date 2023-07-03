@@ -4,7 +4,7 @@ export class User {
     lastName: string | undefined;
     email: string | undefined;
     team: string | undefined;
-    shortName: string | undefined;
+    fullName: string | undefined;
     
 
     constructor(obj?: any) {
@@ -13,7 +13,7 @@ export class User {
     this.lastName = obj ? obj.lastName : '';
     this.email = obj ? obj.email : '';
     this.team = obj ? obj.team : '';
-    this.shortName = obj ? obj.shortName : '';
+    this.fullName = obj ? obj.fullName : '';
     }
 
 
@@ -24,7 +24,7 @@ export class User {
             lastName: this.lastName,
             email: this.email,
             team: this.team,
-            shortName: this.shortName,
+            fullName: this.firstName + ' ' + this.lastName,
         };
     }
 }

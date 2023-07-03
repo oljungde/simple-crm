@@ -11,13 +11,11 @@
         <table class="user-table">
             <tr>
                 <th>Name</th>
-                <th>Short name</th>
                 <th>E-Mail</th>
                 <th>Team</th>
             </tr>
             <tr *ngFor="let user of filteredUsers" [routerLink]="['/user/'+user.id]">
                 <td>{{ user.firstName }} {{ user.lastName }}</td>
-                <td>{{ user.shortName }}</td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.team }}</td>
             </tr>

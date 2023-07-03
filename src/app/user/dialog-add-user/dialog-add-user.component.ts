@@ -41,7 +41,6 @@ export class DialogAddUserComponent implements OnInit {
         email: ['', [Validators.required, Validators.email]],
         password: [password, Validators.required],
         team: ['', Validators.required],
-        shortName: ['', Validators.required],
       });
     }
 
@@ -69,6 +68,7 @@ export class DialogAddUserComponent implements OnInit {
       this.authService.registerUser(this.registerForm.value.email, this.registerForm.value.password)
         .then(() => {
           this.emailIsRegistered = false;
+          newUser.fullName = `${newUser.firstName} ${newUser.lastName}`;
           this.userService.saveNewUser(newUser);
           this.resetForm();
           this.dialogRef.close();
