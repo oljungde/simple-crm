@@ -35,7 +35,8 @@ export class DialogAddCustomerRequestComponent implements OnInit {
     'Invoice'
   ];
   minDate = new Date();
-  userNames: any = [];
+  // userNames: any = [];
+  userDetails: any = [];
   customerContacts: any = [];
   customerContactNames: any = [];
   customerContactRef: string = '';
@@ -57,21 +58,29 @@ export class DialogAddCustomerRequestComponent implements OnInit {
       turnover: ['', Validators.required],
       priority: ['', Validators.required],
       status: ['', Validators.required], 
-      // dateRequested: new Date().toLocaleString('de-DE', { timeZone: 'Europe/Berlin', timeStyle: 'short', dateStyle: 'short' }),
       dateRequested: [new Date().getTime(),],
       dueDate: [new Date().getTime(),],
-      assignedTo: ['',] 
+      assignedToUserRef: ['',],
+      assignedToUserName: ['',], 
     });
   }
 
 
   ngOnInit(): void {
     this.isLightTheme$ = this.themeService.isLightTheme$;
+
+    // this.userService.allUsers$.pipe(
+    //   map(users => users.map(user => (`${user.firstName} ${user.lastName}`)))
+    // ).subscribe(userNames => {
+    //   this.userNames = userNames;
+    // });
+
     this.userService.allUsers$.pipe(
-      map(users => users.map(user => (`${user.firstName} ${user.lastName}`)))
-    ).subscribe(userNames => {
-      this.userNames = userNames;
+      map(users => users.map(user => ({name: `${user.firstName} ${user.lastName}`, id: user.userId})))
+    ).subscribe(userDetails => {
+      this.userDetails = userDetails;
     });
+
     this.customerContactsService.allCustomerContacts$.pipe(
       map(customerContacts => customerContacts.filter(customerContacts => customerContacts.customerRef === this.customerService.customerId)))
         .subscribe(customerContacts => { 
@@ -111,17 +120,14 @@ export class DialogAddCustomerRequestComponent implements OnInit {
   async saveCustomerRequest() {
     if(this.newCustomerRequestForm.valid) {
       const newCustomerRequest = new CustomerRequest();
-      Object.assign(newCustomerRequest, this.newCustomerRequestForm.value);
-      console.log('User logged in ID ', this.userService.userLoggedInId);      
+      Object.assign(newCustomerRequest, this.newCustomerRequestForm.value);     
       newCustomerRequest.userRef = this.userService.userLoggedInId;
       newCustomerRequest.createdBy = await this.userService.getUserFullNameById(this.userService.userLoggedInId);
+      newCustomerRequest.assignedToUserName = await this.userService.getUserFullNameById(this.newCustomerRequestForm.value.assignedToUserRef);
       newCustomerRequest.customerRef = this.customerService.customerId;  
       this.identifyCustomerContactId(this.newCustomerRequestForm.value.customerContactName); 
       newCustomerRequest.customerContactRef = this.customerContactRef; 
-      console.log('Due Date from new Request is: ', new Date(this.newCustomerRequestForm.value.dueDate).getTime());
       newCustomerRequest.dueDate = new Date(this.newCustomerRequestForm.value.dueDate).getTime();
-      // newCustomerRequest.dueDate = new Date(this.newCustomerRequestForm.value.dueDate).toLocaleString('de-DE', { timeZone: 'Europe/Berlin', dateStyle: 'short' });
-      console.log('Due date is: ', newCustomerRequest.dueDate);
       this.customerRequestsService.saveNewCustomerRequest(newCustomerRequest);
       if (newCustomerRequest.customerRef) {
         this.customerRequestsService.getCustomerRequests(newCustomerRequest.customerRef);

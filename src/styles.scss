@@ -25,7 +25,8 @@ $dark-theme: mat.define-dark-theme((
     .user-table,
     .customer-table,
     .contacts-table,
-    .request-table {
+    .request-table,
+    .tasks-table {
 
         tr {
             border-bottom: 1px solid rgba(0,0,0,0.4);
@@ -62,7 +63,8 @@ $dark-theme: mat.define-dark-theme((
     .user-table,
     .customer-table,
     .contacts-table,
-    .request-table {
+    .request-table,
+    .tasks-table {
 
         tr {
             border-bottom: 1px solid rgba(255,255,255,0.5);

@@ -1,0 +1,26 @@
+<mat-card>
+    <mat-card-content>
+        <div class="tasks-header">
+            <h2>My tasks</h2>
+            <mat-form-field appearance="outline">
+                <mat-label>Search task</mat-label>
+                <input #searchInput (input)="searchTask()" matInput placeholder="Search">
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+        <table class="tasks-table">
+            <tr>
+                <th>Name</th>
+                <th>Street</th>
+                <th>City</th>
+                <th>Phone</th>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </mat-card-content>
+</mat-card>

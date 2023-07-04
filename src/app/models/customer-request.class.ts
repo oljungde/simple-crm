@@ -12,7 +12,8 @@ export class CustomerRequest {
     dateRequested: number | undefined;
     dueDate: number | undefined;
     subjectArea: string = '';
-    assignedTo: string = '';
+    assignedToUserRef: string = '';
+    assignedToUserName: string = '';
     createdBy: string = '';
 
 
@@ -31,7 +32,8 @@ export class CustomerRequest {
             this.dateRequested = data.dateRequested;
             this.subjectArea = data.subjectArea;
             this.dueDate = data.dueDate;
-            this.assignedTo = data.assignedTo;
+            this.assignedToUserRef = data.assignedTo;
+            this.assignedToUserName = data.assignedToUserName;
             this.createdBy = data.createdBy;
         }
     }
@@ -52,7 +54,8 @@ export class CustomerRequest {
             dateRequested: this.dateRequested,
             subjectArea: this.subjectArea,
             dueDate: this.dueDate,
-            assignedTo: this.assignedTo,
+            assignedToUserRef: this.assignedToUserRef,
+            assignedToUserName: this.assignedToUserName,
             createdBy: this.createdBy
         };
     }

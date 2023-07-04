@@ -14,8 +14,9 @@ export class CustomerRequestsComponent implements OnInit {
   isLightTheme: boolean = false;
   @Input() customerId = '';
   customerRequests: any = [];
-  @ViewChild('searchInput') searchInput: ElementRef | undefined;
   dateRequestedString: string = '';
+  assingedToUserName: string = '';
+  @ViewChild('searchInput') searchInput: ElementRef | undefined;
 
 
   constructor(
@@ -34,7 +35,6 @@ export class CustomerRequestsComponent implements OnInit {
         this.customerRequests = data;
         console.log('Diese Kundenanfragen', this.customerRequests);
     });
-    // this.dateRequestedString = new Date().toLocaleString('de-DE', { timeZone: 'Europe/Berlin', timeStyle: 'short', dateStyle: 'short' });
   }
 
 
@@ -53,7 +53,8 @@ export class CustomerRequestsComponent implements OnInit {
       })
     ).subscribe((data: any) => {
       this.customerRequests = data.filter((request: any) => {
-        return (request.assignedTo.toLowerCase().includes(searchTerm) ||
+        // TODO -> search by assigned to
+        return ( // request.assignedTo.toLowerCase().includes(searchTerm) ||
           request.createdBy.toLowerCase().includes(searchTerm) ||
           request.customerContactName.toLowerCase().includes(searchTerm) ||
           request.description.toLowerCase().includes(searchTerm) ||

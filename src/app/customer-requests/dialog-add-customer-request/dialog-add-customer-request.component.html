@@ -65,9 +65,9 @@
 
             <div class="form-row">
                 <mat-form-field appearance="outline" class="w-50">
-                    <mat-label for="assignedTo">Assign to</mat-label>
-                    <mat-select id="assignedTo" [disabled]="customerRequestsService.loading" formControlName="assignedTo" placeholder="Assign to">
-                        <mat-option *ngFor="let userName of userNames" value="{{ userName }}">{{ userName }}</mat-option>
+                    <mat-label for="assignedToUserRef">Assign to</mat-label>
+                    <mat-select id="assignedToUserRef" [disabled]="customerRequestsService.loading" formControlName="assignedToUserRef" placeholder="Assign to">
+                        <mat-option *ngFor="let userDetail of userDetails" value="{{ userDetail.id }}">{{ userDetail.name }}</mat-option>
                     </mat-select>
                 </mat-form-field>
 
