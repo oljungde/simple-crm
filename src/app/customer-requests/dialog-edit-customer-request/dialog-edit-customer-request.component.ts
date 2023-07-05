@@ -46,9 +46,9 @@ export class DialogEditCustomerRequestComponent implements OnInit {
     subjectArea: [this.customerRequestsService.currentCustomerRequest.subjectArea, Validators.required],
     priority: [this.customerRequestsService.currentCustomerRequest.priority, Validators.required],
     status: [this.customerRequestsService.currentCustomerRequest.status, Validators.required],
-    assignedToUserRef: [this.customerRequestsService.currentCustomerRequest.assignedToUserRef, Validators.required],
-    assignedToUserName: [this.customerRequestsService.currentCustomerRequest.assignedToUserName, Validators.required],
-    dueDate: [this.dueDate.value, Validators.required],
+    assignedToUserRef: [this.customerRequestsService.currentCustomerRequest.assignedToUserRef],
+    assignedToUserName: [this.customerRequestsService.currentCustomerRequest.assignedToUserName],
+    dueDate: [this.dueDate.value],
     turnover: [this.customerRequestsService.currentCustomerRequest.turnover, Validators.required],
   });
 
@@ -81,6 +81,8 @@ export class DialogEditCustomerRequestComponent implements OnInit {
     this.updateCustomerRequestForm.get('subjectArea')?.valueChanges.subscribe(subjectAreaValue => {
       this.showTurnover();
     });
+    console.log('assignedToUserName ', this.customerRequestsService.currentCustomerRequest.assignedToUserName);
+
   }
 
 
@@ -107,9 +109,14 @@ export class DialogEditCustomerRequestComponent implements OnInit {
       console.log('CustomerRequest: ', customerRequest);
 
       Object.assign(customerRequest, this.updateCustomerRequestForm.value);
-      console.log('Assigned to user Ref: ', this.updateCustomerRequestForm.value.assignedToUserRef);
+      for (let i = 0; i < this.userDetails.length; i++) {
+        if (this.userDetails[i].name == this.updateCustomerRequestForm.value.assignedToUserName) {
+          customerRequest.assignedToUserRef = this.userDetails[i].id;
+          break;
+        }
+      }
 
-      customerRequest.assignedToUserName = await this.userService.getUserFullNameById(this.updateCustomerRequestForm.value.assignedToUserRef);
+      // customerRequest.assignedToUserName = await this.userService.getUserFullNameById(this.updateCustomerRequestForm.value.assignedToUserRef);
       console.log('Assigned to user name: ', customerRequest.assignedToUserName);
 
       customerRequest.customerRef = this.customerRequestsService.currentCustomerRequest.customerRef;

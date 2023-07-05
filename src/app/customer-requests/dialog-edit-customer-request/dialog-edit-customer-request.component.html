@@ -66,17 +66,15 @@
           <mat-select id="status" [disabled]="customerRequestsService.loading" formControlName="status" required="" placeholder="Enter a status">
             <mat-option *ngFor="let status of statuses; index as i" value="{{ status }}">{{ status }}</mat-option>
           </mat-select>
-          <mat-error *ngIf="updateCustomerRequestForm.get('status')?.invalid && updateCustomerRequestForm.get('status')?.errors?.['required']">Please
-            select a status</mat-error>
+          <mat-error *ngIf="updateCustomerRequestForm.get('status')?.invalid && updateCustomerRequestForm.get('status')?.errors?.['required']">Pleas select a status</mat-error>
         </mat-form-field>
       </div>
 
       <div class="form-row">
         <mat-form-field appearance="outline" class="w-50">
-          <mat-label for="assignedTo">Assign to</mat-label>
-          <mat-select id="assignedTo" [disabled]="customerRequestsService.loading" formControlName="assignedTo" placeholder="Assign to">
-            <mat-option *ngFor="let userDetail of userDetails" value="{{ userDetail.id }}">{{ userDetail.name
-              }}</mat-option>
+          <mat-label for="assignedToUserName">Assign to</mat-label>
+          <mat-select id="assignedToUserName" [disabled]="customerRequestsService.loading" formControlName="assignedToUserName" placeholder="Assign to">
+            <mat-option *ngFor="let userDetail of userDetails" value="{{ userDetail.name }}">{{ userDetail.name }}</mat-option>
           </mat-select>
         </mat-form-field>
 
