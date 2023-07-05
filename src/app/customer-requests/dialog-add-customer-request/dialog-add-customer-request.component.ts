@@ -43,47 +43,39 @@ export class DialogAddCustomerRequestComponent implements OnInit {
 
 
   constructor(
-  private themeService: ThemeService,
-  public customerRequestsService: CustomerRequestsService,
-  private formBuilder: FormBuilder,
-  public dialogRef: MatDialogRef<DialogAddCustomerRequestComponent>,
-  public userService: UserService,
-  public customerService: CustomerService,
-  public customerContactsService: CustomerContactsService) { 
+    private themeService: ThemeService,
+    public customerRequestsService: CustomerRequestsService,
+    private formBuilder: FormBuilder,
+    public dialogRef: MatDialogRef<DialogAddCustomerRequestComponent>,
+    public userService: UserService,
+    public customerService: CustomerService,
+    public customerContactsService: CustomerContactsService) {
     this.newCustomerRequestForm = this.formBuilder.group({
-      subjectArea: ['', Validators.required], 
-      title: ['', Validators.required], 
+      subjectArea: ['', Validators.required],
+      title: ['', Validators.required],
       description: ['', Validators.required],
-      customerContactName: ['', Validators.required], 
+      customerContactName: ['', Validators.required],
       turnover: ['', Validators.required],
       priority: ['', Validators.required],
-      status: ['', Validators.required], 
+      status: ['', Validators.required],
       dateRequested: [new Date().getTime(),],
       dueDate: [new Date().getTime(),],
       assignedToUserRef: ['',],
-      assignedToUserName: ['',], 
+      assignedToUserName: ['',],
     });
   }
 
 
   ngOnInit(): void {
     this.isLightTheme$ = this.themeService.isLightTheme$;
-
-    // this.userService.allUsers$.pipe(
-    //   map(users => users.map(user => (`${user.firstName} ${user.lastName}`)))
-    // ).subscribe(userNames => {
-    //   this.userNames = userNames;
-    // });
-
     this.userService.allUsers$.pipe(
-      map(users => users.map(user => ({name: `${user.firstName} ${user.lastName}`, id: user.userId})))
+      map(users => users.map(user => ({ name: `${user.firstName} ${user.lastName}`, id: user.userId })))
     ).subscribe(userDetails => {
       this.userDetails = userDetails;
     });
-
     this.customerContactsService.allCustomerContacts$.pipe(
       map(customerContacts => customerContacts.filter(customerContacts => customerContacts.customerRef === this.customerService.customerId)))
-        .subscribe(customerContacts => { 
+      .subscribe(customerContacts => {
         this.customerContacts = customerContacts;
         console.log('customerContacts ', customerContacts);
         this.customerContactNames = customerContacts.map(customerContact => (`${customerContact.firstName} ${customerContact.lastName}`));
@@ -118,15 +110,15 @@ export class DialogAddCustomerRequestComponent implements OnInit {
 
 
   async saveCustomerRequest() {
-    if(this.newCustomerRequestForm.valid) {
+    if (this.newCustomerRequestForm.valid) {
       const newCustomerRequest = new CustomerRequest();
-      Object.assign(newCustomerRequest, this.newCustomerRequestForm.value);     
+      Object.assign(newCustomerRequest, this.newCustomerRequestForm.value);
       newCustomerRequest.userRef = this.userService.userLoggedInId;
       newCustomerRequest.createdBy = await this.userService.getUserFullNameById(this.userService.userLoggedInId);
       newCustomerRequest.assignedToUserName = await this.userService.getUserFullNameById(this.newCustomerRequestForm.value.assignedToUserRef);
-      newCustomerRequest.customerRef = this.customerService.customerId;  
-      this.identifyCustomerContactId(this.newCustomerRequestForm.value.customerContactName); 
-      newCustomerRequest.customerContactRef = this.customerContactRef; 
+      newCustomerRequest.customerRef = this.customerService.customerId;
+      this.identifyCustomerContactId(this.newCustomerRequestForm.value.customerContactName);
+      newCustomerRequest.customerContactRef = this.customerContactRef;
       newCustomerRequest.dueDate = new Date(this.newCustomerRequestForm.value.dueDate).getTime();
       this.customerRequestsService.saveNewCustomerRequest(newCustomerRequest);
       if (newCustomerRequest.customerRef) {

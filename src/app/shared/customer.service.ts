@@ -41,11 +41,11 @@ export class CustomerService {
     console.log('Customer to save is ', customerToSave.toJSON());
     addDoc(this.customersCollection, customerToSave.toJSON())
       .then((docRef: DocumentReference) => {
-      console.log('Customer added successfully', docRef);
-      this.customerId = docRef.id;
-      updateDoc(docRef, {customerId: docRef.id});
-      this.loading = false;
-    });
+        console.log('Customer added successfully', docRef);
+        this.customerId = docRef.id;
+        updateDoc(docRef, { customerId: docRef.id });
+        this.loading = false;
+      });
   }
 
 
@@ -57,7 +57,7 @@ export class CustomerService {
       console.log('getCustomer is: ', this.customer);
     } else {
       console.log('No such document!');
-    } 
+    }
   }
 
 
@@ -67,7 +67,7 @@ export class CustomerService {
     updateDoc(docRef, customer?.toJSON())
       .then(() => {
         this.customerId = docRef.id;
-        updateDoc(docRef, {customerId: docRef.id});
+        updateDoc(docRef, { customerId: docRef.id });
         console.log('Document successfully updated! ', this.customer);
         this.loading = false;
       });

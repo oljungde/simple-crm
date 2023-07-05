@@ -16,7 +16,7 @@ export class CustomerComponent implements OnInit {
 
 
   constructor(
-    public dialog: MatDialog, 
+    public dialog: MatDialog,
     public themeService: ThemeService,
     public customerService: CustomerService) { }
 

@@ -8,9 +8,9 @@ describe('DialogEditUserComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DialogEditUserComponent ]
+      declarations: [DialogEditUserComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(DialogEditUserComponent);
     component = fixture.componentInstance;

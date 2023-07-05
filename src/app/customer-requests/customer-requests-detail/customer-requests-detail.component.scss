@@ -1,47 +1,47 @@
 .customer-request-detail-header {
-    min-height: 150px;
+  min-height: 150px;
+  display: flex;
+  justify-content: center;
+
+  img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+  }
+
+  h2 {
+    font-size: 24px;
+    margin-bottom: 0;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  .customer-request-detail-header-content {
     display: flex;
-    justify-content: center;
-
-    img {
-        width: 80px;
-        height: 80px;
-        object-fit: cover;
-    }
-
-    h2 {
-        font-size: 24px;
-        margin-bottom: 0;
-    }
-
-    p {
-        margin: 0;
-    }
-
-    .customer-request-detail-header-content {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-    }
+    flex-direction: row;
+    align-items: center;
+  }
 }
 
 .btn-edit-customer-request {
-    position: absolute;
-    top: 8px;
-    right: 8px;
+  position: absolute;
+  top: 8px;
+  right: 8px;
 }
 
 .customer-request-detail-row {
-    display: flex;
-    margin: 16px 0;
+  display: flex;
+  margin: 16px 0;
 }
 
 .customer-request-description {
-    font-size: 12px;
+  font-size: 12px;
 }
 
 .add-note-btn {
-    position: fixed;
-    right: 56px;
-    bottom: 56px;
+  position: fixed;
+  right: 56px;
+  bottom: 56px;
 }

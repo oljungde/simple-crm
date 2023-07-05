@@ -20,7 +20,7 @@ export class CustomerContactsService {
   customerContacts: any = [];
   customerContacts$: any = [];
 
-  constructor() { 
+  constructor() {
     this.observeCustomerContacts();
   }
 
@@ -45,11 +45,11 @@ export class CustomerContactsService {
     console.log('Customer contact to save is ', customerContactToSave.toJSON());
     addDoc(this.customerContactsCollection, customerContactToSave.toJSON())
       .then((docRef: DocumentReference) => {
-      console.log('Customer contact added successfully', docRef);
-      this.customerContactId = docRef.id;
-      updateDoc(docRef, {customerContactId: docRef.id});
-      this.loading = false;
-    });
+        console.log('Customer contact added successfully', docRef);
+        this.customerContactId = docRef.id;
+        updateDoc(docRef, { customerContactId: docRef.id });
+        this.loading = false;
+      });
   }
 
 
@@ -82,7 +82,7 @@ export class CustomerContactsService {
     updateDoc(docRef, customerContact?.toJSON())
       .then(() => {
         this.customerContactId = docRef.id;
-        updateDoc(docRef, {customerContactId: docRef.id});
+        updateDoc(docRef, { customerContactId: docRef.id });
         console.log('Document successfully updated! ', this.customerContact);
         this.loading = false;
       });

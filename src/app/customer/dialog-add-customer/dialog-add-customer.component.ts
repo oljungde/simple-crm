@@ -21,16 +21,16 @@ export class DialogAddCustomerComponent implements OnInit {
     public customerService: CustomerService,
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<DialogAddCustomerComponent>) {
-      this.newCustomerForm = this.formBuilder.group({
-        name: ['', Validators.required],
-        street: ['', Validators.required],
-        zipCode: ['', Validators.required],
-        city: ['', Validators.required],
-        phone: ['', Validators.required],
-        homepage: [''],
-        email: ['', [Validators.required, Validators.email]],
-      });
-    }
+    this.newCustomerForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      street: ['', Validators.required],
+      zipCode: ['', Validators.required],
+      city: ['', Validators.required],
+      phone: ['', Validators.required],
+      homepage: [''],
+      email: ['', [Validators.required, Validators.email]],
+    });
+  }
 
 
   ngOnInit(): void {
@@ -48,6 +48,6 @@ export class DialogAddCustomerComponent implements OnInit {
     } else {
       console.log('invalid form');
     }
-    
+
   }
 }

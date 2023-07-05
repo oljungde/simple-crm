@@ -42,7 +42,7 @@ import { DialogAddCustomerContactComponent } from './customer-contacts/dialog-ad
 import { DialogEditCustomerContactComponent } from './customer-contacts/dialog-edit-customer-contact/dialog-edit-customer-contact.component';
 import { CustomerRequestsComponent } from './customer-requests/customer-requests/customer-requests.component';
 import { DialogAddCustomerRequestComponent } from './customer-requests/dialog-add-customer-request/dialog-add-customer-request.component';
-import { DateAdapter } from '@angular/material/core'; 
+import { DateAdapter } from '@angular/material/core';
 import { StartWeekMonday } from './models/start-week-monday.class';
 import { CustomerRequestsDetailComponent } from './customer-requests/customer-requests-detail/customer-requests-detail.component';
 import { DialogEditCustomerRequestComponent } from './customer-requests/dialog-edit-customer-request/dialog-edit-customer-request.component';

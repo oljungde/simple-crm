@@ -1,28 +1,28 @@
 .dark-theme {
 
-    h1,
-    div {
-        color: white;
-    }
+  h1,
+  div {
+    color: white;
+  }
 }
 
 mat-progress-bar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 
 .mat-mdc-dialog-content {
-    max-height: 90vh;
+  max-height: 90vh;
 }
 
 .form-row {
-    width: 300px;
-    display: flex;
-    gap: 16px;
+  width: 300px;
+  display: flex;
+  gap: 16px;
 }
 
 mat-form-field {
-    padding: 8px 0;
+  padding: 8px 0;
 }

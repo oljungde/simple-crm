@@ -1,79 +1,79 @@
 .site {
-    height: 100vh;
-    width: 100vw;
+  height: 100vh;
+  width: 100vw;
 }
 
 .light-theme {
 
-    .menu-items li:hover {
-        background-color: #00000026;
-    }
+  .menu-items li:hover {
+    background-color: #00000026;
+  }
 }
 
 .dark-theme {
 
-    .menu-items li:hover {
-        background-color: #ffffff26;
-    }
+  .menu-items li:hover {
+    background-color: #ffffff26;
+  }
 }
 
 mat-toolbar {
-    justify-content: space-between;
+  justify-content: space-between;
 }
 
 .toolbar-left,
 .toolbar-right {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .side-menu {
-    height: 100vh;
-    min-height: 100vh;
+  height: 100vh;
+  min-height: 100vh;
 }
 
 .side-menu-content {
-    padding: 8px 0;
+  padding: 8px 0;
 }
 
 .logo-container {
-    padding: 0 32px;
+  padding: 0 32px;
 
-    .logo {
-        height: 51px;
-        object-fit: cover;
+  .logo {
+    height: 51px;
+    object-fit: cover;
 
-        &:hover {
-            cursor: pointer;
-        }
+    &:hover {
+      cursor: pointer;
     }
+  }
 }
 
 .menu-items {
-    list-style-type: none;
-    margin: 32px 0 0;
-    padding: 0;
+  list-style-type: none;
+  margin: 32px 0 0;
+  padding: 0;
 
-    li {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding: 16px 32px;
-        cursor: pointer;
+  li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 32px;
+    cursor: pointer;
 
-        mat-icon {
-            font-family: 'Material Icons Outlined';
-        }
+    mat-icon {
+      font-family: 'Material Icons Outlined';
     }
+  }
 }
 
 .router-container {
-    padding: 32px 56px;
+  padding: 32px 56px;
 }
 
 app-login {
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

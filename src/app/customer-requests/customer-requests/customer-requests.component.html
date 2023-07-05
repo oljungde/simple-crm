@@ -1,39 +1,37 @@
 <mat-card class="customer-requests-card">
-    <mat-card-content>
-        <div class="customer-requests-header">
-                <h2>Customer requests</h2>
-                <mat-form-field appearance="outline">
-                    <mat-label>Search customer request</mat-label>
-                    <input #searchInput (input)="searchCustomerRequest()" matInput placeholder="Search">
-                    <mat-icon matSuffix>search</mat-icon>
-                </mat-form-field>
-            
-            
-            <button (click)="openDialog(this.isLightTheme)" mat-mini-fab color="accent" matTooltip="Add customer request" matTooltipPosition="above" class="btn">
-                <mat-icon>add</mat-icon>
-            </button>
-        </div>
-        <table class="request-table">
-            <tr>
-                <th>Request date</th>
-                <th>Subject area</th>
-                <th>Title</th>
-                <th>Contact Person</th>
-                <th>Status</th>
-                <th>Assigned to</th>
-                <th>Created by</th>
-            </tr>
-            <tr *ngFor="let customerRequest of this.customerRequests" [routerLink]="['/customer-requests/'+customerRequest.id]">
-                <td>{{ customerRequest.dateRequested | date:'dd.MM.yy, HH:mm':'':'de' }}</td>
-                <td>{{ customerRequest.subjectArea }}</td>
-                <td>{{ customerRequest.title }}</td>
-                <td>{{ customerRequest.customerContactName }}</td>
-                <td>{{ customerRequest.status }}</td>
-                <td>{{ customerRequest.assignedToUserName }}</td>
-                <td>{{ customerRequest.createdBy }}</td>
-            </tr>
-        </table>
-    </mat-card-content>
+  <mat-card-content>
+    <div class="customer-requests-header">
+      <h2>Customer requests</h2>
+      <mat-form-field appearance="outline">
+        <mat-label>Search customer request</mat-label>
+        <input #searchInput (input)="searchCustomerRequest()" matInput placeholder="Search">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+
+
+      <button (click)="openDialog(this.isLightTheme)" mat-mini-fab color="accent" matTooltip="Add customer request" matTooltipPosition="above" class="btn">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+    <table class="request-table">
+      <tr>
+        <th>Request date</th>
+        <th>Subject area</th>
+        <th>Title</th>
+        <th>Contact Person</th>
+        <th>Status</th>
+        <th>Assigned to</th>
+        <th>Created by</th>
+      </tr>
+      <tr *ngFor="let customerRequest of this.customerRequests" [routerLink]="['/customer-requests/'+customerRequest.id]">
+        <td>{{ customerRequest.dateRequested | date:'dd.MM.yy, HH:mm':'':'de' }}</td>
+        <td>{{ customerRequest.subjectArea }}</td>
+        <td>{{ customerRequest.title }}</td>
+        <td>{{ customerRequest.customerContactName }}</td>
+        <td>{{ customerRequest.status }}</td>
+        <td>{{ customerRequest.assignedToUserName }}</td>
+        <td>{{ customerRequest.createdBy }}</td>
+      </tr>
+    </table>
+  </mat-card-content>
 </mat-card>
-
-

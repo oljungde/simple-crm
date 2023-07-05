@@ -8,9 +8,9 @@ describe('DialogAddCustomerRequestNoteComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DialogAddCustomerRequestNoteComponent ]
+      declarations: [DialogAddCustomerRequestNoteComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(DialogAddCustomerRequestNoteComponent);
     component = fixture.componentInstance;

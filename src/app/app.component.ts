@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private themeService: ThemeService, 
+    private themeService: ThemeService,
     public authService: AuthService,
     public dialog: MatDialog) { }
 

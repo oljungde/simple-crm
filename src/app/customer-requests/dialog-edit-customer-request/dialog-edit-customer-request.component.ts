@@ -36,9 +36,9 @@ export class DialogEditCustomerRequestComponent implements OnInit {
     'in progress',
     'closed'
   ];
-  userNames: any = [];
+  userDetails: any = [];
   minDate = new Date();
-  dueDate = new FormControl(new Date(this.customerRequestsService.currentCustomerRequest.dueDate));  
+  dueDate = new FormControl(new Date(this.customerRequestsService.currentCustomerRequest.dueDate));
   updateCustomerRequestForm = this.formBuilder.group({
     title: [this.customerRequestsService.currentCustomerRequest.title, Validators.required],
     customerContactName: [this.customerRequestsService.currentCustomerRequest.customerContactName, Validators.required],
@@ -46,7 +46,8 @@ export class DialogEditCustomerRequestComponent implements OnInit {
     subjectArea: [this.customerRequestsService.currentCustomerRequest.subjectArea, Validators.required],
     priority: [this.customerRequestsService.currentCustomerRequest.priority, Validators.required],
     status: [this.customerRequestsService.currentCustomerRequest.status, Validators.required],
-    assignedTo: [this.customerRequestsService.currentCustomerRequest.assignedTo, Validators.required],
+    assignedToUserRef: [this.customerRequestsService.currentCustomerRequest.assignedToUserRef, Validators.required],
+    assignedToUserName: [this.customerRequestsService.currentCustomerRequest.assignedToUserName, Validators.required],
     dueDate: [this.dueDate.value, Validators.required],
     turnover: [this.customerRequestsService.currentCustomerRequest.turnover, Validators.required],
   });
@@ -61,58 +62,65 @@ export class DialogEditCustomerRequestComponent implements OnInit {
     public dialogRef: DialogRef) { }
 
 
-    ngOnInit(): void {
-      this.isLightTheme$ = this.themeService.isLightTheme$;
-      this.userService.allUsers$.pipe(
-        map(users => users.map(user => (`${user.firstName} ${user.lastName}`)))
-      ).subscribe(userNames => {
-        this.userNames = userNames;
+  ngOnInit(): void {
+    this.isLightTheme$ = this.themeService.isLightTheme$;
+    this.userService.allUsers$.pipe(
+      map(users => users.map(user => ({ name: `${user.firstName} ${user.lastName}`, id: user.userId })))
+    ).subscribe(userDetails => {
+      this.userDetails = userDetails;
+    });
+    console.log('UserDetails are: ', this.userDetails);
+    this.customerContactsService.allCustomerContacts$.pipe(
+      map(customerContacts => customerContacts.filter(customerContacts => customerContacts.customerRef === this.customerRequestsService.currentCustomerRequest.customerRef)))
+      .subscribe(customerContacts => {
+        this.customerContacts = customerContacts;
+        console.log('customerContacts ', customerContacts);
+        this.customerContactNames = customerContacts.map(customerContact => (`${customerContact.firstName} ${customerContact.lastName}`));
+        this.customerContactNames = this.customerContactNames.sort();
       });
-      this.customerContactsService.allCustomerContacts$.pipe(
-        map(customerContacts => customerContacts.filter(customerContacts => customerContacts.customerRef === this.customerRequestsService.currentCustomerRequest.customerRef)))
-          .subscribe(customerContacts => { 
-          this.customerContacts = customerContacts;
-          console.log('customerContacts ', customerContacts);
-          this.customerContactNames = customerContacts.map(customerContact => (`${customerContact.firstName} ${customerContact.lastName}`));
-          this.customerContactNames = this.customerContactNames.sort();
-        });
-      this.updateCustomerRequestForm.get('subjectArea')?.valueChanges.subscribe(subjectAreaValue => {
-        this.showTurnover();
-      });
-      console.log('Timestamp is',new Date(this.customerRequestsService.currentCustomerRequest.dueDate).getTime());
-      console.log(this.dueDate.value);
+    this.updateCustomerRequestForm.get('subjectArea')?.valueChanges.subscribe(subjectAreaValue => {
+      this.showTurnover();
+    });
+  }
+
+
+  showTurnover(): boolean {
+    const subjectAreaValue = this.updateCustomerRequestForm.get('subjectArea')?.value;
+    const validValuesForTurnover = ['Offer', 'Order', 'Invoice'];
+    const showTurnover = validValuesForTurnover.includes(subjectAreaValue);
+    const turnoverControl = this.updateCustomerRequestForm.get('turnover');
+    if (showTurnover) {
+      turnoverControl?.setValidators([Validators.required]);
+    } else {
+      turnoverControl?.setValidators([]);
     }
+    turnoverControl?.updateValueAndValidity();
+    return showTurnover;
+  }
 
 
-    showTurnover(): boolean {
-      const subjectAreaValue = this.updateCustomerRequestForm.get('subjectArea')?.value;
-      const validValuesForTurnover = ['Offer', 'Order', 'Invoice'];
-      const showTurnover = validValuesForTurnover.includes(subjectAreaValue);
-      const turnoverControl = this.updateCustomerRequestForm.get('turnover');
-      if (showTurnover) {
-        turnoverControl?.setValidators([Validators.required]);
-      } else {
-        turnoverControl?.setValidators([]);
-      }
-      turnoverControl?.updateValueAndValidity();
-      return showTurnover;
+  async updateCustomerRequest() {
+    console.log('Save btn pushed');
+    if (this.updateCustomerRequestForm.valid) {
+      // debugger;
+      const customerRequest = new CustomerRequest;
+      console.log('CustomerRequest: ', customerRequest);
+
+      Object.assign(customerRequest, this.updateCustomerRequestForm.value);
+      console.log('Assigned to user Ref: ', this.updateCustomerRequestForm.value.assignedToUserRef);
+
+      customerRequest.assignedToUserName = await this.userService.getUserFullNameById(this.updateCustomerRequestForm.value.assignedToUserRef);
+      console.log('Assigned to user name: ', customerRequest.assignedToUserName);
+
+      customerRequest.customerRef = this.customerRequestsService.currentCustomerRequest.customerRef;
+      customerRequest.customerContactRef = this.customerRequestsService.currentCustomerRequest.customerContactRef;
+      customerRequest.customerRequestId = this.customerRequestsService.currentCustomerRequest.customerRequestId;
+      customerRequest.createdBy = this.customerRequestsService.currentCustomerRequest.createdBy;
+      customerRequest.dateRequested = this.customerRequestsService.currentCustomerRequest.dateRequested;
+      customerRequest.dueDate = this.updateCustomerRequestForm.value.dueDate?.getTime();
+      customerRequest.userRef = this.customerRequestsService.currentCustomerRequest.userRef;
+      this.customerRequestsService.updateCustomerRequest(customerRequest);
+      this.dialogRef.close();
     }
-
-
-    updateCustomerRequest() {
-      console.log('Save btn pushed');
-      if (this.updateCustomerRequestForm.valid) {
-        const customerRequest = new CustomerRequest;
-        Object.assign(customerRequest, this.updateCustomerRequestForm.value);
-        customerRequest.customerRef = this.customerRequestsService.currentCustomerRequest.customerRef;
-        customerRequest.customerContactRef = this.customerRequestsService.currentCustomerRequest.customerContactRef;
-        customerRequest.customerRequestId = this.customerRequestsService.currentCustomerRequest.customerRequestId;
-        customerRequest.createdBy = this.customerRequestsService.currentCustomerRequest.createdBy;
-        customerRequest.dateRequested = this.customerRequestsService.currentCustomerRequest.dateRequested;
-        customerRequest.dueDate = this.updateCustomerRequestForm.value.dueDate?.getTime();
-        customerRequest.userRef = this.customerRequestsService.currentCustomerRequest.userRef;
-        this.customerRequestsService.updateCustomerRequest(customerRequest);
-        this.dialogRef.close();
-      }      
-    }
+  }
 }

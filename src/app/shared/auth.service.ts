@@ -1,6 +1,6 @@
 import { Injectable, OnInit, Inject } from '@angular/core';
 import { Auth, signOut, updateEmail, updatePassword } from '@angular/fire/auth';
-import { User, createUserWithEmailAndPassword, signInWithEmailAndPassword  } from "firebase/auth";
+import { User, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { Router } from '@angular/router';
 
 
@@ -24,7 +24,7 @@ export class AuthService implements OnInit {
 
   registerUser(email: string, password: string): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-      if(!this.auth){
+      if (!this.auth) {
         console.error('Firebase has not been initialized yet.');
         reject('Firebase has not been initialized yet.');
         return;
@@ -34,7 +34,7 @@ export class AuthService implements OnInit {
           resolve();
         })
         .catch((error) => {
-          if(error.code === 'auth/email-already-in-use'){
+          if (error.code === 'auth/email-already-in-use') {
             console.error('Email already in use');
             reject('Email already in use');
           } else {
@@ -46,7 +46,7 @@ export class AuthService implements OnInit {
   }
 
 
-  async userLogin(email: string, password: string){
+  async userLogin(email: string, password: string) {
     if (!this.auth) {
       console.error('Firebase has not been initialized yet.');
       return;
@@ -67,7 +67,7 @@ export class AuthService implements OnInit {
   }
 
 
-  async guestLogin(){
+  async guestLogin() {
     if (!this.auth) {
       console.error('Firebase has not been initialized yet.');
       return;
@@ -86,26 +86,26 @@ export class AuthService implements OnInit {
       this.loginError = true;
     }
   }
-  
 
-  userSignOut(){
+
+  userSignOut() {
     if (!this.auth) {
       console.error('Firebase has not been initialized yet.');
       return;
     }
     signOut(this.auth)
-    .then(() => {
-      sessionStorage.setItem('isUserLoggedIn', 'false');
-      this.isUserLoggedIn = sessionStorage.getItem('isUserLoggedIn') === 'true';
-      sessionStorage.setItem('isGuestLogin', 'false');
-      this.isGuestLogin = sessionStorage.getItem('isGuestLogin') === 'true';
-      this.router.navigate(['/login']);
-      console.log('User signed out!');
-    });
+      .then(() => {
+        sessionStorage.setItem('isUserLoggedIn', 'false');
+        this.isUserLoggedIn = sessionStorage.getItem('isUserLoggedIn') === 'true';
+        sessionStorage.setItem('isGuestLogin', 'false');
+        this.isGuestLogin = sessionStorage.getItem('isGuestLogin') === 'true';
+        this.router.navigate(['/login']);
+        console.log('User signed out!');
+      });
   }
 
 
-  changeUserPassword(newPassword: string){
+  changeUserPassword(newPassword: string) {
     console.log(this.user);
     if (this.user) {
       updatePassword(this.user, newPassword)

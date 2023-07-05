@@ -1,92 +1,92 @@
 <mat-card class="customer-request-detail-header">
-    <mat-card-content class="customer-request-detail-header-content">
-        <button mat-icon-button [matMenuTriggerFor]="customerRequestMenu" class="btn-edit-customer-request">
-            <mat-icon>more_vert</mat-icon>
-        </button>
-        <mat-menu #customerRequestMenu="matMenu" xPosition="before">
-            <button mat-menu-item (click)="editCustomerRequestDetail()">Edit customer request</button>
-        </mat-menu>
+  <mat-card-content class="customer-request-detail-header-content">
+    <button mat-icon-button [matMenuTriggerFor]="customerRequestMenu" class="btn-edit-customer-request">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #customerRequestMenu="matMenu" xPosition="before">
+      <button mat-menu-item (click)="editCustomerRequestDetail()">Edit customer request</button>
+    </mat-menu>
 
-        <div class="w-100">
-            <h2>{{ this.customerRequestToShow.title }}</h2>
+    <div class="w-100">
+      <h2>{{ this.customerRequestToShow.title }}</h2>
 
-            <div class="customer-request-detail-row">
-                <div class="w-50">
-                    <p>{{ this.customerName }}</p>
-                    <p class="customer-request-description">Customer name</p>
-                </div>
-
-                <div class="w-50">
-                    <p>{{ this.customerRequestToShow.customerContactName }}</p>
-                    <p class="customer-request-description">Customer contact name</p>
-                </div>
-            </div>
-            <mat-divider></mat-divider>
-
-            <div class="customer-request-detail-row">
-                <div>
-                    <p>{{ this.customerRequestToShow.description }}</p>
-                    <p class="customer-request-description">Description</p>
-                </div>
-            </div>
-            <mat-divider></mat-divider>
-
-            <div class="customer-request-detail-row">
-                <div class="w-50">
-                    <p>{{ this.customerRequestToShow.subjectArea }}</p>
-                    <p class="customer-request-description">Subject area</p>
-                </div>
-
-                <div *ngIf="this.customerRequestToShow.subjectArea == 'Order' || this.customerRequestToShow.subjectArea == 'Offer' || this.customerRequestToShow.subjectArea == 'Invoice'" class="w-50">
-                    <p>{{ this.customerRequestToShow.turnover }}</p>
-                    <p class="customer-request-description">Turnover</p>
-                </div>
-            </div>
-            <mat-divider></mat-divider>
-
-            <div class="customer-request-detail-row">
-                <div class="w-50">
-                    <p>{{ this.customerRequestToShow.createdBy }}</p>
-                    <p class="customer-request-description">Created by</p>
-                </div>
-
-                <div class="w-50">
-                    <p>{{ this.customerRequestToShow.dateRequested | date:'dd.MM.yy, HH:mm':'':'de' }}</p>
-                    <p class="customer-request-description">Request date</p>
-                </div>
-            </div>
-            <mat-divider></mat-divider>
-
-            <div class="customer-request-detail-row">
-                <div class="w-50">
-                    <p>{{ this.customerRequestToShow.priority }}</p>
-                    <p class="customer-request-description">Priority</p>
-                </div>
-
-                <div class="w-50">
-                    <p>{{ this.customerRequestToShow.status }}</p>
-                    <p class="customer-request-description">Status</p>
-                </div>
-            </div>
-            <mat-divider></mat-divider>
-
-            <div class="customer-request-detail-row">
-                <div class="w-50">
-                    <p>{{ this.customerRequestToShow.assignedTo }}</p>
-                    <p class="customer-request-description">Assigned to</p>
-                </div>
-
-                <div class="w-50">
-                    <p>{{ this.dueDate }}</p>
-                    <p class="customer-request-description">Due date</p>
-                </div>
-            </div>
+      <div class="customer-request-detail-row">
+        <div class="w-50">
+          <p>{{ this.customerName }}</p>
+          <p class="customer-request-description">Customer name</p>
         </div>
-    </mat-card-content>
+
+        <div class="w-50">
+          <p>{{ this.customerRequestToShow.customerContactName }}</p>
+          <p class="customer-request-description">Customer contact name</p>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+
+      <div class="customer-request-detail-row">
+        <div>
+          <p>{{ this.customerRequestToShow.description }}</p>
+          <p class="customer-request-description">Description</p>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+
+      <div class="customer-request-detail-row">
+        <div class="w-50">
+          <p>{{ this.customerRequestToShow.subjectArea }}</p>
+          <p class="customer-request-description">Subject area</p>
+        </div>
+
+        <div *ngIf="this.customerRequestToShow.subjectArea == 'Order' || this.customerRequestToShow.subjectArea == 'Offer' || this.customerRequestToShow.subjectArea == 'Invoice'" class="w-50">
+          <p>{{ this.customerRequestToShow.turnover }}</p>
+          <p class="customer-request-description">Turnover</p>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+
+      <div class="customer-request-detail-row">
+        <div class="w-50">
+          <p>{{ this.customerRequestToShow.createdBy }}</p>
+          <p class="customer-request-description">Created by</p>
+        </div>
+
+        <div class="w-50">
+          <p>{{ this.customerRequestToShow.dateRequested | date:'dd.MM.yy, HH:mm':'':'de' }}</p>
+          <p class="customer-request-description">Request date</p>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+
+      <div class="customer-request-detail-row">
+        <div class="w-50">
+          <p>{{ this.customerRequestToShow.priority }}</p>
+          <p class="customer-request-description">Priority</p>
+        </div>
+
+        <div class="w-50">
+          <p>{{ this.customerRequestToShow.status }}</p>
+          <p class="customer-request-description">Status</p>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+
+      <div class="customer-request-detail-row">
+        <div class="w-50">
+          <p>{{ this.customerRequestToShow.assignedToUserName }}</p>
+          <p class="customer-request-description">Assigned to</p>
+        </div>
+
+        <div class="w-50">
+          <p>{{ this.dueDate }}</p>
+          <p class="customer-request-description">Due date</p>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
 </mat-card>
 
 <app-customer-request-notes *ngFor="let customerRequestNote of this.customerRequestNotes" [note]="customerRequestNote.note" [userRef]="customerRequestNote.userRef" [date]="customerRequestNote.dateCreated"></app-customer-request-notes>
 
 <button (click)="openDialog(this.isLightTheme)" mat-mini-fab color="primary" matTooltip="Add request note" matTooltipPosition="above" class="add-note-btn">
-    <mat-icon>add</mat-icon>
+  <mat-icon>add</mat-icon>
 </button>

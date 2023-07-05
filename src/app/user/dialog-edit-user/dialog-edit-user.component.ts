@@ -29,12 +29,12 @@ export class DialogEditUserComponent {
 
 
   constructor(
-    private themeService: ThemeService, 
-    public dialogRef: MatDialogRef<DialogEditUserComponent>, 
+    private themeService: ThemeService,
+    public dialogRef: MatDialogRef<DialogEditUserComponent>,
     public userService: UserService,
     private authService: AuthService,
     private formBuilder: FormBuilder) {
-    }
+  }
 
 
   ngOnInit(): void {
@@ -44,7 +44,7 @@ export class DialogEditUserComponent {
 
 
   saveUser() {
-    if(this.updateForm.valid) {
+    if (this.updateForm.valid) {
       this.updateForm.controls['email'].enable();
       const user = new User();
       Object.assign(user, this.updateForm.value);

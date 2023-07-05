@@ -1,33 +1,33 @@
 <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-    <mat-expansion-panel-header>
+  <mat-expansion-panel-header>
     <mat-panel-title>
-        Contacts
+      Contacts
     </mat-panel-title>
-    </mat-expansion-panel-header>
-    <div class="contacts-panel-header">
-        <mat-form-field appearance="outline">
-            <mat-label>Search contact</mat-label>
-            <input #searchInput (input)="searchContact()" matInput placeholder="Search">
-            <mat-icon matSuffix>search</mat-icon>
-        </mat-form-field>
-        
-        <button (click)="openDialogAddContact(this.isLightTheme)" mat-mini-fab color="primary">
-            <mat-icon>add</mat-icon>
-        </button>
-    </div>
-    
-    <table class="contacts-table">
-        <tr>
-            <th>Name</th>
-            <th>Phone</th>
-            <th>Email</th>
-            <th>Position</th>
-        </tr>
-        <tr *ngFor="let customerContact of this.customerContacts" (click)="openDialogEditContact(this.isLightTheme, customerContact.customerContactId)">
-            <td>{{ customerContact.firstName }} {{ customerContact.lastName }} </td>
-            <td>{{ customerContact.phone }}</td>
-            <td>{{ customerContact.email }}</td>
-            <td>{{ customerContact.position }}</td>
-        </tr>
-    </table>
+  </mat-expansion-panel-header>
+  <div class="contacts-panel-header">
+    <mat-form-field appearance="outline">
+      <mat-label>Search contact</mat-label>
+      <input #searchInput (input)="searchContact()" matInput placeholder="Search">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+
+    <button (click)="openDialogAddContact(this.isLightTheme)" mat-mini-fab color="primary">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+
+  <table class="contacts-table">
+    <tr>
+      <th>Name</th>
+      <th>Phone</th>
+      <th>Email</th>
+      <th>Position</th>
+    </tr>
+    <tr *ngFor="let customerContact of this.customerContacts" (click)="openDialogEditContact(this.isLightTheme, customerContact.customerContactId)">
+      <td>{{ customerContact.firstName }} {{ customerContact.lastName }} </td>
+      <td>{{ customerContact.phone }}</td>
+      <td>{{ customerContact.email }}</td>
+      <td>{{ customerContact.position }}</td>
+    </tr>
+  </table>
 </mat-expansion-panel>

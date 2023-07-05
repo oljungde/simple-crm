@@ -20,8 +20,7 @@ export class DialogAddCustomerContactComponent implements OnInit {
     private themeService: ThemeService,
     public customerContactsService: CustomerContactsService,
     private formBuilder: FormBuilder,
-    public dialogRef: MatDialogRef<DialogAddCustomerContactComponent>
-  ) { 
+    public dialogRef: MatDialogRef<DialogAddCustomerContactComponent>) {
     this.newCustomerContactForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],

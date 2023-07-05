@@ -45,7 +45,7 @@ export class UserService {
       console.log('getUser is: ', this.user);
     } else {
       console.log('No such document!');
-    } 
+    }
   }
 
 
@@ -53,22 +53,22 @@ export class UserService {
     const usersQuery = query(this.usersCollection, where('email', '==', email));
     const querySnapshot = await getDocs(usersQuery);
     querySnapshot.forEach((doc) => {
-        console.log('doc.id  => ', doc.data());
-        console.log('User ID is: ', doc.id);
-        this.userLoggedInId = doc.id;
+      console.log('doc.id  => ', doc.data());
+      console.log('User ID is: ', doc.id);
+      this.userLoggedInId = doc.id;
     });
-}
-
-
-async getUserFullNameById(userId: string) {
-  const docRef = doc(this.usersCollection, userId);
-  const docSnap = await getDoc(docRef);
-  if (docSnap.exists()) {
-    return docSnap.data()['fullName'];
-  } else {
-    console.log('No such document!');
   }
-}
+
+
+  async getUserFullNameById(userId: string) {
+    const docRef = doc(this.usersCollection, userId);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      return docSnap.data()['fullName'];
+    } else {
+      console.log('No such document!');
+    }
+  }
 
 
   saveNewUser(newUser?: User) {
@@ -79,9 +79,9 @@ async getUserFullNameById(userId: string) {
       .then((docRef: DocumentReference) => {
         console.log('User added successfully', docRef);
         this.userId = docRef.id;
-        updateDoc(docRef, {userId: docRef.id});
+        updateDoc(docRef, { userId: docRef.id });
         this.loading = false;
-    });
+      });
   }
 
 
@@ -91,7 +91,7 @@ async getUserFullNameById(userId: string) {
     updateDoc(docRef, user?.toJSON())
       .then(() => {
         this.userId = docRef.id;
-        updateDoc(docRef, {userId: docRef.id});
+        updateDoc(docRef, { userId: docRef.id });
         console.log('Document successfully updated! ', this.user);
         this.loading = false;
       });

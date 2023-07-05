@@ -11,10 +11,10 @@ import { UserService } from '../../shared/user.service';
   styleUrls: ['./user-detail.component.scss']
 })
 export class UserDetailComponent implements OnInit {
-  
+
   constructor(
-    private route: ActivatedRoute, 
-    public dialog: MatDialog, 
+    private route: ActivatedRoute,
+    public dialog: MatDialog,
     public userService: UserService) { }
 
 

@@ -25,17 +25,17 @@ export class DialogChangeUserLoginComponent {
     public userService: UserService,
     private passwordGenerate: PasswordGenerateService,
     public dialogRef: MatDialogRef<DialogChangeUserLoginComponent>,
-    private formBuilder: FormBuilder) { 
-      const password = this.passwordGenerate.generatePassword();
-      this.changePasswordForm = this.formBuilder.group({
-        newPassword: [password, Validators.required],
-        confirmPassword: [password, Validators.required],
-      });
-    }
+    private formBuilder: FormBuilder) {
+    const password = this.passwordGenerate.generatePassword();
+    this.changePasswordForm = this.formBuilder.group({
+      newPassword: [password, Validators.required],
+      confirmPassword: [password, Validators.required],
+    });
+  }
 
 
   ngOnInit() {
-      this.isLightTheme$ = this.themeService.isLightTheme$;
+    this.isLightTheme$ = this.themeService.isLightTheme$;
   }
 
 

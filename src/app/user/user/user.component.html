@@ -1,28 +1,28 @@
 <mat-card>
-    <mat-card-content>
-        <div class="user-header">
-            <h2>User</h2>
-            <mat-form-field appearance="outline">
-                <mat-label>Search user</mat-label>
-                <input #searchInput (input)="searchUser()" matInput placeholder="Search">
-                <mat-icon matSuffix>search</mat-icon>
-            </mat-form-field>
-        </div>
-        <table class="user-table">
-            <tr>
-                <th>Name</th>
-                <th>E-Mail</th>
-                <th>Team</th>
-            </tr>
-            <tr *ngFor="let user of filteredUsers" [routerLink]="['/user/'+user.id]">
-                <td>{{ user.firstName }} {{ user.lastName }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.team }}</td>
-            </tr>
-        </table>
-    </mat-card-content>
+  <mat-card-content>
+    <div class="user-header">
+      <h2>User</h2>
+      <mat-form-field appearance="outline">
+        <mat-label>Search user</mat-label>
+        <input #searchInput (input)="searchUser()" matInput placeholder="Search">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
+    <table class="user-table">
+      <tr>
+        <th>Name</th>
+        <th>E-Mail</th>
+        <th>Team</th>
+      </tr>
+      <tr *ngFor="let user of filteredUsers" [routerLink]="['/user/'+user.id]">
+        <td>{{ user.firstName }} {{ user.lastName }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.team }}</td>
+      </tr>
+    </table>
+  </mat-card-content>
 </mat-card>
 
 <button (click)="openDialog(this.isLightTheme)" mat-fab color="primary" matTooltip="Add user" matTooltipPosition="above" class="add-user-btn">
-    <mat-icon>add</mat-icon>
+  <mat-icon>add</mat-icon>
 </button>

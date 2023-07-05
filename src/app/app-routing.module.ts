@@ -12,14 +12,14 @@ import { TasksComponent } from './tasks/tasks.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
-  { path: 'login', component: LoginComponent},
+  { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'user', component: UserComponent },
   { path: 'user/:id', component: UserDetailComponent },
   { path: 'customer', component: CustomerComponent },
   { path: 'customer/:id', component: CustomerDetailComponent },
-  { path: 'customer-requests/:id', component: CustomerRequestsDetailComponent},
-  { path: 'tasks', component: TasksComponent}
+  { path: 'customer-requests/:id', component: CustomerRequestsDetailComponent },
+  { path: 'tasks', component: TasksComponent }
 ];
 
 @NgModule({

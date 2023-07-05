@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { CustomerRequestNote } from '../models/customer-request-note.class';
-import { Firestore, addDoc, collection, updateDoc, query,  where, orderBy, onSnapshot } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, updateDoc, query, where, orderBy, onSnapshot } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -30,20 +30,20 @@ export class CustomerRequestsNotesService {
   }
 
   getNotesByRequestRef(requestRef: string) {
-      return new Observable(observer => {
-        const customerRequestNotesQuery = query(
-          this.customerRequestsNotesCollection, where('customerRequestRef', '==', requestRef),
-          orderBy('dateCreated', 'desc')
-        );
-        const unsubscribe = onSnapshot(customerRequestNotesQuery, (querySnapshot) => {
-          let customerRequestNotes: any = [];
-          querySnapshot.forEach((doc) => {
-            let customerRequestNoteData = doc.data();
-            customerRequestNoteData['id'] = doc.id;
-            customerRequestNotes.push(customerRequestNoteData);
-          });
-          observer.next(customerRequestNotes);
+    return new Observable(observer => {
+      const customerRequestNotesQuery = query(
+        this.customerRequestsNotesCollection, where('customerRequestRef', '==', requestRef),
+        orderBy('dateCreated', 'desc')
+      );
+      const unsubscribe = onSnapshot(customerRequestNotesQuery, (querySnapshot) => {
+        let customerRequestNotes: any = [];
+        querySnapshot.forEach((doc) => {
+          let customerRequestNoteData = doc.data();
+          customerRequestNoteData['id'] = doc.id;
+          customerRequestNotes.push(customerRequestNoteData);
         });
+        observer.next(customerRequestNotes);
+      });
       return unsubscribe;
     });
   }

@@ -1,50 +1,50 @@
 mat-panel-title {
-    font-size: 16px;
+  font-size: 16px;
 }
 
 mat-expansion-panel {
-    margin-top: 32px;
+  margin-top: 32px;
 }
 
 .mat-expansion-panel-header.mat-expanded {
-    height: 48px !important;
+  height: 48px !important;
 }
 
 .contacts-panel-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
 }
 
 .contacts-table {
-    width: 100%;
-    border-collapse: collapse;
+  width: 100%;
+  border-collapse: collapse;
 
-    tr {
-        cursor: pointer;
+  tr {
+    cursor: pointer;
 
-        &:first-child {
-            cursor: unset;
+    &:first-child {
+      cursor: unset;
 
-            &:hover {
-                background-color: unset;
-            }
-        }
-
-        &:last-child {
-            border-bottom: unset;
-        }
+      &:hover {
+        background-color: unset;
+      }
     }
 
-    th {
-        padding-bottom: 8px;
-        font-size: 14px;
-        font-weight: 500;
-        text-align: start;
+    &:last-child {
+      border-bottom: unset;
     }
+  }
 
-    td {
-        height: 40px;
-        width: 25%;
-    }
+  th {
+    padding-bottom: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: start;
+  }
+
+  td {
+    height: 40px;
+    width: 25%;
+  }
 }

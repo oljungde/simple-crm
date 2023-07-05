@@ -1,89 +1,98 @@
 <div [class.light-theme]="isLightTheme$ | async" [class.dark-theme]="!(isLightTheme$ | async)">
-    <mat-progress-bar *ngIf="customerRequestsService.loading" mode="indeterminate"></mat-progress-bar>
-    <h1 mat-dialog-title>Edit customer request</h1>
-    <div mat-dialog-content>
-        <form [formGroup]="updateCustomerRequestForm" (ngSubmit)="updateCustomerRequest()">
-            <div class="form-row">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label for="title">Title</mat-label>
-                    <input id="title" type="text" [disabled]="customerRequestsService.loading" formControlName="title" matInput placeholder="Enter the title">
-                    <mat-error *ngIf="updateCustomerRequestForm.get('title')?.invalid && updateCustomerRequestForm.get('title')?.errors?.['required']">Please enter a title</mat-error>
-                </mat-form-field>
-            </div>
+  <mat-progress-bar *ngIf="customerRequestsService.loading" mode="indeterminate"></mat-progress-bar>
+  <h1 mat-dialog-title>Edit customer request</h1>
+  <div mat-dialog-content>
+    <form [formGroup]="updateCustomerRequestForm" (ngSubmit)="updateCustomerRequest()">
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label for="title">Title</mat-label>
+          <input id="title" type="text" [disabled]="customerRequestsService.loading" formControlName="title" matInput placeholder="Enter the title">
+          <mat-error *ngIf="updateCustomerRequestForm.get('title')?.invalid && updateCustomerRequestForm.get('title')?.errors?.['required']">Please
+            enter a title</mat-error>
+        </mat-form-field>
+      </div>
 
-            <div class="form-row">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label for="subjectArea">Subject area</mat-label>
-                    <mat-select id="subjectArea" [disabled]="customerRequestsService.loading" formControlName="subjectArea" required="" placeholder="Enter a subject area">
-                        <mat-option *ngFor="let subjectArea of subjectAreas; index as i" value="{{ subjectArea }}">{{ subjectArea }}</mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="updateCustomerRequestForm.get('subjectArea')?.invalid && updateCustomerRequestForm.get('subjectArea')?.errors?.['required']">Please enter a subject area</mat-error>
-                </mat-form-field>
-            </div>
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label for="subjectArea">Subject area</mat-label>
+          <mat-select id="subjectArea" [disabled]="customerRequestsService.loading" formControlName="subjectArea" required="" placeholder="Enter a subject area">
+            <mat-option *ngFor="let subjectArea of subjectAreas; index as i" value="{{ subjectArea }}">{{ subjectArea
+              }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="updateCustomerRequestForm.get('subjectArea')?.invalid && updateCustomerRequestForm.get('subjectArea')?.errors?.['required']">Please
+            enter a subject area</mat-error>
+        </mat-form-field>
+      </div>
 
-            <div class="form-row">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label for="description">Description</mat-label>
-                    <textarea id="description" [disabled]="customerRequestsService.loading" formControlName="description" matInput placeholder="Enter the description"></textarea>
-                    <mat-error *ngIf="updateCustomerRequestForm.get('description')?.invalid && updateCustomerRequestForm.get('description')?.errors?.['required']">Please enter a description</mat-error>
-                </mat-form-field>
-            </div>
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label for="description">Description</mat-label>
+          <textarea id="description" [disabled]="customerRequestsService.loading" formControlName="description" matInput placeholder="Enter the description"></textarea>
+          <mat-error *ngIf="updateCustomerRequestForm.get('description')?.invalid && updateCustomerRequestForm.get('description')?.errors?.['required']">Please
+            enter a description</mat-error>
+        </mat-form-field>
+      </div>
 
-            <div class="form-row">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label for="customerContactName">Customer contact</mat-label>
-                    <mat-select id="customerContactName" [disabled]="customerRequestsService.loading" formControlName="customerContactName" required="" placeholder="Customer contact">
-                        <mat-option *ngFor="let customerContactName of customerContactNames" value="{{ customerContactName }}">{{ customerContactName }}</mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="updateCustomerRequestForm.get('customerContactName')?.invalid && updateCustomerRequestForm.get('customerContactName')?.errors?.['required']">Please select a customer contact</mat-error>
-                </mat-form-field>
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label for="customerContactName">Customer contact</mat-label>
+          <mat-select id="customerContactName" [disabled]="customerRequestsService.loading" formControlName="customerContactName" required="" placeholder="Customer contact">
+            <mat-option *ngFor="let customerContactName of customerContactNames" value="{{ customerContactName }}">{{ customerContactName }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="updateCustomerRequestForm.get('customerContactName')?.invalid && updateCustomerRequestForm.get('customerContactName')?.errors?.['required']">Please
+            select a customer contact</mat-error>
+        </mat-form-field>
 
-                <mat-form-field *ngIf="showTurnover()" appearance="outline" class="w-100">
-                    <mat-label for="turnover">Turnover</mat-label>
-                    <input id="turnover" type="text" [disabled]="customerRequestsService.loading" formControlName="turnover" matInput placeholder="Enter the turnover">
-                    <mat-error *ngIf="updateCustomerRequestForm.get('description')?.invalid && updateCustomerRequestForm.get('description')?.errors?.['required']">Please enter a turnover</mat-error>
-                </mat-form-field>
-            </div>
+        <mat-form-field *ngIf="showTurnover()" appearance="outline" class="w-100">
+          <mat-label for="turnover">Turnover</mat-label>
+          <input id="turnover" type="text" [disabled]="customerRequestsService.loading" formControlName="turnover" matInput placeholder="Enter the turnover">
+          <mat-error *ngIf="updateCustomerRequestForm.get('description')?.invalid && updateCustomerRequestForm.get('description')?.errors?.['required']">Please enter a turnover</mat-error>
+        </mat-form-field>
+      </div>
 
-            <div class="form-row">
-                <mat-form-field appearance="outline" class="w-50">
-                    <mat-label for="priority">Priority</mat-label>
-                    <mat-select id="priority" [disabled]="customerRequestsService.loading" formControlName="priority" required="" placeholder="Enter a priorty">
-                        <mat-option *ngFor="let priority of priorities; index as i" value="{{ priority }}">{{ priority }}</mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="updateCustomerRequestForm.get('priority')?.invalid && updateCustomerRequestForm.get('priority')?.errors?.['required']">Please select a priority</mat-error>
-                </mat-form-field>
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="w-50">
+          <mat-label for="priority">Priority</mat-label>
+          <mat-select id="priority" [disabled]="customerRequestsService.loading" formControlName="priority" required="" placeholder="Enter a priorty">
+            <mat-option *ngFor="let priority of priorities; index as i" value="{{ priority }}">{{ priority
+              }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="updateCustomerRequestForm.get('priority')?.invalid && updateCustomerRequestForm.get('priority')?.errors?.['required']">Please
+            select a priority</mat-error>
+        </mat-form-field>
 
-                <mat-form-field appearance="outline" class="w-50">
-                    <mat-label for="status">Status</mat-label>
-                    <mat-select id="status" [disabled]="customerRequestsService.loading" formControlName="status" required="" placeholder="Enter a status">
-                        <mat-option *ngFor="let status of statuses; index as i" value="{{ status }}">{{ status }}</mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="updateCustomerRequestForm.get('status')?.invalid && updateCustomerRequestForm.get('status')?.errors?.['required']">Please select a status</mat-error>
-                </mat-form-field>
-            </div>
+        <mat-form-field appearance="outline" class="w-50">
+          <mat-label for="status">Status</mat-label>
+          <mat-select id="status" [disabled]="customerRequestsService.loading" formControlName="status" required="" placeholder="Enter a status">
+            <mat-option *ngFor="let status of statuses; index as i" value="{{ status }}">{{ status }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="updateCustomerRequestForm.get('status')?.invalid && updateCustomerRequestForm.get('status')?.errors?.['required']">Please
+            select a status</mat-error>
+        </mat-form-field>
+      </div>
 
-            <div class="form-row">
-                <mat-form-field appearance="outline" class="w-50">
-                    <mat-label for="assignedTo">Assign to</mat-label>
-                    <mat-select id="assignedTo" [disabled]="customerRequestsService.loading" formControlName="assignedTo" placeholder="Assign to">
-                        <mat-option *ngFor="let userName of userNames" value="{{ userName }}">{{ userName }}</mat-option>
-                    </mat-select>
-                </mat-form-field>
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="w-50">
+          <mat-label for="assignedTo">Assign to</mat-label>
+          <mat-select id="assignedTo" [disabled]="customerRequestsService.loading" formControlName="assignedTo" placeholder="Assign to">
+            <mat-option *ngFor="let userDetail of userDetails" value="{{ userDetail.id }}">{{ userDetail.name
+              }}</mat-option>
+          </mat-select>
+        </mat-form-field>
 
-                <mat-form-field appearance="outline" class="w-50">  
-                    <mat-label>Choose a due date</mat-label>
-                    <input matInput [disabled]="customerRequestsService.loading" [min]="minDate" [matDatepicker]="picker" formControlName="dueDate" [value]="this.dueDate.value">
-                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
-            </div>
+        <mat-form-field appearance="outline" class="w-50">
+          <mat-label>Choose a due date</mat-label>
+          <input matInput [disabled]="customerRequestsService.loading" [min]="minDate" [matDatepicker]="picker" formControlName="dueDate" [value]="this.dueDate.value">
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
 
-            <div mat-dialog-actions>
-                <button [disabled]="customerRequestsService.loading" (click)="dialogRef.close()" mat-button>Cancel</button>
-                <button type="submit" [disabled]="customerRequestsService.loading" mat-button cdkFocusInitial>Save</button>
-            </div>
-        </form>
-    </div>
+      <div mat-dialog-actions>
+        <button [disabled]="customerRequestsService.loading" (click)="dialogRef.close()" mat-button>Cancel</button>
+        <button type="submit" [disabled]="customerRequestsService.loading" mat-button cdkFocusInitial>Save</button>
+      </div>
+    </form>
+  </div>
 
 </div>

@@ -41,17 +41,17 @@ export class CustomerRequestsDetailComponent implements OnInit {
       await this.customerRequestsService.getCurrentCustomerRequest();
       this.customerRequestToShow = this.customerRequestsService.currentCustomerRequest;
       this.customerRef = this.customerRequestToShow.customerRef;
-      this.dueDate = new Date(this.customerRequestToShow.dueDate).toLocaleDateString(); 
-      await this.getCustomerName(this.customerRef);  
+      this.dueDate = new Date(this.customerRequestToShow.dueDate).toLocaleDateString();
+      await this.getCustomerName(this.customerRef);
     });
     this.themeService.isLightTheme$.subscribe(isLightTheme => {
-      this.isLightTheme = isLightTheme;        
+      this.isLightTheme = isLightTheme;
     });
     this.customerRequestsNotesService.getNotesByRequestRef(this.customerRequestsService.customerRequestId)
       .subscribe(data => {
         this.customerRequestNotes = data;
         console.log('Diese Request Notes', this.customerRequestNotes);
-    });
+      });
     this.customerRequestNoteUser = await this.userService.getUserFullNameById(this.userService.userLoggedInId);
   }
 

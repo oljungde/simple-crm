@@ -1,53 +1,53 @@
 <div [class.light-theme]="isLightTheme$ | async" [class.dark-theme]="!(isLightTheme$ | async)">
-    <mat-progress-bar *ngIf="userService.loading" mode="indeterminate"></mat-progress-bar>
-    <h1 mat-dialog-title>Add user</h1>
-    <div mat-dialog-content >
-        <form [formGroup]="registerForm" (ngSubmit)="saveUser()">
-            <div class="form-row">
-                <mat-form-field appearance="outline">
-                    <mat-label for="firstName">First name</mat-label>
-                    <input id="firstName" type="text" [disabled]="userService.loading" formControlName="firstName" matInput placeholder="Enter the First name">
-                    <mat-error *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.errors?.['required']">Please enter a First name</mat-error>
-                </mat-form-field>
-    
-                <mat-form-field appearance="outline">
-                    <mat-label for="lastName">Last Name</mat-label>
-                    <input id="lastName" [disabled]="userService.loading" formControlName="lastName" matInput required placeholder="Enter the last name">
-                    <mat-error *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.errors?.['required']">Please enter a Last Name</mat-error>
-                </mat-form-field>
-            </div>
-    
-            <div class="form-row">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label for="email">E-Mail</mat-label>
-                    <input id="email" type="email" [disabled]="userService.loading" formControlName="email" matInput required placeholder="Enter the e-mail adress">
-                    <mat-error *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.errors?.['required']">Please enter a valid email address</mat-error>
-                    <mat-hint *ngIf="this.emailIsRegistered" class="error-hint">This email address is already registered</mat-hint>
-                </mat-form-field>
-            </div>
-    
-            <mat-form-field appearance="outline" class="w-100">
-                <mat-label for="password">Password</mat-label>
-                <input matInput [type]="hide ? 'password' : 'text'" id="password" formControlName="password" required placeholder="Enter a password">
-                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                </button>
-                <mat-error *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.errors?.['required']">Please enter a password</mat-error>
-            </mat-form-field>
-    
-            <div class="form-row">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label for="team">Team</mat-label>
-                    <mat-select id="team" [disabled]="userService.loading" formControlName="team" required="" placeholder="Enter a team">
-                        <mat-option *ngFor="let team of teams; index as i" value="{{ team }}">{{ team }}</mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="registerForm.get('team')?.invalid && registerForm.get('team')?.errors?.['required']">Please select a team</mat-error>
-                </mat-form-field>
-            </div>
-            <div mat-dialog-actions>
-                <button [disabled]="userService.loading" (click)="dialogClose()" mat-button>Cancel</button>
-                <button type="submit" [disabled]="userService.loading" mat-button cdkFocusInitial>Save</button>
-            </div>
-        </form>
-    </div>
+  <mat-progress-bar *ngIf="userService.loading" mode="indeterminate"></mat-progress-bar>
+  <h1 mat-dialog-title>Add user</h1>
+  <div mat-dialog-content>
+    <form [formGroup]="registerForm" (ngSubmit)="saveUser()">
+      <div class="form-row">
+        <mat-form-field appearance="outline">
+          <mat-label for="firstName">First name</mat-label>
+          <input id="firstName" type="text" [disabled]="userService.loading" formControlName="firstName" matInput placeholder="Enter the First name">
+          <mat-error *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.errors?.['required']">Please enter a First name</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label for="lastName">Last Name</mat-label>
+          <input id="lastName" [disabled]="userService.loading" formControlName="lastName" matInput required placeholder="Enter the last name">
+          <mat-error *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.errors?.['required']">Please enter a Last Name</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label for="email">E-Mail</mat-label>
+          <input id="email" type="email" [disabled]="userService.loading" formControlName="email" matInput required placeholder="Enter the e-mail adress">
+          <mat-error *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.errors?.['required']">Please enter a valid email address</mat-error>
+          <mat-hint *ngIf="this.emailIsRegistered" class="error-hint">This email address is already registered</mat-hint>
+        </mat-form-field>
+      </div>
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label for="password">Password</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" id="password" formControlName="password" required placeholder="Enter a password">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.errors?.['required']">Please enter a password</mat-error>
+      </mat-form-field>
+
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label for="team">Team</mat-label>
+          <mat-select id="team" [disabled]="userService.loading" formControlName="team" required="" placeholder="Enter a team">
+            <mat-option *ngFor="let team of teams; index as i" value="{{ team }}">{{ team }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="registerForm.get('team')?.invalid && registerForm.get('team')?.errors?.['required']">Please select a team</mat-error>
+        </mat-form-field>
+      </div>
+      <div mat-dialog-actions>
+        <button [disabled]="userService.loading" (click)="dialogClose()" mat-button>Cancel</button>
+        <button type="submit" [disabled]="userService.loading" mat-button cdkFocusInitial>Save</button>
+      </div>
+    </form>
+  </div>
 </div>

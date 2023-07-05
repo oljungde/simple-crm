@@ -18,7 +18,7 @@ export class CustomerContactsComponent implements OnInit {
   @Input() customerId = '';
   customerContacts: any = [];
   @ViewChild('searchInput') searchInput: ElementRef | undefined;
-  
+
 
   constructor(
     public themeService: ThemeService,
@@ -43,7 +43,7 @@ export class CustomerContactsComponent implements OnInit {
   openDialogAddContact(isLightTheme: boolean) {
     const dialogRef = this.dialog.open(DialogAddCustomerContactComponent, {
       panelClass: isLightTheme ? 'light-theme' : 'dark-theme'
-    }); 
+    });
     dialogRef.componentInstance.customerRef = this.customerId;
   }
 

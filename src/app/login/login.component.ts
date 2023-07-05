@@ -15,13 +15,13 @@ export class LoginComponent implements OnInit {
   hide = true;
   userloggedInEmail: string = '';
   loggedInUserId: string = '';
-  
+
 
   constructor(
-    public themeService: ThemeService, 
-    public authService: AuthService, 
+    public themeService: ThemeService,
+    public authService: AuthService,
     private formBuilder: FormBuilder,
-    public userService: UserService) { 
+    public userService: UserService) {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]

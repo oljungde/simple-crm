@@ -34,14 +34,14 @@ export class CustomerRequestsComponent implements OnInit {
       .subscribe(data => {
         this.customerRequests = data;
         console.log('Diese Kundenanfragen', this.customerRequests);
-    });
+      });
   }
 
 
   openDialog(isLightTheme: boolean) {
     this.dialog.open(DialogAddCustomerRequestComponent, {
       panelClass: isLightTheme ? 'light-theme' : 'dark-theme'
-    });    
+    });
   }
 
 
@@ -62,7 +62,7 @@ export class CustomerRequestsComponent implements OnInit {
           request.status.toLowerCase().includes(searchTerm) ||
           request.subjectArea.toLowerCase().includes(searchTerm) ||
           request.title.toLowerCase().includes(searchTerm)
-        );          
+        );
       });
     });
   }

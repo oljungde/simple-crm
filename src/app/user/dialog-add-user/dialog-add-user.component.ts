@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ThemeService  } from '../../shared/theme.service';
+import { ThemeService } from '../../shared/theme.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { User } from '../../models/user.class';
@@ -28,21 +28,21 @@ export class DialogAddUserComponent implements OnInit {
 
 
   constructor(
-    private themeService: ThemeService, 
-    public dialogRef: MatDialogRef<DialogAddUserComponent>, 
+    private themeService: ThemeService,
+    public dialogRef: MatDialogRef<DialogAddUserComponent>,
     private passwordGenerate: PasswordGenerateService,
     public userService: UserService,
     public authService: AuthService,
     private formBuilder: FormBuilder) {
-      const password = this.passwordGenerate.generatePassword();
-      this.registerForm = this.formBuilder.group({
-        firstName: ['', Validators.required],
-        lastName: ['', Validators.required],
-        email: ['', [Validators.required, Validators.email]],
-        password: [password, Validators.required],
-        team: ['', Validators.required],
-      });
-    }
+    const password = this.passwordGenerate.generatePassword();
+    this.registerForm = this.formBuilder.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: [password, Validators.required],
+      team: ['', Validators.required],
+    });
+  }
 
 
   ngOnInit(): void {

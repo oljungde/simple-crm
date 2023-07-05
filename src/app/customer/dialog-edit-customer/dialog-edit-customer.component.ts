@@ -29,8 +29,8 @@ export class DialogEditCustomerComponent implements OnInit {
     private themeService: ThemeService,
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<DialogEditCustomerComponent>) { }
-    
-    
+
+
   ngOnInit() {
     this.isLightTheme$ = this.themeService.isLightTheme$;
   }

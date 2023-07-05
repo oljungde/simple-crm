@@ -38,11 +38,11 @@ export class DialogEditCustomerContactComponent implements OnInit {
 
 
   saveCustomerContact() {
-    if(this.updateCustomerContactForm.valid) {
+    if (this.updateCustomerContactForm.valid) {
       const customerContact = new CustomerContact();
       customerContact.customerContactId = this.customerContact.customerContactId;
-      customerContact.customerRef = this.customerContact.customerRef;   
-      Object.assign(customerContact, this.updateCustomerContactForm.value);  
+      customerContact.customerRef = this.customerContact.customerRef;
+      Object.assign(customerContact, this.updateCustomerContactForm.value);
       this.customerContactsService.updateCustomerContact(customerContact);
       this.dialogRef.close();
     }

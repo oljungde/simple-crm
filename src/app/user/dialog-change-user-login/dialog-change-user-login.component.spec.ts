@@ -8,9 +8,9 @@ describe('DialogChangeUserLoginComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DialogChangeUserLoginComponent ]
+      declarations: [DialogChangeUserLoginComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(DialogChangeUserLoginComponent);
     component = fixture.componentInstance;

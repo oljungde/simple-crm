@@ -1,50 +1,50 @@
 <div [class.light-theme]="isLightTheme$ | async" [class.dark-theme]="!(isLightTheme$ | async)">
-    <mat-progress-bar *ngIf="customerContactsService.loading" mode="indeterminate"></mat-progress-bar>
-    <h1 mat-dialog-title>Add customer contact</h1>
-    <div mat-dialog-content >
-        <form [formGroup]="newCustomerContactForm" (ngSubmit)="saveCustomerContact()">
-            <div class="form-row">
-                <mat-form-field appearance="outline">
-                    <mat-label for="firstName">First name</mat-label>
-                    <input id="firstName" type="text" [disabled]="customerContactsService.loading" formControlName="firstName" matInput placeholder="Enter the First name">
-                    <mat-error *ngIf="newCustomerContactForm.get('firstName')?.invalid && newCustomerContactForm.get('firstName')?.errors?.['required']">Please enter a First name</mat-error>
-                </mat-form-field>
-    
-                <mat-form-field appearance="outline">
-                    <mat-label for="lastName">Last Name</mat-label>
-                    <input id="lastName" [disabled]="customerContactsService.loading" formControlName="lastName" matInput required placeholder="Enter the last name">
-                    <mat-error *ngIf="newCustomerContactForm.get('lastName')?.invalid && newCustomerContactForm.get('lastName')?.errors?.['required']">Please enter a Last Name</mat-error>
-                </mat-form-field>
-            </div>
+  <mat-progress-bar *ngIf="customerContactsService.loading" mode="indeterminate"></mat-progress-bar>
+  <h1 mat-dialog-title>Add customer contact</h1>
+  <div mat-dialog-content>
+    <form [formGroup]="newCustomerContactForm" (ngSubmit)="saveCustomerContact()">
+      <div class="form-row">
+        <mat-form-field appearance="outline">
+          <mat-label for="firstName">First name</mat-label>
+          <input id="firstName" type="text" [disabled]="customerContactsService.loading" formControlName="firstName" matInput placeholder="Enter the First name">
+          <mat-error *ngIf="newCustomerContactForm.get('firstName')?.invalid && newCustomerContactForm.get('firstName')?.errors?.['required']">Please enter a First name</mat-error>
+        </mat-form-field>
 
-            <div class="form-row">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label for="zip">Phone</mat-label>
-                    <input id="phone" [disabled]="customerContactsService.loading" formControlName="phone" matInput required placeholder="Enter the phone number">
-                    <mat-error *ngIf="newCustomerContactForm.get('phone')?.invalid && newCustomerContactForm.get('phone')?.errors?.['required']">Please enter a phone number</mat-error>
-                </mat-form-field>
-            </div>
+        <mat-form-field appearance="outline">
+          <mat-label for="lastName">Last Name</mat-label>
+          <input id="lastName" [disabled]="customerContactsService.loading" formControlName="lastName" matInput required placeholder="Enter the last name">
+          <mat-error *ngIf="newCustomerContactForm.get('lastName')?.invalid && newCustomerContactForm.get('lastName')?.errors?.['required']">Please enter a Last Name</mat-error>
+        </mat-form-field>
+      </div>
 
-            <div class="form-row">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label for="email">E-Mail</mat-label>
-                    <input id="email" type="email" [disabled]="customerContactsService.loading" formControlName="email" matInput required placeholder="Enter the e-mail adress">
-                    <mat-error *ngIf="newCustomerContactForm.get('email')?.invalid && newCustomerContactForm.get('email')?.errors?.['required']">Please enter a valid email address</mat-error>
-                </mat-form-field>
-            </div>
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label for="zip">Phone</mat-label>
+          <input id="phone" [disabled]="customerContactsService.loading" formControlName="phone" matInput required placeholder="Enter the phone number">
+          <mat-error *ngIf="newCustomerContactForm.get('phone')?.invalid && newCustomerContactForm.get('phone')?.errors?.['required']">Please enter a phone number</mat-error>
+        </mat-form-field>
+      </div>
 
-            <div class="form-row">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label for="position">Position</mat-label>
-                    <input id="position" [disabled]="customerContactsService.loading" formControlName="position" matInput required placeholder="Enter the last name">
-                    <mat-error *ngIf="newCustomerContactForm.get('position')?.invalid && newCustomerContactForm.get('position')?.errors?.['required']">Please enter a Last Name</mat-error>
-                </mat-form-field>
-            </div>
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label for="email">E-Mail</mat-label>
+          <input id="email" type="email" [disabled]="customerContactsService.loading" formControlName="email" matInput required placeholder="Enter the e-mail adress">
+          <mat-error *ngIf="newCustomerContactForm.get('email')?.invalid && newCustomerContactForm.get('email')?.errors?.['required']">Please enter a valid email address</mat-error>
+        </mat-form-field>
+      </div>
 
-            <div mat-dialog-actions>
-                <button [disabled]="customerContactsService.loading" (click)="dialogRef.close()" mat-button>Cancel</button>
-                <button type="submit" [disabled]="customerContactsService.loading" mat-button cdkFocusInitial>Save</button>
-            </div>
-        </form>
-    </div>
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label for="position">Position</mat-label>
+          <input id="position" [disabled]="customerContactsService.loading" formControlName="position" matInput required placeholder="Enter the last name">
+          <mat-error *ngIf="newCustomerContactForm.get('position')?.invalid && newCustomerContactForm.get('position')?.errors?.['required']">Please enter a Last Name</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div mat-dialog-actions>
+        <button [disabled]="customerContactsService.loading" (click)="dialogRef.close()" mat-button>Cancel</button>
+        <button type="submit" [disabled]="customerContactsService.loading" mat-button cdkFocusInitial>Save</button>
+      </div>
+    </form>
+  </div>
 </div>

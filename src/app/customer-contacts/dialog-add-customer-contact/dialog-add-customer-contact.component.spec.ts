@@ -8,9 +8,9 @@ describe('DialogAddCustomerContactComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DialogAddCustomerContactComponent ]
+      declarations: [DialogAddCustomerContactComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(DialogAddCustomerContactComponent);
     component = fixture.componentInstance;

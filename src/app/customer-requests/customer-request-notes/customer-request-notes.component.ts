@@ -12,7 +12,8 @@ export class CustomerRequestNotesComponent implements OnInit {
   @Input() date: number | undefined;
   userFullName: string = '';
   noteDateCreated: string = '';
-  
+
+
   constructor(private userService: UserService) { }
 
 

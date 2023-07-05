@@ -16,15 +16,15 @@ export class UserComponent implements OnInit {
   filteredUsers: any = [];
 
 
-    constructor(
-      public dialog: MatDialog, 
-      public themeService: ThemeService, 
-      public userService: UserService) { }
+  constructor(
+    public dialog: MatDialog,
+    public themeService: ThemeService,
+    public userService: UserService) { }
 
 
   ngOnInit() {
     this.themeService.isLightTheme$.subscribe(isLightTheme => {
-      this.isLightTheme = isLightTheme;        
+      this.isLightTheme = isLightTheme;
     });
     this.userService.allUsers.subscribe(users => {
       this.filteredUsers = users;

@@ -1,17 +1,17 @@
 <div [class.light-theme]="isLightTheme$ | async" [class.dark-theme]="!(isLightTheme$ | async)">
-    <!-- <mat-progress-bar *ngIf="customerRequestsService.loading" mode="indeterminate"></mat-progress-bar> -->
-    <h1 mat-dialog-title>Add customer request note</h1>
-    <div mat-dialog-content>
-        <form [formGroup]="newCustomerRequestNoteForm" (ngSubmit)="saveCustomerRequestNote()">
-            <div class="form-row">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label for="description">note</mat-label>
-                    <textarea id="note" [disabled]="customerRequestsNotesService.loading" formControlName="note" matInput placeholder="Enter your note"></textarea>
-                    <mat-error *ngIf="newCustomerRequestNoteForm.get('note')?.invalid && newCustomerRequestNoteForm.get('note')?.errors?.['required']">Please enter a note</mat-error>
-                </mat-form-field>
-            </div>
+  <!-- <mat-progress-bar *ngIf="customerRequestsService.loading" mode="indeterminate"></mat-progress-bar> -->
+  <h1 mat-dialog-title>Add customer request note</h1>
+  <div mat-dialog-content>
+    <form [formGroup]="newCustomerRequestNoteForm" (ngSubmit)="saveCustomerRequestNote()">
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label for="description">note</mat-label>
+          <textarea id="note" [disabled]="customerRequestsNotesService.loading" formControlName="note" matInput placeholder="Enter your note"></textarea>
+          <mat-error *ngIf="newCustomerRequestNoteForm.get('note')?.invalid && newCustomerRequestNoteForm.get('note')?.errors?.['required']">Please enter a note</mat-error>
+        </mat-form-field>
+      </div>
 
-            <!-- <div class="form-row">
+      <!-- <div class="form-row">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label for="subjectArea">Subject area</mat-label>
                     <mat-select id="subjectArea" [disabled]="customerRequestsService.loading" formControlName="subjectArea" required="" placeholder="Enter a subject area">
@@ -81,11 +81,11 @@
                 </mat-form-field>
             </div> -->
 
-            <div mat-dialog-actions>
-                <button [disabled]="customerRequestsNotesService.loading" (click)="dialogRef.close()" mat-button>Cancel</button>
-                <button type="submit" [disabled]="customerRequestsNotesService.loading" mat-button cdkFocusInitial>Save</button>
-            </div>
-        </form>
-    </div>
+      <div mat-dialog-actions>
+        <button [disabled]="customerRequestsNotesService.loading" (click)="dialogRef.close()" mat-button>Cancel</button>
+        <button type="submit" [disabled]="customerRequestsNotesService.loading" mat-button cdkFocusInitial>Save</button>
+      </div>
+    </form>
+  </div>
 
 </div>
