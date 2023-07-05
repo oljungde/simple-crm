@@ -11,16 +11,20 @@
 
     <table class="tasks-table">
       <tr>
-        <th>Name</th>
-        <th>Street</th>
-        <th>City</th>
-        <th>Phone</th>
+        <th>Due date</th>
+        <th>Customer name</th>
+        <th>Subject area</th>
+        <th>Title</th>
+        <th>Priority</th>
+        <th>Status</th>
       </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+      <tr *ngFor="let customerRequestAsTask of customerRequestsAsTasks">
+        <td>{{ customerRequestAsTask.dueDate | date:'dd.MM.yy':'':'de' }}</td>
+        <td>Name of Customer</td>
+        <td>{{ customerRequestAsTask.subjectArea }}</td>
+        <td>{{ customerRequestAsTask.title }}</td>
+        <td>{{ customerRequestAsTask.priority }}</td>
+        <td>{{ customerRequestAsTask.status }}</td>
       </tr>
     </table>
   </mat-card-content>

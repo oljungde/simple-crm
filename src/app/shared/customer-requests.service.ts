@@ -84,6 +84,40 @@ export class CustomerRequestsService {
   }
 
 
+  getCustomerRequestsAsTasksByUserRef(userRef: string): Observable<any> {
+    return new Observable(observer => {
+      let customerRequestsAsTasks: any = [];
+
+      const getStatusRequests = (status: string) => {
+        const customerRequestsQuery = query(
+          this.customerRequestsCollection,
+          where('assignedToUserRef', '==', userRef),
+          where('status', '==', status),
+          orderBy('dueDate', 'asc')
+        );
+        return onSnapshot(customerRequestsQuery, (querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            let customerRequestData = doc.data();
+            customerRequestData['id'] = doc.id;
+            customerRequestsAsTasks.push(customerRequestData);
+          });
+        });
+      }
+
+      const statuses = ['pending', 'in progress'];
+      const unsubscribes = statuses.map(status => getStatusRequests(status));
+      const unsubscribe = () => {
+        for (let unsub of unsubscribes) {
+          unsub();
+        }
+      };
+
+      observer.next(customerRequestsAsTasks);
+      return unsubscribe;
+    });
+  }
+
+
   async updateCustomerRequest(customerRequest: CustomerRequest) {
     this.loading = true;
     const docRef = doc(this.customerRequestsCollection, this.customerRequestId);
