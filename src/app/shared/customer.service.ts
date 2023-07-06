@@ -61,6 +61,18 @@ export class CustomerService {
   }
 
 
+  async getCustomerNameById(customerId: string) {
+    const docRef = doc(this.customersCollection, customerId);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      return docSnap.data()['name'];
+    } else {
+      console.log('No such document!');
+    }
+  }
+
+
+
   updateCustomer(customer?: Customer) {
     this.loading = true;
     const docRef = doc(this.customersCollection, this.customerId);

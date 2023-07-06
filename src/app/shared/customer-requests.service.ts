@@ -82,11 +82,13 @@ export class CustomerRequestsService {
       console.log('No such document!');
     }
   }
-
-
+  // Hier weiter
+  // funktion schreiben, die sowohl userRef als auch status als Parameter nimmt und dann die entsprechenden customerRequests zurückgibt
   getCustomerRequestsAsTasksByUserRef(userRef: string): Observable<any> {
     return new Observable(observer => {
       let customerRequestsAsTasks: any = [];
+      const statuses = ['pending', 'in progress'];
+      let completedStatuses = 0;
 
       const getStatusRequests = (status: string) => {
         const customerRequestsQuery = query(
@@ -101,21 +103,23 @@ export class CustomerRequestsService {
             customerRequestData['id'] = doc.id;
             customerRequestsAsTasks.push(customerRequestData);
           });
+          completedStatuses++;
+          if (completedStatuses === statuses.length) {
+            observer.next(customerRequestsAsTasks);
+            observer.complete();
+          }
         });
       }
 
-      const statuses = ['pending', 'in progress'];
       const unsubscribes = statuses.map(status => getStatusRequests(status));
-      const unsubscribe = () => {
+      return () => {
         for (let unsub of unsubscribes) {
           unsub();
         }
       };
-
-      observer.next(customerRequestsAsTasks);
-      return unsubscribe;
     });
   }
+
 
 
   async updateCustomerRequest(customerRequest: CustomerRequest) {

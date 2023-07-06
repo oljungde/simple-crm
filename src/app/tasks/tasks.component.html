@@ -20,7 +20,7 @@
       </tr>
       <tr *ngFor="let customerRequestAsTask of customerRequestsAsTasks">
         <td>{{ customerRequestAsTask.dueDate | date:'dd.MM.yy':'':'de' }}</td>
-        <td>Name of Customer</td>
+        <td>{{ customerRequestAsTask.customerName }}</td>
         <td>{{ customerRequestAsTask.subjectArea }}</td>
         <td>{{ customerRequestAsTask.title }}</td>
         <td>{{ customerRequestAsTask.priority }}</td>
