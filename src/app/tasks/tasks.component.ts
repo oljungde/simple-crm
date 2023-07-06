@@ -26,12 +26,16 @@ export class TasksComponent implements OnInit {
     this.themeService.isLightTheme$.subscribe(isLightTheme => {
       this.isLightTheme = isLightTheme;
     });
-    this.customerRequestsService.getCustomerRequestsAsTasksByUserRef(this.userService.userLoggedInId)
-      .subscribe(async data => {
-        await this.loadCustomerNames(data).then((tasks: any) => {
-          this.customerRequestsAsTasks = tasks;
+    console.log("this.userService.userLoggedInId", sessionStorage.getItem('userLoggedInId'));
+    const userLoggedInId = sessionStorage.getItem('userLoggedInId');
+    if (userLoggedInId) {
+      this.customerRequestsService.getCustomerRequestsAsTasksByUserRef(userLoggedInId)
+        .subscribe(async (data: any) => {
+          await this.loadCustomerNames(data).then((tasks: any) => {
+            this.customerRequestsAsTasks = tasks;
+          });
         });
-      });
+    }
   }
 
 

@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   hide = true;
   userloggedInEmail: string = '';
-  loggedInUserId: string = '';
+  loggedInUserId: string = sessionStorage.getItem('loggedInUserId') || '';
 
 
   constructor(
@@ -51,6 +51,7 @@ export class LoginComponent implements OnInit {
     // debugger;
     await this.userService.getUserIdByEmail(userloggedInEmail);
     this.loggedInUserId = this.userService.userLoggedInId
+    sessionStorage.setItem('userLoggedInId', this.loggedInUserId);
     console.log('user logged in id is ', this.loggedInUserId);
   }
 
