@@ -87,7 +87,7 @@ export class CustomerRequestsService {
   getCustomerRequestsAsTasksByUserRef(userRef: string): Observable<any> {
     return new Observable(observer => {
       let customerRequestsAsTasks: any = [];
-      const statuses = ['pending', 'in progress'];
+      const statuses = ['pending', 'in_progress'];
       let completedStatuses = 0;
 
       const getStatusRequests = (status: string) => {

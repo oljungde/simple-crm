@@ -45,7 +45,7 @@ export class DialogEditCustomerRequestComponent implements OnInit {
     description: [this.customerRequestsService.currentCustomerRequest.description, Validators.required],
     subjectArea: [this.customerRequestsService.currentCustomerRequest.subjectArea, Validators.required],
     priority: [this.customerRequestsService.currentCustomerRequest.priority, Validators.required],
-    status: [this.customerRequestsService.currentCustomerRequest.status, Validators.required],
+    status: [this.customerRequestsService.currentCustomerRequest.status.replace('_', ' '), Validators.required],
     assignedToUserRef: [this.customerRequestsService.currentCustomerRequest.assignedToUserRef],
     assignedToUserName: [this.customerRequestsService.currentCustomerRequest.assignedToUserName],
     dueDate: [this.dueDate.value],
@@ -137,7 +137,7 @@ export class DialogEditCustomerRequestComponent implements OnInit {
       } else {
         customerRequest.dueDate = this.updateCustomerRequestForm.value.dueDate?.getTime();
       }
-
+      customerRequest.status.replace(' ', '_');
       // customerRequest.dueDate = this.updateCustomerRequestForm.value.dueDate?.getTime();
       customerRequest.userRef = this.customerRequestsService.currentCustomerRequest.userRef;
       this.customerRequestsService.updateCustomerRequest(customerRequest);
