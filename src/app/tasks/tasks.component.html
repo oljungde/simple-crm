@@ -18,7 +18,7 @@
         <th>Priority</th>
         <th>Status</th>
       </tr>
-      <tr *ngFor="let customerRequestAsTask of customerRequestsAsTasks">
+      <tr *ngFor="let customerRequestAsTask of customerRequestsAsTasks" [routerLink]="['/customer-requests/'+customerRequestAsTask.id]">
         <td>{{ customerRequestAsTask.dueDate | date:'dd.MM.yy':'':'de' }}</td>
         <td>{{ customerRequestAsTask.customerName }}</td>
         <td>{{ customerRequestAsTask.subjectArea }}</td>

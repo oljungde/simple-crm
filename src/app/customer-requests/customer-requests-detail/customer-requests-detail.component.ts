@@ -76,7 +76,11 @@ export class CustomerRequestsDetailComponent implements OnInit {
     dialog.afterClosed().subscribe(async () => {
       await this.customerRequestsService.getCurrentCustomerRequest();
       this.customerRequestToShow = this.customerRequestsService.currentCustomerRequest;
-      this.dueDate = new Date(this.customerRequestToShow.dueDate).toLocaleDateString();
+      if (this.customerRequestToShow.dueDate != 0) {
+        this.dueDate = new Date(this.customerRequestToShow.dueDate).toLocaleDateString();
+      } else {
+        this.dueDate = '';
+      }
     });
   }
 

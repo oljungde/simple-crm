@@ -68,8 +68,8 @@ export class DialogEditCustomerRequestComponent implements OnInit {
       map(users => users.map(user => ({ name: `${user.firstName} ${user.lastName}`, id: user.userId })))
     ).subscribe(userDetails => {
       this.userDetails = userDetails;
+      console.log('UserDetails are: ', this.userDetails);
     });
-    console.log('UserDetails are: ', this.userDetails);
     this.customerContactsService.allCustomerContacts$.pipe(
       map(customerContacts => customerContacts.filter(customerContacts => customerContacts.customerRef === this.customerRequestsService.currentCustomerRequest.customerRef)))
       .subscribe(customerContacts => {
@@ -78,11 +78,18 @@ export class DialogEditCustomerRequestComponent implements OnInit {
         this.customerContactNames = customerContacts.map(customerContact => (`${customerContact.firstName} ${customerContact.lastName}`));
         this.customerContactNames = this.customerContactNames.sort();
       });
-    this.updateCustomerRequestForm.get('subjectArea')?.valueChanges.subscribe(subjectAreaValue => {
+    this.updateCustomerRequestForm.get('subjectArea')?.valueChanges.subscribe(() => {
       this.showTurnover();
     });
     console.log('assignedToUserName ', this.customerRequestsService.currentCustomerRequest.assignedToUserName);
-
+    let comparisonDate = new Date('1970-01-01');
+    // Prüfen Sie, ob das Datum nach dem 1. Januar 1970 liegt
+    if (this.dueDate.value && this.dueDate.value <= comparisonDate) {
+      // Verwenden Sie die patchValue Methode, um den Wert von dueDate auf null zu setzen
+      this.updateCustomerRequestForm.patchValue({
+        dueDate: null
+      });
+    }
   }
 
 
@@ -124,7 +131,14 @@ export class DialogEditCustomerRequestComponent implements OnInit {
       customerRequest.customerRequestId = this.customerRequestsService.currentCustomerRequest.customerRequestId;
       customerRequest.createdBy = this.customerRequestsService.currentCustomerRequest.createdBy;
       customerRequest.dateRequested = this.customerRequestsService.currentCustomerRequest.dateRequested;
-      customerRequest.dueDate = this.updateCustomerRequestForm.value.dueDate?.getTime();
+
+      if (!customerRequest.dueDate) {
+        customerRequest.dueDate = 0;
+      } else {
+        customerRequest.dueDate = this.updateCustomerRequestForm.value.dueDate?.getTime();
+      }
+
+      // customerRequest.dueDate = this.updateCustomerRequestForm.value.dueDate?.getTime();
       customerRequest.userRef = this.customerRequestsService.currentCustomerRequest.userRef;
       this.customerRequestsService.updateCustomerRequest(customerRequest);
       this.dialogRef.close();

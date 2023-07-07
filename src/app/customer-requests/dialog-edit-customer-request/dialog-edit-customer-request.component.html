@@ -80,7 +80,7 @@
 
         <mat-form-field appearance="outline" class="w-50">
           <mat-label>Choose a due date</mat-label>
-          <input matInput [disabled]="customerRequestsService.loading" [min]="minDate" [matDatepicker]="picker" formControlName="dueDate" [value]="this.dueDate.value">
+          <input matInput [disabled]="customerRequestsService.loading" [min]="minDate" [matDatepicker]="picker" formControlName="dueDate">
           <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
