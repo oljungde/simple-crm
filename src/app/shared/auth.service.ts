@@ -95,9 +95,10 @@ export class AuthService implements OnInit {
     }
     signOut(this.auth)
       .then(() => {
-        sessionStorage.setItem('isUserLoggedIn', 'false');
+        sessionStorage.removeItem('isUserLoggedIn');
+        sessionStorage.removeItem('userLoggedInId');
         this.isUserLoggedIn = sessionStorage.getItem('isUserLoggedIn') === 'true';
-        sessionStorage.setItem('isGuestLogin', 'false');
+        sessionStorage.removeItem('isGuestLogin');
         this.isGuestLogin = sessionStorage.getItem('isGuestLogin') === 'true';
         this.router.navigate(['/login']);
         console.log('User signed out!');

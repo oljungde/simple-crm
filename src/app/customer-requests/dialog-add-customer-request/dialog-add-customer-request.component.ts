@@ -35,7 +35,6 @@ export class DialogAddCustomerRequestComponent implements OnInit {
     'Invoice'
   ];
   minDate = new Date();
-  // userNames: any = [];
   userDetails: any = [];
   customerContacts: any = [];
   customerContactNames: any = [];
@@ -58,10 +57,10 @@ export class DialogAddCustomerRequestComponent implements OnInit {
       turnover: ['', Validators.required],
       priority: ['', Validators.required],
       status: ['', Validators.required],
-      dateRequested: [new Date().getTime(),],
-      dueDate: [new Date().getTime(),],
-      assignedToUserRef: ['',],
-      assignedToUserName: ['',],
+      dateRequested: [new Date().getTime()],
+      dueDate: [''],
+      assignedToUserRef: [''],
+      assignedToUserName: [''],
     });
   }
 
@@ -113,13 +112,23 @@ export class DialogAddCustomerRequestComponent implements OnInit {
     if (this.newCustomerRequestForm.valid) {
       const newCustomerRequest = new CustomerRequest();
       Object.assign(newCustomerRequest, this.newCustomerRequestForm.value);
-      newCustomerRequest.userRef = this.userService.userLoggedInId;
-      newCustomerRequest.createdBy = await this.userService.getUserFullNameById(this.userService.userLoggedInId);
-      newCustomerRequest.assignedToUserName = await this.userService.getUserFullNameById(this.newCustomerRequestForm.value.assignedToUserRef);
+      newCustomerRequest.userRef = sessionStorage.getItem('userLoggedInId')!;
+      newCustomerRequest.createdBy = await this.userService.getUserFullNameById(newCustomerRequest.userRef);
+      if (newCustomerRequest.assignedToUserRef) {
+        newCustomerRequest.assignedToUserName = await this.userService.getUserFullNameById(this.newCustomerRequestForm.value.assignedToUserRef);
+      } else {
+        newCustomerRequest.assignedToUserRef = '';
+        newCustomerRequest.assignedToUserName = '';
+      }
       newCustomerRequest.customerRef = this.customerService.customerId;
       this.identifyCustomerContactId(this.newCustomerRequestForm.value.customerContactName);
       newCustomerRequest.customerContactRef = this.customerContactRef;
-      newCustomerRequest.dueDate = new Date(this.newCustomerRequestForm.value.dueDate).getTime();
+      if (!newCustomerRequest.dueDate) {
+        newCustomerRequest.dueDate = 0;
+      } else {
+        newCustomerRequest.dueDate = new Date(this.newCustomerRequestForm.value.dueDate).getTime();
+      }
+      console.log('Dies ist der neue Customer Request: ', newCustomerRequest.toJSON());
       this.customerRequestsService.saveNewCustomerRequest(newCustomerRequest);
       if (newCustomerRequest.customerRef) {
         this.customerRequestsService.getCustomerRequests(newCustomerRequest.customerRef);
