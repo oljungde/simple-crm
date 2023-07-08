@@ -131,13 +131,15 @@ export class DialogEditCustomerRequestComponent implements OnInit {
       customerRequest.customerRequestId = this.customerRequestsService.currentCustomerRequest.customerRequestId;
       customerRequest.createdBy = this.customerRequestsService.currentCustomerRequest.createdBy;
       customerRequest.dateRequested = this.customerRequestsService.currentCustomerRequest.dateRequested;
-
+      console.log(customerRequest.status);
+      customerRequest.status = customerRequest.status.replace(' ', '_');
+      console.log('Status: ', customerRequest.status);
       if (!customerRequest.dueDate) {
         customerRequest.dueDate = 0;
       } else {
         customerRequest.dueDate = this.updateCustomerRequestForm.value.dueDate?.getTime();
       }
-      customerRequest.status.replace(' ', '_');
+
       // customerRequest.dueDate = this.updateCustomerRequestForm.value.dueDate?.getTime();
       customerRequest.userRef = this.customerRequestsService.currentCustomerRequest.userRef;
       this.customerRequestsService.updateCustomerRequest(customerRequest);

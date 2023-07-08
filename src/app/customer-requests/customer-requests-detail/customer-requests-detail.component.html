@@ -85,7 +85,8 @@
   </mat-card-content>
 </mat-card>
 
-<app-customer-request-notes *ngFor="let customerRequestNote of this.customerRequestNotes" [note]="customerRequestNote.note" [userRef]="customerRequestNote.userRef" [date]="customerRequestNote.dateCreated"></app-customer-request-notes>
+<app-customer-request-notes *ngFor="let customerRequestNote of this.customerRequestNotes" [note]="customerRequestNote.note" [userRef]="customerRequestNote.userRef"
+  [date]="customerRequestNote.dateCreated"></app-customer-request-notes>
 
 <button (click)="openDialog(this.isLightTheme)" mat-mini-fab color="primary" matTooltip="Add request note" matTooltipPosition="above" class="add-note-btn">
   <mat-icon>add</mat-icon>

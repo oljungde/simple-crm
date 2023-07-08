@@ -41,7 +41,7 @@ export class DialogAddCustomerRequestNoteComponent implements OnInit {
     if (this.newCustomerRequestNoteForm.valid) {
       const newCustomerRequestNote = new CustomerRequestNote();
       Object.assign(newCustomerRequestNote, this.newCustomerRequestNoteForm.value);
-      newCustomerRequestNote.userRef = this.userService.userLoggedInId;
+      newCustomerRequestNote.userRef = sessionStorage.getItem('userLoggedInId') || '';
       newCustomerRequestNote.customerRequestRef = this.customerRequestsService.customerRequestId;
       this.customerRequestsNotesService.saveNewCustomerRequestNote(newCustomerRequestNote);
       this.dialogRef.close();

@@ -41,6 +41,7 @@ export class CustomerRequestsDetailComponent implements OnInit {
       await this.customerRequestsService.getCurrentCustomerRequest();
       this.customerRequestToShow = this.customerRequestsService.currentCustomerRequest;
       this.customerRef = this.customerRequestToShow.customerRef;
+      this.customerRequestToShow.status = this.customerRequestToShow.status.replace('_', ' ');
       if (this.customerRequestToShow.dueDate != 0) {
         this.dueDate = new Date(this.customerRequestToShow.dueDate).toLocaleDateString();
       }
@@ -54,7 +55,7 @@ export class CustomerRequestsDetailComponent implements OnInit {
         this.customerRequestNotes = data;
         console.log('Diese Request Notes', this.customerRequestNotes);
       });
-    this.customerRequestNoteUser = await this.userService.getUserFullNameById(this.userService.userLoggedInId);
+    this.customerRequestNoteUser = await this.userService.getUserFullNameById(sessionStorage.getItem('userLoggedInId') || '');
   }
 
 
@@ -81,6 +82,7 @@ export class CustomerRequestsDetailComponent implements OnInit {
       } else {
         this.dueDate = '';
       }
+      this.customerRequestToShow.status = this.customerRequestToShow.status.replace('_', ' ');
     });
   }
 
