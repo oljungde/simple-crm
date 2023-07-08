@@ -1,1 +1,13 @@
-<p>dashboard works!</p>
+<div class="dashboard-row">
+  <app-request-info [title]="'Requests pending'" [numberOfRequests]="pendingCustomerRequests"></app-request-info>
+  <app-request-info [title]="'Requests in progress'" [numberOfRequests]="in_progressCustomerRequests"></app-request-info>
+  <app-request-info [title]="'Requests closed'" [numberOfRequests]="closedCustomerRequests"></app-request-info>
+  <app-request-info [title]="'Requests total'" [numberOfRequests]="numberOfAllCustomerRequests"></app-request-info>
+</div>
+<div class="dashboard-row">
+  <app-request-info [title]="'Customer Service'" [numberOfRequests]="Customer_ServiceCustomerRequests"></app-request-info>
+  <app-request-info [title]="'Offer'" [numberOfRequests]="OfferCustomerRequests"></app-request-info>
+  <app-request-info [title]="'Orders'" [numberOfRequests]="OrderCustomerRequests"></app-request-info>
+  <app-request-info [title]="'Invoice'" [numberOfRequests]="InvoiceCustomerRequests"></app-request-info>
+  <app-request-info [title]="'Sales'" [numberOfRequests]="SalesCustomerRequests"></app-request-info>
+</div>

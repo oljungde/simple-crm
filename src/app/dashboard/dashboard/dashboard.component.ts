@@ -31,7 +31,7 @@ export class DashboardComponent implements OnInit {
     this.customerRequestsService.allCustomerRequests$.subscribe((customerRequests) => {
       console.log('customerRequests: ', customerRequests);
       this.allCustomerRequests = customerRequests;
-
+      this.getDashboardData();
     });
   }
 

@@ -51,6 +51,7 @@ import { CustomerRequestNotesComponent } from './customer-requests/customer-requ
 import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
 import { TasksComponent } from './tasks/tasks.component';
+import { RequestInfoComponent } from './dashboard/request-info/request-info.component';
 
 
 registerLocaleData(localeDe);
@@ -79,7 +80,8 @@ registerLocaleData(localeDe);
     DialogEditCustomerRequestComponent,
     DialogAddCustomerRequestNoteComponent,
     CustomerRequestNotesComponent,
-    TasksComponent
+    TasksComponent,
+    RequestInfoComponent
   ],
   imports: [
     BrowserModule,

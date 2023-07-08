@@ -1,0 +1,13 @@
+.request-info-content {
+    height: 160px;
+    width: 160px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.number {
+    font-size: 72px;
+    font-weight: 700;
+}
