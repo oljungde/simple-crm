@@ -24,7 +24,7 @@
         <td>{{ customerRequestAsTask.subjectArea }}</td>
         <td>{{ customerRequestAsTask.title }}</td>
         <td>{{ customerRequestAsTask.priority }}</td>
-        <td>{{ customerRequestAsTask.status }}</td>
+        <td>{{ customerRequestAsTask.status.replace('_', ' ') }}</td>
       </tr>
     </table>
   </mat-card-content>

@@ -11,7 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDividerModule } from '@angular/material/divider';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 import { UserComponent } from './user/user/user.component';
 import { DialogAddUserComponent } from './user/dialog-add-user/dialog-add-user.component';
 import { MatDialogModule } from '@angular/material/dialog';

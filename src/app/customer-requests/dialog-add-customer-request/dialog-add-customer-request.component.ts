@@ -125,6 +125,7 @@ export class DialogAddCustomerRequestComponent implements OnInit {
       newCustomerRequest.customerContactRef = this.customerContactRef;
       console.log(newCustomerRequest.status);
       newCustomerRequest.status = newCustomerRequest.status.replace(' ', '_');
+      newCustomerRequest.subjectArea = newCustomerRequest.subjectArea.replace(' ', '_');
       console.log(newCustomerRequest.status);
       if (!newCustomerRequest.dueDate) {
         newCustomerRequest.dueDate = 0;

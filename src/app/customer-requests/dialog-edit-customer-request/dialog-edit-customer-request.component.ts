@@ -133,6 +133,7 @@ export class DialogEditCustomerRequestComponent implements OnInit {
       customerRequest.dateRequested = this.customerRequestsService.currentCustomerRequest.dateRequested;
       console.log(customerRequest.status);
       customerRequest.status = customerRequest.status.replace(' ', '_');
+      customerRequest.subjectArea = customerRequest.subjectArea.replace(' ', '_');
       console.log('Status: ', customerRequest.status);
       if (!customerRequest.dueDate) {
         customerRequest.dueDate = 0;
