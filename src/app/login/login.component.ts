@@ -47,7 +47,6 @@ export class LoginComponent implements OnInit {
 
 
   async getUserId(userloggedInEmail: string) {
-    // debugger;
     await this.userService.getUserIdByEmail(userloggedInEmail);
     this.loggedInUserId = this.userService.userLoggedInId
     sessionStorage.setItem('userLoggedInId', this.loggedInUserId);
