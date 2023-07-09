@@ -17,10 +17,13 @@ export class CustomerRequestsNotesService {
   constructor() { }
 
 
+  /**
+   * saving a new customer request note
+   * @param customerRequestNote is an instance of CustomerRequestNote
+   */
   saveNewCustomerRequestNote(customerRequestNote?: CustomerRequestNote) {
     this.loading = true;
     const customerRequestNoteToSave = customerRequestNote ? customerRequestNote : this.newCustomerRequestNote;
-    console.log('customerRequestNoteToSave is: ', customerRequestNoteToSave);
     addDoc(this.customerRequestsNotesCollection, customerRequestNoteToSave.toJSON())
       .then((docRef: any) => {
         this.customerRequestNoteId = docRef.id;
@@ -29,6 +32,12 @@ export class CustomerRequestsNotesService {
       });
   }
 
+
+  /**
+   * get all notes for a customer request from firestore
+   * @param requestRef is the customer request reference of the customer request notes to get the note for the request
+   * @returns 
+   */
   getNotesByRequestRef(requestRef: string) {
     return new Observable(observer => {
       const customerRequestNotesQuery = query(

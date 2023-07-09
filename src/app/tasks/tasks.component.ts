@@ -22,11 +22,15 @@ export class TasksComponent implements OnInit {
   ) { }
 
 
+  /**
+   * subscribe to the isLightTheme$ Observable in the themeService
+   * and call getCustomerRequestsAsTasksByUserRef() when the Observable emits a value
+   * get the cusomer requests as tasks for the user that is logged in
+   */
   ngOnInit() {
     this.themeService.isLightTheme$.subscribe(isLightTheme => {
       this.isLightTheme = isLightTheme;
     });
-    console.log("this.userService.userLoggedInId", sessionStorage.getItem('userLoggedInId'));
     const userLoggedInId = sessionStorage.getItem('userLoggedInId');
     if (userLoggedInId) {
       this.customerRequestsService.getCustomerRequestsAsTasksByUserRef(userLoggedInId)
@@ -39,6 +43,11 @@ export class TasksComponent implements OnInit {
   }
 
 
+  /**
+   * get the cutomer names for the customer requests as tasks for the user that is logged in
+   * @param tasks are the customer requests as tasks for the user that is logged in
+   * @returns the customer requests as tasks for the user that is logged in with the customer name added
+   */
   async loadCustomerNames(tasks: any[]) {
     const tasksWithNames = tasks.map(async task => {
       try {
@@ -53,6 +62,9 @@ export class TasksComponent implements OnInit {
   }
 
 
+  /**
+   * searchTask() is called when the user clicks the "Search" button
+   */
   searchTask() {
     console.log("searchTask");
   }

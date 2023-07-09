@@ -41,7 +41,6 @@ export class LoginComponent implements OnInit {
     if (val?.email && val?.password) {
       await this.authService.userLogin(val.email, val.password);
       this.userloggedInEmail = val.email;
-      console.log('user logged in email is ', this.userloggedInEmail);
       this.getUserId(this.userloggedInEmail);
     }
   }

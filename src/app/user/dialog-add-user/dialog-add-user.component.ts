@@ -45,51 +45,61 @@ export class DialogAddUserComponent implements OnInit {
   }
 
 
+  /**
+   * themeService.isLightTheme$ is an Observable<boolean> that is used to determine
+   */
   ngOnInit(): void {
     this.isLightTheme$ = this.themeService.isLightTheme$;
   }
 
 
+  /**
+   * reset the registerForm
+   */
   resetForm() {
     this.userService.newUser = new User();
   }
 
 
+  /**
+   * close the dialog to add a new user and reset the registerForm
+   */
   dialogClose() {
     this.resetForm();
     this.dialogRef.close();
   }
 
 
+  /**
+   * saveUser() is called when the user clicks the "Save" button in the dialog.
+   */
   saveUser() {
     if (this.registerForm.valid) {
       const newUser = new User();
       Object.assign(newUser, this.registerForm.value);
-      this.authService.registerUser(this.registerForm.value.email, this.registerForm.value.password)
-        .then(() => {
-          this.emailIsRegistered = false;
-          newUser.fullName = `${newUser.firstName} ${newUser.lastName}`;
-          this.userService.saveNewUser(newUser);
-          this.resetForm();
-          this.dialogRef.close();
-        })
-        .catch((error) => {
-          this.emailIsRegistered = true;
-          console.error('Registrierung fehlgeschlagen: ', error);
-        });
+      this.registerUser(newUser);
     } else {
       console.log('Form is invalid');
     }
+  }
 
-    // if (this.registerForm.valid) {
-    //   const newUser = new User();
-    //   Object.assign(newUser, this.registerForm.value);
-    //   this.userService.saveNewUser(newUser);
-    //   this.authService.registerUser(this.registerForm.value.email, this.registerForm.value.password);
-    //   this.resetForm();
-    //   this.dialogRef.close();
-    // } else {
-    //   console.log('Form is invalid');
-    // }
+
+  /**
+   * auth the new user in firebase and save the user in the database
+   * @param newUser is an instance of the User class from the registerForm
+   */
+  registerUser(newUser: User) {
+    this.authService.registerUser(this.registerForm.value.email, this.registerForm.value.password)
+      .then(() => {
+        this.emailIsRegistered = false;
+        newUser.fullName = `${newUser.firstName} ${newUser.lastName}`;
+        this.userService.saveNewUser(newUser);
+        this.resetForm();
+        this.dialogRef.close();
+      })
+      .catch((error) => {
+        this.emailIsRegistered = true;
+        console.error('Registrierung fehlgeschlagen: ', error);
+      });
   }
 }

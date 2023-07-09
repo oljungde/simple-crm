@@ -21,17 +21,22 @@ export class CustomerComponent implements OnInit {
     public customerService: CustomerService) { }
 
 
+  /**
+   * get all customers and subscribe to theme changes
+   */
   ngOnInit() {
     this.themeService.isLightTheme$.subscribe(isLightTheme => {
       this.isLightTheme = isLightTheme;
     });
     this.customerService.allCustomers.subscribe(customers => {
-      console.log('customers ', customers);
       this.filteredCustomers = customers;
     });
   }
 
 
+  /**
+   * Search for customers by name, street, zipCode, city, phone, homepage, email
+   */
   searchCustomer() {
     const searchTerm = this.searchInput?.nativeElement.value.toLowerCase();
     this.filteredCustomers = this.customerService.allCustomers$.value.filter((customer: any) => {
@@ -46,6 +51,10 @@ export class CustomerComponent implements OnInit {
   }
 
 
+  /**
+   * open dialog to add a new customer
+   * @param isLightTheme checks if the theme is light or dark
+   */
   openDialog(isLightTheme: boolean) {
     this.dialog.open(DialogAddCustomerComponent, {
       panelClass: isLightTheme ? 'light-theme' : 'dark-theme'

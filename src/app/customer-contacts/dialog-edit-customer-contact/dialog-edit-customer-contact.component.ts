@@ -24,9 +24,11 @@ export class DialogEditCustomerContactComponent implements OnInit {
     public dialogRef: MatDialogRef<DialogEditCustomerContactComponent>) { }
 
 
+  /**
+   * subscribe to theme changes and fill form with customer contact details
+   */
   ngOnInit() {
     this.isLightTheme$ = this.themeService.isLightTheme$;
-    console.log(this.customerContact);
     this.updateCustomerContactForm = this.formBuilder.group({
       firstName: [this.customerContact.firstName, Validators.required],
       lastName: [this.customerContact.lastName, Validators.required],
@@ -37,6 +39,9 @@ export class DialogEditCustomerContactComponent implements OnInit {
   }
 
 
+  /**
+   * save customer contact details after editing
+   */
   saveCustomerContact() {
     if (this.updateCustomerContactForm.valid) {
       const customerContact = new CustomerContact();

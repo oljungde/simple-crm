@@ -37,12 +37,19 @@ export class DialogEditUserComponent {
   }
 
 
+  /**
+   * themeService.isLightTheme$ is an Observable<boolean> that is used to determine
+   * disabled the email input field
+   */
   ngOnInit(): void {
     this.isLightTheme$ = this.themeService.isLightTheme$;
     this.updateForm.controls['email'].disable();
   }
 
 
+  /**
+   * saveUser() is called when the user clicks the "Save" button in the dialog.
+   */
   saveUser() {
     if (this.updateForm.valid) {
       this.updateForm.controls['email'].enable();

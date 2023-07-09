@@ -26,20 +26,24 @@ export class CustomerContactsComponent implements OnInit {
     public customerContactsService: CustomerContactsService) { }
 
 
+  /**
+   * get all customer contacts and subscribe to theme changes
+   */
   ngOnInit() {
     this.themeService.isLightTheme$.subscribe(isLightTheme => {
       this.isLightTheme = isLightTheme;
     });
-    console.log('customerId:', this.customerId);
-
     this.customerContactsService.getCustomerContacts(this.customerId)
       .subscribe(data => {
         this.customerContacts = data;
-        console.log('Diese Kundenkontakte', this.customerContacts);
       });
   }
 
 
+  /**
+   * Open dialog to add a new customer contact
+   * @param isLightTheme checks if the theme is light or dark and opens the dialog with the corresponding theme
+   */
   openDialogAddContact(isLightTheme: boolean) {
     const dialogRef = this.dialog.open(DialogAddCustomerContactComponent, {
       panelClass: isLightTheme ? 'light-theme' : 'dark-theme'
@@ -48,6 +52,9 @@ export class CustomerContactsComponent implements OnInit {
   }
 
 
+  /**
+   * Search for customer contacts by firstName, lastName, email, phone, position
+   */
   searchContact() {
     const searchTerm = this.searchInput?.nativeElement.value.toLowerCase();
     this.customerContactsService.getCustomerContacts(this.customerId).pipe(
@@ -66,10 +73,13 @@ export class CustomerContactsComponent implements OnInit {
   }
 
 
+  /**
+   * open dialog to edit customer contact
+   * @param isLightTheme chooses the theme for the dialog
+   * @param contactId to get the contact that should be edited
+   */
   openDialogEditContact(isLightTheme: boolean, contactId: any) {
-    console.log('edit contact:', contactId);
     let contact = this.customerContacts.find((contact: any) => contact.customerContactId === contactId);
-    console.log('contact:', contact);
     const dialog = this.dialog.open(DialogEditCustomerContactComponent);
     dialog.componentInstance.customerContact = contact;
   }

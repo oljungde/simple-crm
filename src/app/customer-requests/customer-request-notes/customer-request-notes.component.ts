@@ -17,6 +17,9 @@ export class CustomerRequestNotesComponent implements OnInit {
   constructor(private userService: UserService) { }
 
 
+  /**
+   * get user full name by user id and format date
+   */
   async ngOnInit(): Promise<void> {
     if (this.date) {
       this.noteDateCreated = new Date(this.date).toLocaleString('de-DE', { dateStyle: 'short', timeStyle: 'short' });

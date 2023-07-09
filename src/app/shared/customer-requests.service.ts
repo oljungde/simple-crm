@@ -25,6 +25,9 @@ export class CustomerRequestsService {
   }
 
 
+  /**
+   * observe the customer requests collection, sets the id and update the allCustomerRequests$ BehaviorSubject
+   */
   observeCustomerRequests() {
     onSnapshot(this.customerRequestsCollection, (changes) => {
       let customerRequests: any = [];
@@ -34,18 +37,19 @@ export class CustomerRequestsService {
         customerRequests.push(customerRequestData);
       });
       this.allCustomerRequests$.next(customerRequests);
-      console.log('Recieved customer request changes: ', this.allCustomerRequests$.value);
     });
   }
 
 
+  /**
+   * save a new customer request
+   * @param customerRequest is an instance of CustomerRequest
+   */
   saveNewCustomerRequest(customerRequest?: CustomerRequest) {
     this.loading = true;
     const customerRequestToSave = customerRequest ? customerRequest : this.newCustomerRequest;
-    console.log('customerRequestToSave is: ', customerRequestToSave);
     addDoc(this.customerRequestsCollection, customerRequestToSave.toJSON())
       .then((docRef: DocumentReference) => {
-        console.log('new customer request added: ', docRef);
         this.customerRequestId = docRef.id;
         updateDoc(docRef, { customerRequestId: docRef.id });
         this.loading = false;
@@ -53,6 +57,11 @@ export class CustomerRequestsService {
   }
 
 
+  /**
+   *get the customer requests for a customer from firestore and set the id for each customer request 
+   * @param customerRef is the customer reference of the customer to get the customer requests for
+   * @returns an Observable with the customer requests for the customer
+   */
   getCustomerRequests(customerRef: string): Observable<any> {
     return new Observable(observer => {
       const customerRequestsQuery = query(
@@ -73,6 +82,9 @@ export class CustomerRequestsService {
   }
 
 
+  /**
+   * get the customer request which is currently selected
+   */
   async getCurrentCustomerRequest() {
     const docRef = doc(this.customerRequestsCollection, this.customerRequestId);
     const docSnap = await getDoc(docRef);
@@ -82,14 +94,18 @@ export class CustomerRequestsService {
       console.log('No such document!');
     }
   }
-  // Hier weiter
-  // funktion schreiben, die sowohl userRef als auch status als Parameter nimmt und dann die entsprechenden customerRequests zurückgibt
+
+
+  /**
+   * get the customer requests as tasks for a user from firestore for each status and set the id for each customer request
+   * @param userRef is the user reference of the user to get the customer requests as tasks for
+   * @returns an Observable with the customer requests as tasks for the user
+   */
   getCustomerRequestsAsTasksByUserRef(userRef: string): Observable<any> {
     return new Observable(observer => {
       let customerRequestsAsTasks: any = [];
       const statuses = ['pending', 'in_progress'];
       let completedStatuses = 0;
-
       const getStatusRequests = (status: string) => {
         const customerRequestsQuery = query(
           this.customerRequestsCollection,
@@ -110,7 +126,6 @@ export class CustomerRequestsService {
           }
         });
       }
-
       const unsubscribes = statuses.map(status => getStatusRequests(status));
       return () => {
         for (let unsub of unsubscribes) {
@@ -121,13 +136,15 @@ export class CustomerRequestsService {
   }
 
 
-
+  /**
+   * update a customer request
+   * @param customerRequest is an instance of CustomerRequest
+   */
   async updateCustomerRequest(customerRequest: CustomerRequest) {
     this.loading = true;
     const docRef = doc(this.customerRequestsCollection, this.customerRequestId);
     await updateDoc(docRef, customerRequest.toJSON())
       .then(() => {
-        console.log('Customer Request updated');
         this.loading = false;
       });
   }

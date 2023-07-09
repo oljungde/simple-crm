@@ -18,15 +18,20 @@ export class UserDetailComponent implements OnInit {
     public userService: UserService) { }
 
 
+  /**
+   * subscribe to the userId parameter in the route
+   */
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.userService.userId = params.get('id') || '';
-      console.log(this.userService.userId);
       this.userService.getUser();
     });
   }
 
 
+  /**
+   * opens the DialogEditUserComponent whith this form
+   */
   async editUserDetail() {
     const dialog = this.dialog.open(DialogEditUserComponent);
     dialog.componentInstance.userService.user = new User(this.userService.user.toJSON());

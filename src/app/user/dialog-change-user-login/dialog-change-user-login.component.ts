@@ -34,11 +34,17 @@ export class DialogChangeUserLoginComponent {
   }
 
 
+  /**
+   * themeService.isLightTheme$ is an Observable<boolean> that is used to determine
+   */
   ngOnInit() {
     this.isLightTheme$ = this.themeService.isLightTheme$;
   }
 
 
+  /**
+   * change user password about the authService and close the dialog
+   */
   changeUserPassword() {
     const val = this.changePasswordForm?.value;
     if ((val?.newPassword === val?.confirmPassword) && (val?.newPassword && val?.confirmPassword)) {
@@ -46,7 +52,6 @@ export class DialogChangeUserLoginComponent {
       this.authService.changeUserPassword(val.newPassword);
       this.dialogRef.close();
     } else {
-      console.log('Passwords do not match');
       this.authService.passwordChangeError = true;
     }
   }

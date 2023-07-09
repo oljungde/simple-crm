@@ -23,6 +23,9 @@ export class UserService {
   }
 
 
+  /**
+   * observe the users collection, sets the id and update the allUsers$ BehaviorSubject
+   */
   observeUsers() {
     onSnapshot(this.usersCollection, (changes) => {
       let users: any = [];
@@ -32,34 +35,43 @@ export class UserService {
         users.push(userData);
       });
       this.allUsers$.next(users);
-      console.log('Recieved user changes: ', this.allUsers$.value);
+
     });
   }
 
 
+  /**
+   * get a user by id from firestore
+   */
   async getUser() {
     const docRef = doc(this.usersCollection, this.userId);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
       this.user = new User(docSnap.data());
-      console.log('getUser is: ', this.user);
     } else {
       console.log('No such document!');
     }
   }
 
 
+  /**
+   * get a user ID by email from firestore
+   * @param email is the email of the user to get the id for
+   */
   async getUserIdByEmail(email: string) {
     const usersQuery = query(this.usersCollection, where('email', '==', email));
     const querySnapshot = await getDocs(usersQuery);
     querySnapshot.forEach((doc) => {
-      console.log('doc.id  => ', doc.data());
-      console.log('User ID is: ', doc.id);
       this.userLoggedInId = doc.id;
     });
   }
 
 
+  /**
+   * get a user full name by id from firestore
+   * @param userId is the id of the user to get the full name for
+   * @returns the full name of the user
+   */
   async getUserFullNameById(userId: string) {
     const docRef = doc(this.usersCollection, userId);
     const docSnap = await getDoc(docRef);
@@ -71,13 +83,15 @@ export class UserService {
   }
 
 
+  /**
+   * save a new user
+   * @param newUser is an instance of User
+   */
   saveNewUser(newUser?: User) {
     this.loading = true;
     const userToSave = newUser ? newUser : this.newUser;
-    console.log('Current user is ', this.newUser);
     addDoc(this.usersCollection, userToSave.toJSON())
       .then((docRef: DocumentReference) => {
-        console.log('User added successfully', docRef);
         this.userId = docRef.id;
         updateDoc(docRef, { userId: docRef.id });
         this.loading = false;
@@ -85,6 +99,10 @@ export class UserService {
   }
 
 
+  /**
+   * update a user
+   * @param user is an instance of User
+   */
   updateUser(user?: User) {
     this.loading = true;
     const docRef = doc(this.usersCollection, this.userId);
@@ -92,7 +110,6 @@ export class UserService {
       .then(() => {
         this.userId = docRef.id;
         updateDoc(docRef, { userId: docRef.id });
-        console.log('Document successfully updated! ', this.user);
         this.loading = false;
       });
   }

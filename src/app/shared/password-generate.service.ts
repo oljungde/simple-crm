@@ -9,6 +9,10 @@ export class PasswordGenerateService {
   constructor() { }
 
 
+  /**
+   * generate a random password
+   * @returns a random password
+   */
   generatePassword() {
     let result = '';
     let passwordLength = 8;
@@ -16,7 +20,6 @@ export class PasswordGenerateService {
     for (let i = 0; i < passwordLength; i++) {
       result += characters.charAt(Math.floor(Math.random() * characters.length));
     }
-    console.log('Password generated: ', result);
     return result;
   }
 }

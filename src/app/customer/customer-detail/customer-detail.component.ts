@@ -20,15 +20,20 @@ export class CustomerDetailComponent implements OnInit {
     public expansionPanel: MatExpansionModule) { }
 
 
+  /**
+   * get customer id from url and get customer details
+   */
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.customerService.customerId = params.get('id') || '';
-      console.log(this.customerService.customerId);
       this.customerService.getCustomer();
     });
   }
 
 
+  /**
+   * open dialog to edit customer details
+   */
   editCustomerDetail() {
     const dialog = this.dialog.open(DialogEditCustomerComponent);
     dialog.componentInstance.customerService.customer = new Customer(this.customerService.customer.toJSON());

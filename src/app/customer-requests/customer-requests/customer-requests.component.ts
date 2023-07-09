@@ -26,6 +26,9 @@ export class CustomerRequestsComponent implements OnInit {
   ) { }
 
 
+  /**
+   * get all customer requests and subscribe to theme changes 
+   */
   ngOnInit() {
     this.themeService.isLightTheme$.subscribe(isLightTheme => {
       this.isLightTheme = isLightTheme;
@@ -33,11 +36,14 @@ export class CustomerRequestsComponent implements OnInit {
     this.customerRequestsService.getCustomerRequests(this.customerId)
       .subscribe(data => {
         this.customerRequests = data;
-        console.log('Diese Kundenanfragen', this.customerRequests);
       });
   }
 
 
+  /**
+   * open dialog to add a new customer request
+   * @param isLightTheme checks if the theme is light or dark and opens the dialog with the corresponding theme
+   */
   openDialog(isLightTheme: boolean) {
     this.dialog.open(DialogAddCustomerRequestComponent, {
       panelClass: isLightTheme ? 'light-theme' : 'dark-theme'
@@ -45,6 +51,9 @@ export class CustomerRequestsComponent implements OnInit {
   }
 
 
+  /**
+   * Search for customer requests by title, description, subjectArea, priority, status, createdBy, customerContactName, assingedToUserName
+   */
   searchCustomerRequest() {
     const searchTerm = this.searchInput?.nativeElement.value.toLowerCase();
     this.customerRequestsService.getCustomerRequests(this.customerId).pipe(
@@ -53,15 +62,10 @@ export class CustomerRequestsComponent implements OnInit {
       })
     ).subscribe((data: any) => {
       this.customerRequests = data.filter((request: any) => {
-        // TODO -> search by assigned to
-        return ( // request.assignedTo.toLowerCase().includes(searchTerm) ||
-          request.createdBy.toLowerCase().includes(searchTerm) ||
-          request.customerContactName.toLowerCase().includes(searchTerm) ||
-          request.description.toLowerCase().includes(searchTerm) ||
-          request.priority.toLowerCase().includes(searchTerm) ||
-          request.status.toLowerCase().includes(searchTerm) ||
-          request.subjectArea.toLowerCase().includes(searchTerm) ||
-          request.title.toLowerCase().includes(searchTerm)
+        return (request.assingedToUserName.toLowerCase().includes(searchTerm) || request.createdBy.toLowerCase().includes(searchTerm) ||
+          request.customerContactName.toLowerCase().includes(searchTerm) || request.description.toLowerCase().includes(searchTerm) ||
+          request.priority.toLowerCase().includes(searchTerm) || request.status.toLowerCase().includes(searchTerm) ||
+          request.subjectArea.toLowerCase().includes(searchTerm) || request.title.toLowerCase().includes(searchTerm)
         );
       });
     });

@@ -31,11 +31,17 @@ export class DialogEditCustomerComponent implements OnInit {
     public dialogRef: MatDialogRef<DialogEditCustomerComponent>) { }
 
 
+  /**
+   * subscribe to theme changes
+   */
   ngOnInit() {
     this.isLightTheme$ = this.themeService.isLightTheme$;
   }
 
 
+  /**
+   * save customer details after editing
+   */
   saveCustomer() {
     if (this.updateCustomerForm.valid) {
       const customer = new Customer();

@@ -65,6 +65,9 @@ export class DialogAddCustomerRequestComponent implements OnInit {
   }
 
 
+  /**
+   * subscribe to theme changes and get all users and customer contacts
+   */
   ngOnInit(): void {
     this.isLightTheme$ = this.themeService.isLightTheme$;
     this.userService.allUsers$.pipe(
@@ -72,27 +75,41 @@ export class DialogAddCustomerRequestComponent implements OnInit {
     ).subscribe(userDetails => {
       this.userDetails = userDetails;
     });
-    this.customerContactsService.allCustomerContacts$.pipe(
-      map(customerContacts => customerContacts.filter(customerContacts => customerContacts.customerRef === this.customerService.customerId)))
-      .subscribe(customerContacts => {
-        this.customerContacts = customerContacts;
-        console.log('customerContacts ', customerContacts);
-        this.customerContactNames = customerContacts.map(customerContact => (`${customerContact.firstName} ${customerContact.lastName}`));
-        this.customerContactNames = this.customerContactNames.sort();
-      });
+    this.getCustomerContactsFullNames();
     this.newCustomerRequestForm.get('subjectArea')?.valueChanges.subscribe(subjectAreaValue => {
       this.showTurnover();
     });
   }
 
 
-  identifyCustomerContactId(customerContactName: string) {
-    const customerContact = this.customerContacts.find((customerContact: { firstName: string; lastName: string; }) => (`${customerContact.firstName} ${customerContact.lastName}`) === customerContactName);
-    this.customerContactRef = customerContact.customerContactId;
-    console.log('customerContactRef ', this.customerContactRef);
+  /**
+   * get all customer contacts and their full names
+   */
+  getCustomerContactsFullNames() {
+    this.customerContactsService.allCustomerContacts$.pipe(
+      map(customerContacts => customerContacts.filter(customerContacts => customerContacts.customerRef === this.customerService.customerId)))
+      .subscribe(customerContacts => {
+        this.customerContacts = customerContacts;
+        this.customerContactNames = customerContacts.map(customerContact => (`${customerContact.firstName} ${customerContact.lastName}`));
+        this.customerContactNames = this.customerContactNames.sort();
+      });
   }
 
 
+  /**
+   * get customer contact id by customer contact name
+   * @param customerContactName name of the customer contact to identify the customer contact id
+   */
+  identifyCustomerContactId(customerContactName: string) {
+    const customerContact = this.customerContacts.find((customerContact: { firstName: string; lastName: string; }) => (`${customerContact.firstName} ${customerContact.lastName}`) === customerContactName);
+    this.customerContactRef = customerContact.customerContactId;
+  }
+
+
+  /**
+   * show turnover field if subject area is 'Offer', 'Order' or 'Invoice'
+   * @returns true if subject area is 'Offer', 'Order' or 'Invoice' and false if subject area is 'Customer Service' or 'Sales'
+   */
   showTurnover(): boolean {
     const subjectAreaValue = this.newCustomerRequestForm.get('subjectArea')?.value;
     const validValuesForTurnover = ['Offer', 'Order', 'Invoice'];
@@ -108,39 +125,65 @@ export class DialogAddCustomerRequestComponent implements OnInit {
   }
 
 
+  /**
+   * save new customer request
+   */
   async saveCustomerRequest() {
     if (this.newCustomerRequestForm.valid) {
       const newCustomerRequest = new CustomerRequest();
       Object.assign(newCustomerRequest, this.newCustomerRequestForm.value);
-      newCustomerRequest.userRef = sessionStorage.getItem('userLoggedInId')!;
-      newCustomerRequest.createdBy = await this.userService.getUserFullNameById(newCustomerRequest.userRef);
-      if (newCustomerRequest.assignedToUserRef) {
-        newCustomerRequest.assignedToUserName = await this.userService.getUserFullNameById(this.newCustomerRequestForm.value.assignedToUserRef);
-      } else {
-        newCustomerRequest.assignedToUserRef = '';
-        newCustomerRequest.assignedToUserName = '';
-      }
-      newCustomerRequest.customerRef = this.customerService.customerId;
+      await this.setCustomerRequestData(newCustomerRequest);
+      await this.setAssignedTo(newCustomerRequest)
       this.identifyCustomerContactId(this.newCustomerRequestForm.value.customerContactName);
-      newCustomerRequest.customerContactRef = this.customerContactRef;
-      console.log(newCustomerRequest.status);
-      newCustomerRequest.status = newCustomerRequest.status.replace(' ', '_');
-      newCustomerRequest.subjectArea = newCustomerRequest.subjectArea.replace(' ', '_');
-      console.log(newCustomerRequest.status);
-      if (!newCustomerRequest.dueDate) {
-        newCustomerRequest.dueDate = 0;
-      } else {
-        newCustomerRequest.dueDate = new Date(this.newCustomerRequestForm.value.dueDate).getTime();
-      }
-      console.log('Dies ist der neue Customer Request: ', newCustomerRequest.toJSON());
+      this.setDueDate(newCustomerRequest);
       this.customerRequestsService.saveNewCustomerRequest(newCustomerRequest);
       if (newCustomerRequest.customerRef) {
         this.customerRequestsService.getCustomerRequests(newCustomerRequest.customerRef);
       }
       this.dialogRef.close();
-      console.log('new customer request saved ', newCustomerRequest.toJSON());
     } else {
       console.log('invalid form');
+    }
+  }
+
+
+  /**
+   * set customer request data before saving
+   * @param newCustomerRequest instance of CustomerRequest class
+   */
+  async setCustomerRequestData(newCustomerRequest: CustomerRequest) {
+    newCustomerRequest.userRef = sessionStorage.getItem('userLoggedInId')!;
+    newCustomerRequest.createdBy = await this.userService.getUserFullNameById(newCustomerRequest.userRef);
+    newCustomerRequest.customerContactRef = this.customerContactRef;
+    newCustomerRequest.status = newCustomerRequest.status.replace(' ', '_');
+    newCustomerRequest.subjectArea = newCustomerRequest.subjectArea.replace(' ', '_');
+    newCustomerRequest.customerRef = this.customerService.customerId;
+  }
+
+
+  /**
+   * set assigned to user name and user ref before saving
+   * @param newCustomerRequest instance of CustomerRequest class
+   */
+  async setAssignedTo(newCustomerRequest: CustomerRequest) {
+    if (newCustomerRequest.assignedToUserRef) {
+      newCustomerRequest.assignedToUserName = await this.userService.getUserFullNameById(this.newCustomerRequestForm.value.assignedToUserRef);
+    } else {
+      newCustomerRequest.assignedToUserRef = '';
+      newCustomerRequest.assignedToUserName = '';
+    }
+  }
+
+
+  /**
+   * set due date before saving
+   * @param newCustomerRequest instance of CustomerRequest class
+   */
+  setDueDate(newCustomerRequest: CustomerRequest) {
+    if (!newCustomerRequest.dueDate) {
+      newCustomerRequest.dueDate = 0;
+    } else {
+      newCustomerRequest.dueDate = new Date(this.newCustomerRequestForm.value.dueDate).getTime();
     }
   }
 }

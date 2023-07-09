@@ -22,6 +22,10 @@ export class ThemeService {
   }
 
 
+  /**
+   * get the theme from localStorage
+   * @returns true if the theme is light, false if the theme is dark
+   */
   private getInitialTheme() {
     let theme = localStorage.getItem('theme');
     if (theme === null) {
@@ -33,6 +37,9 @@ export class ThemeService {
   }
 
 
+  /**
+   * toggle the theme
+   */
   toggleTheme() {
     let nextTheme = !this._isLightTheme.value;
     this._isLightTheme.next(nextTheme);

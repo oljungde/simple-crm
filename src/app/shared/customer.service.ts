@@ -21,6 +21,9 @@ export class CustomerService {
   }
 
 
+  /**
+   * observe the customers collection, sets the id and update the allCustomers$ BehaviorSubject
+   */
   observeCustomers() {
     onSnapshot(this.customersCollection, (changes) => {
       let customers: any = [];
@@ -30,18 +33,19 @@ export class CustomerService {
         customers.push(customerData);
       });
       this.allCustomers$.next(customers);
-      console.log('Recieved customer changes: ', this.allCustomers$.value);
     });
   }
 
 
+  /**
+   * save a new customer
+   * @param newCustomer is an instance of Customer
+   */
   saveNewCustomer(newCustomer?: Customer) {
     this.loading = true;
     const customerToSave = newCustomer ? newCustomer : this.newCustomer;
-    console.log('Customer to save is ', customerToSave.toJSON());
     addDoc(this.customersCollection, customerToSave.toJSON())
       .then((docRef: DocumentReference) => {
-        console.log('Customer added successfully', docRef);
         this.customerId = docRef.id;
         updateDoc(docRef, { customerId: docRef.id });
         this.loading = false;
@@ -49,18 +53,25 @@ export class CustomerService {
   }
 
 
+  /**
+   * get all customers from firestore and set the id for each customer
+   */
   async getCustomer() {
     const docRef = doc(this.customersCollection, this.customerId);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
       this.customer = new Customer(docSnap.data());
-      console.log('getCustomer is: ', this.customer);
     } else {
       console.log('No such document!');
     }
   }
 
 
+  /**
+   * get a customer name by customer id from firestore
+   * @param customerId is the customer id of the customer to get
+   * @returns a customer name
+   */
   async getCustomerNameById(customerId: string) {
     const docRef = doc(this.customersCollection, customerId);
     const docSnap = await getDoc(docRef);
@@ -72,7 +83,10 @@ export class CustomerService {
   }
 
 
-
+  /**
+   * update a customer
+   * @param customer is an instance of Customer
+   */
   updateCustomer(customer?: Customer) {
     this.loading = true;
     const docRef = doc(this.customersCollection, this.customerId);
@@ -80,7 +94,6 @@ export class CustomerService {
       .then(() => {
         this.customerId = docRef.id;
         updateDoc(docRef, { customerId: docRef.id });
-        console.log('Document successfully updated! ', this.customer);
         this.loading = false;
       });
   }

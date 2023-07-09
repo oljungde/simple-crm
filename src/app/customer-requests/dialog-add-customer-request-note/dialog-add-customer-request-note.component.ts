@@ -32,11 +32,17 @@ export class DialogAddCustomerRequestNoteComponent implements OnInit {
   }
 
 
+  /**
+   * themeService.isLightTheme$ is an Observable<boolean> that is used to determine
+   */
   ngOnInit(): void {
     this.isLightTheme$ = this.themeService.isLightTheme$;
   }
 
 
+  /**
+   * saveCustomerRequestNote() is called when the user clicks the "Save" button in the dialog.
+   */
   saveCustomerRequestNote() {
     if (this.newCustomerRequestNoteForm.valid) {
       const newCustomerRequestNote = new CustomerRequestNote();

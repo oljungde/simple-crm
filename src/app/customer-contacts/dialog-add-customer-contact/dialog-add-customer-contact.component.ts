@@ -31,24 +31,27 @@ export class DialogAddCustomerContactComponent implements OnInit {
   }
 
 
+  /**
+   * subscribe to theme changes
+   */
   ngOnInit() {
     this.isLightTheme$ = this.themeService.isLightTheme$;
-    console.log('add contact ', this.customerRef);
   }
 
 
+  /**
+   * save new customer contact
+   */
   saveCustomerContact() {
     if (this.newCustomerContactForm.valid) {
       const newCustomerContact = new CustomerContact();
       newCustomerContact.customerRef = this.customerRef || '';
       Object.assign(newCustomerContact, this.newCustomerContactForm.value);
-      console.log('new customer contact ', newCustomerContact.toJSON);
       this.customerContactsService.saveNewCustomerContact(newCustomerContact);
       if (this.customerRef) {
         this.customerContactsService.getCustomerContacts(this.customerRef);
       }
       this.dialogRef.close();
-      console.log('new customer contact saved ', newCustomerContact.toJSON());
     } else {
       console.log('invalid form');
     }

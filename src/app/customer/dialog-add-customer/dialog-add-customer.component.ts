@@ -33,18 +33,23 @@ export class DialogAddCustomerComponent implements OnInit {
   }
 
 
+  /**
+   * subscribe to theme changes
+   */
   ngOnInit(): void {
     this.isLightTheme$ = this.themeService.isLightTheme$;
   }
 
 
+  /**
+   * save new customer
+   */
   saveCustomer() {
     if (this.newCustomerForm.valid) {
       const newCustomer = new Customer();
       Object.assign(newCustomer, this.newCustomerForm.value);
       this.customerService.saveNewCustomer(newCustomer);
       this.dialogRef.close();
-      console.log('new customer saved ', newCustomer);
     } else {
       console.log('invalid form');
     }

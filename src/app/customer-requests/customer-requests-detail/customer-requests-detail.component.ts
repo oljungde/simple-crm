@@ -35,7 +35,26 @@ export class CustomerRequestsDetailComponent implements OnInit {
   ) { }
 
 
+  /**
+   * get customer request id from url and get customer request details
+   */
   async ngOnInit() {
+    this.getDataForCustomerRequestDetail();
+    this.themeService.isLightTheme$.subscribe(isLightTheme => {
+      this.isLightTheme = isLightTheme;
+    });
+    this.customerRequestsNotesService.getNotesByRequestRef(this.customerRequestsService.customerRequestId)
+      .subscribe(data => {
+        this.customerRequestNotes = data;
+      });
+    this.customerRequestNoteUser = await this.userService.getUserFullNameById(sessionStorage.getItem('userLoggedInId') || '');
+  }
+
+
+  /**
+   * get customer request details
+   */
+  async getDataForCustomerRequestDetail() {
     this.route.paramMap.subscribe(async (params: any) => {
       this.customerRequestsService.customerRequestId = params.get('id') || '';
       await this.customerRequestsService.getCurrentCustomerRequest();
@@ -48,29 +67,25 @@ export class CustomerRequestsDetailComponent implements OnInit {
       }
       await this.getCustomerName(this.customerRef);
     });
-    this.themeService.isLightTheme$.subscribe(isLightTheme => {
-      this.isLightTheme = isLightTheme;
-    });
-    this.customerRequestsNotesService.getNotesByRequestRef(this.customerRequestsService.customerRequestId)
-      .subscribe(data => {
-        this.customerRequestNotes = data;
-        console.log('Diese Request Notes', this.customerRequestNotes);
-      });
-    this.customerRequestNoteUser = await this.userService.getUserFullNameById(sessionStorage.getItem('userLoggedInId') || '');
   }
 
 
+  /**
+   * get customer name by customer reference 
+   * @param customerRef string 
+   */
   async getCustomerName(customerRef: string) {
     this.customerService.customerId = customerRef;
     await this.customerService.getCustomer();
     const customer = this.customerService.customer;
     this.customerName = customer.name || '';
-    console.log('Customer name is: ', this.customerName);
   }
 
 
+  /**
+   * open dialog to edit customer request details and adjust customer request details after closing the dialog
+   */
   async editCustomerRequestDetail() {
-    console.log('Edit customer request detail clicked');
     const dialog = this.dialog.open(DialogEditCustomerRequestComponent);
     dialog.componentInstance.customerRequestsService.currentCustomerRequest = this.customerRequestToShow;
     dialog.componentInstance.customerRequestsService.customerRequestId = this.customerRequestsService.customerRequestId;
@@ -78,17 +93,29 @@ export class CustomerRequestsDetailComponent implements OnInit {
     dialog.afterClosed().subscribe(async () => {
       await this.customerRequestsService.getCurrentCustomerRequest();
       this.customerRequestToShow = this.customerRequestsService.currentCustomerRequest;
-      if (this.customerRequestToShow.dueDate != 0) {
-        this.dueDate = new Date(this.customerRequestToShow.dueDate).toLocaleDateString();
-      } else {
-        this.dueDate = '';
-      }
+      this.formatDueDate();
       this.customerRequestToShow.status = this.customerRequestToShow.status.replace('_', ' ');
       this.customerRequestToShow.subjectArea = this.customerRequestToShow.subjectArea.replace('_', ' ');
     });
   }
 
 
+  /**
+   * format due date to dd.mm.yyyy if due date is not 0
+   */
+  formatDueDate() {
+    if (this.customerRequestToShow.dueDate != 0) {
+      this.dueDate = new Date(this.customerRequestToShow.dueDate).toLocaleDateString();
+    } else {
+      this.dueDate = '';
+    }
+  }
+
+
+  /**
+   * open dialog to add a new customer request note
+   * @param isLightTheme boolean checks if the theme is light or dark and opens the dialog with the corresponding theme
+   */
   openDialog(isLightTheme: boolean) {
     this.dialog.open(DialogAddCustomerRequestNoteComponent, {
       panelClass: isLightTheme ? 'light-theme' : 'dark-theme'

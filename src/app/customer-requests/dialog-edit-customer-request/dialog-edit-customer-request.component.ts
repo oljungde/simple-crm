@@ -62,30 +62,20 @@ export class DialogEditCustomerRequestComponent implements OnInit {
     public dialogRef: DialogRef) { }
 
 
+  /**
+   * themeService.isLightTheme$ is an Observable<boolean> that is used to determine
+   * getCustomerContacts() is called to get the customer contacts for the current customer
+   * getUserDetails() is called to get the user details for the current user
+   */
   ngOnInit(): void {
     this.isLightTheme$ = this.themeService.isLightTheme$;
-    this.userService.allUsers$.pipe(
-      map(users => users.map(user => ({ name: `${user.firstName} ${user.lastName}`, id: user.userId })))
-    ).subscribe(userDetails => {
-      this.userDetails = userDetails;
-      console.log('UserDetails are: ', this.userDetails);
-    });
-    this.customerContactsService.allCustomerContacts$.pipe(
-      map(customerContacts => customerContacts.filter(customerContacts => customerContacts.customerRef === this.customerRequestsService.currentCustomerRequest.customerRef)))
-      .subscribe(customerContacts => {
-        this.customerContacts = customerContacts;
-        console.log('customerContacts ', customerContacts);
-        this.customerContactNames = customerContacts.map(customerContact => (`${customerContact.firstName} ${customerContact.lastName}`));
-        this.customerContactNames = this.customerContactNames.sort();
-      });
+    this.getUserDetails();
+    this.getCustomerContacts();
     this.updateCustomerRequestForm.get('subjectArea')?.valueChanges.subscribe(() => {
       this.showTurnover();
     });
-    console.log('assignedToUserName ', this.customerRequestsService.currentCustomerRequest.assignedToUserName);
     let comparisonDate = new Date('1970-01-01');
-    // Prüfen Sie, ob das Datum nach dem 1. Januar 1970 liegt
     if (this.dueDate.value && this.dueDate.value <= comparisonDate) {
-      // Verwenden Sie die patchValue Methode, um den Wert von dueDate auf null zu setzen
       this.updateCustomerRequestForm.patchValue({
         dueDate: null
       });
@@ -93,6 +83,36 @@ export class DialogEditCustomerRequestComponent implements OnInit {
   }
 
 
+  /**
+   * get the user details for all user
+   */
+  getUserDetails() {
+    this.userService.allUsers$.pipe(
+      map(users => users.map(user => ({ name: `${user.firstName} ${user.lastName}`, id: user.userId })))
+    ).subscribe(userDetails => {
+      this.userDetails = userDetails;
+    });
+  }
+
+
+  /**
+   * get all customer contacts
+   */
+  getCustomerContacts() {
+    this.customerContactsService.allCustomerContacts$.pipe(
+      map(customerContacts => customerContacts.filter(customerContacts => customerContacts.customerRef === this.customerRequestsService.currentCustomerRequest.customerRef)))
+      .subscribe(customerContacts => {
+        this.customerContacts = customerContacts;
+        this.customerContactNames = customerContacts.map(customerContact => (`${customerContact.firstName} ${customerContact.lastName}`));
+        this.customerContactNames = this.customerContactNames.sort();
+      });
+  }
+
+
+  /**
+   * check if the subject area is 'Offer', 'Order', or 'Invoice'
+   * @returns true if the subject area is 'Offer', 'Order', or 'Invoice'
+   */
   showTurnover(): boolean {
     const subjectAreaValue = this.updateCustomerRequestForm.get('subjectArea')?.value;
     const validValuesForTurnover = ['Offer', 'Order', 'Invoice'];
@@ -108,43 +128,61 @@ export class DialogEditCustomerRequestComponent implements OnInit {
   }
 
 
+  /**
+   * is called when the user clicks the "Save" button in the dialog.
+   */
   async updateCustomerRequest() {
-    console.log('Save btn pushed');
     if (this.updateCustomerRequestForm.valid) {
-      // debugger;
       const customerRequest = new CustomerRequest;
-      console.log('CustomerRequest: ', customerRequest);
-
       Object.assign(customerRequest, this.updateCustomerRequestForm.value);
-      for (let i = 0; i < this.userDetails.length; i++) {
-        if (this.userDetails[i].name == this.updateCustomerRequestForm.value.assignedToUserName) {
-          customerRequest.assignedToUserRef = this.userDetails[i].id;
-          break;
-        }
-      }
-
-      // customerRequest.assignedToUserName = await this.userService.getUserFullNameById(this.updateCustomerRequestForm.value.assignedToUserRef);
-      console.log('Assigned to user name: ', customerRequest.assignedToUserName);
-
-      customerRequest.customerRef = this.customerRequestsService.currentCustomerRequest.customerRef;
-      customerRequest.customerContactRef = this.customerRequestsService.currentCustomerRequest.customerContactRef;
-      customerRequest.customerRequestId = this.customerRequestsService.currentCustomerRequest.customerRequestId;
-      customerRequest.createdBy = this.customerRequestsService.currentCustomerRequest.createdBy;
-      customerRequest.dateRequested = this.customerRequestsService.currentCustomerRequest.dateRequested;
-      console.log(customerRequest.status);
-      customerRequest.status = customerRequest.status.replace(' ', '_');
-      customerRequest.subjectArea = customerRequest.subjectArea.replace(' ', '_');
-      console.log('Status: ', customerRequest.status);
-      if (!customerRequest.dueDate) {
-        customerRequest.dueDate = 0;
-      } else {
-        customerRequest.dueDate = this.updateCustomerRequestForm.value.dueDate?.getTime();
-      }
-
-      // customerRequest.dueDate = this.updateCustomerRequestForm.value.dueDate?.getTime();
-      customerRequest.userRef = this.customerRequestsService.currentCustomerRequest.userRef;
+      this.getAssignedToUserRef(customerRequest);
+      this.setCustomerRequestData(customerRequest);
+      this.setDueDate(customerRequest);
       this.customerRequestsService.updateCustomerRequest(customerRequest);
       this.dialogRef.close();
+    }
+  }
+
+
+  /**
+   * get the userRef for the user that is assigned to the customer request
+   * @param customerRequest is an instance of CustomerRequest
+   */
+  getAssignedToUserRef(customerRequest: CustomerRequest) {
+    for (let i = 0; i < this.userDetails.length; i++) {
+      if (this.userDetails[i].name == this.updateCustomerRequestForm.value.assignedToUserName) {
+        customerRequest.assignedToUserRef = this.userDetails[i].id;
+        break;
+      }
+    }
+  }
+
+
+  /**
+   * set some of the customer request data
+   * @param customerRequest is an instance of CustomerRequest
+   */
+  setCustomerRequestData(customerRequest: CustomerRequest) {
+    customerRequest.customerRef = this.customerRequestsService.currentCustomerRequest.customerRef;
+    customerRequest.customerContactRef = this.customerRequestsService.currentCustomerRequest.customerContactRef;
+    customerRequest.customerRequestId = this.customerRequestsService.currentCustomerRequest.customerRequestId;
+    customerRequest.createdBy = this.customerRequestsService.currentCustomerRequest.createdBy;
+    customerRequest.dateRequested = this.customerRequestsService.currentCustomerRequest.dateRequested;
+    customerRequest.status = customerRequest.status.replace(' ', '_');
+    customerRequest.subjectArea = customerRequest.subjectArea.replace(' ', '_');
+    customerRequest.userRef = this.customerRequestsService.currentCustomerRequest.userRef;
+  }
+
+
+  /**
+   * set the due date for the customer request
+   * @param customerRequest is an instance of CustomerRequest
+   */
+  setDueDate(customerRequest: CustomerRequest) {
+    if (!customerRequest.dueDate) {
+      customerRequest.dueDate = 0;
+    } else {
+      customerRequest.dueDate = this.updateCustomerRequestForm.value.dueDate?.getTime();
     }
   }
 }

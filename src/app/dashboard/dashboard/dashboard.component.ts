@@ -25,20 +25,24 @@ export class DashboardComponent implements OnInit {
   ) { }
 
 
+  /**
+   * subscribe to the allCustomerRequests$ Observable in the customerRequestsService
+   * and call getDashboardData() when the Observable emits a value
+   */
   ngOnInit() {
-    console.log('Dashboard, user loged in: ', this.authService.isUserLoggedIn);
-    // console.log(this.customerRequestsService.allCustomerRequests$.getValue());
     this.customerRequestsService.allCustomerRequests$.subscribe((customerRequests) => {
-      console.log('customerRequests: ', customerRequests);
       this.allCustomerRequests = customerRequests;
       this.getDashboardData();
     });
   }
 
 
+  /**
+   * getDashboardData() is called when the allCustomerRequests$ Observable in the customerRequestsService
+   * and sets the values of the dashboard variables
+   */
   getDashboardData() {
     this.numberOfAllCustomerRequests = this.allCustomerRequests.length;
-    console.log('numberOfAllCustomerRequests: ', this.numberOfAllCustomerRequests);
     this.getCustomerRequestsByStatus('pending');
     this.getCustomerRequestsByStatus('in_progress');
     this.getCustomerRequestsByStatus('closed');
@@ -50,23 +54,28 @@ export class DashboardComponent implements OnInit {
   }
 
 
+  /**
+   * adjust the values of the dashboard variables
+   * @param status is a string that is used to filter the allCustomerRequests array
+   */
   getCustomerRequestsByStatus(status: string) {
     this.allCustomerRequests.filter((customerRequest: any) => {
       if (customerRequest.status === status) {
         (this as { [key: string]: any })[`${status}CustomerRequests`] = (this as { [key: string]: any })[`${status}CustomerRequests`] + 1;
       }
     });
-    console.log(`${status}CustomerRequests: `, (this as { [key: string]: any })[`${status}CustomerRequests`]);
   }
 
 
+  /**
+   * adjust the values of the dashboard variables
+   * @param subjectArea is a string that is used to filter the allCustomerRequests array
+   */
   getCustomerRequestsBySubjectArea(subjectArea: string) {
-    console.log('subjectArea: ', subjectArea);
     this.allCustomerRequests.filter((customerRequest: any) => {
       if (customerRequest.subjectArea === subjectArea) {
         (this as { [key: string]: any })[`${subjectArea}CustomerRequests`] = (this as { [key: string]: any })[`${subjectArea}CustomerRequests`] + 1;
       }
     });
-    console.log(`${subjectArea}CustomerRequests: `, (this as { [key: string]: any })[`${subjectArea}CustomerRequests`]);
   }
 }

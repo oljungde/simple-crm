@@ -16,7 +16,6 @@ export class CustomerContactsService {
   allCustomerContacts$ = new BehaviorSubject<any[]>([]);
   allCustomerContacts = this.allCustomerContacts$.asObservable();
 
-
   customerContacts: any = [];
   customerContacts$: any = [];
 
@@ -25,6 +24,9 @@ export class CustomerContactsService {
   }
 
 
+  /**
+   * observe the customer contacts collection, sets the id and update the allCustomerContacts$ BehaviorSubject
+   */
   observeCustomerContacts() {
     onSnapshot(this.customerContactsCollection, (changes) => {
       let customerContacts: any = [];
@@ -34,18 +36,18 @@ export class CustomerContactsService {
         customerContacts.push(customerContactData);
       });
       this.allCustomerContacts$.next(customerContacts);
-      console.log('Recieved customer contact changes: ', this.allCustomerContacts$.value);
     });
   }
 
-
+  /**
+  * saving a new customer contact
+  * @param newCustomerContact is an instance of CustomerContact
+  */
   saveNewCustomerContact(newCustomerContact?: CustomerContact) {
     this.loading = true;
     const customerContactToSave = newCustomerContact ? newCustomerContact : this.newCustomerContact;
-    console.log('Customer contact to save is ', customerContactToSave.toJSON());
     addDoc(this.customerContactsCollection, customerContactToSave.toJSON())
       .then((docRef: DocumentReference) => {
-        console.log('Customer contact added successfully', docRef);
         this.customerContactId = docRef.id;
         updateDoc(docRef, { customerContactId: docRef.id });
         this.loading = false;
@@ -53,6 +55,10 @@ export class CustomerContactsService {
   }
 
 
+  /**
+   * get the customer contacts for a customer from firestore and set the id for each customer contact
+   * @param customerRef is the customer reference of the customer to get
+   */
   getCustomerContacts(customerRef: string): Observable<any> {
     return new Observable(observer => {
       const customerContactsQuery = query(this.customerContactsCollection, where('customerRef', '==', customerRef));
@@ -70,11 +76,10 @@ export class CustomerContactsService {
   }
 
 
-  getCustomerContactId(customerContactLastName: string) {
-
-  }
-
-
+  /**
+   * updating a customer contact
+   * @param customerContact is an instance of CustomerContact
+   */
   updateCustomerContact(customerContact?: CustomerContact) {
     this.loading = true;
     let customerContactId = customerContact?.customerContactId;
@@ -83,7 +88,6 @@ export class CustomerContactsService {
       .then(() => {
         this.customerContactId = docRef.id;
         updateDoc(docRef, { customerContactId: docRef.id });
-        console.log('Document successfully updated! ', this.customerContact);
         this.loading = false;
       });
   }

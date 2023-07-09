@@ -22,6 +22,10 @@ export class UserComponent implements OnInit {
     public userService: UserService) { }
 
 
+  /**
+   * subscribe to the isLightTheme$ Observable in the themeService
+   * and subscribe to the allUsers Observable in the userService
+   */
   ngOnInit() {
     this.themeService.isLightTheme$.subscribe(isLightTheme => {
       this.isLightTheme = isLightTheme;
@@ -32,6 +36,9 @@ export class UserComponent implements OnInit {
   }
 
 
+  /**
+   * searchUser() is called when the user types in the search input
+   */
   searchUser() {
     const searchTerm = this.searchInput?.nativeElement.value.toLowerCase();
     this.filteredUsers = this.userService.allUsers$.value.filter((user: any) => {
@@ -43,6 +50,10 @@ export class UserComponent implements OnInit {
   }
 
 
+  /**
+   * opens the DialogAddUserComponent whith this form
+   * @param isLightTheme is a boolean that is used to determine the theme of the dialog
+   */
   openDialog(isLightTheme: boolean) {
     this.dialog.open(DialogAddUserComponent, {
       panelClass: isLightTheme ? 'light-theme' : 'dark-theme'

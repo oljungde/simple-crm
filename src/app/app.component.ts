@@ -23,15 +23,26 @@ export class AppComponent implements OnInit {
     public authService: AuthService,
     public dialog: MatDialog) { }
 
+
+  /**
+   * themeService.isLightTheme$ is an Observable<boolean> that is used to determine
+   */
   ngOnInit() {
     this.isLightTheme$ = this.themeService.isLightTheme$;
   }
 
 
+  /**
+   * toggle the theme about the finction toggleTheme() in the themeService
+   */
   toggleTheme() {
     this.themeService.toggleTheme();
   }
 
+
+  /**
+   * open the DialogChangeUserLoginComponent to change the password
+   */
   changePassword() {
     const dialogRef = this.dialog.open(DialogChangeUserLoginComponent);
   }
