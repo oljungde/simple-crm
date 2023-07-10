@@ -2,20 +2,16 @@
 @include mat.core();
 
 
-$light-theme: mat.define-light-theme((
-    color: (
-        primary: mat.define-palette(mat.$indigo-palette),
-        accent: mat.define-palette(mat.$pink-palette),
-    ),
-));
+$light-theme: mat.define-light-theme((color: (primary: mat.define-palette(mat.$indigo-palette),
+                accent: mat.define-palette(mat.$pink-palette),
+            ),
+        ));
 
 
-$dark-theme: mat.define-dark-theme((
-    color: (
-        primary: mat.define-palette(mat.$pink-palette),
-        accent: mat.define-palette(mat.$blue-gray-palette),
-    ),
-));
+$dark-theme: mat.define-dark-theme((color: (primary: mat.define-palette(mat.$pink-palette),
+                accent: mat.define-palette(mat.$blue-gray-palette),
+            ),
+        ));
 
 
 .light-theme {
@@ -29,10 +25,10 @@ $dark-theme: mat.define-dark-theme((
     .tasks-table {
 
         tr {
-            border-bottom: 1px solid rgba(0,0,0,0.4);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.4);
 
             &:hover {
-                background-color: rgba(0,0,0,0.15);
+                background-color: rgba(0, 0, 0, 0.15);
             }
         }
 
@@ -56,6 +52,10 @@ $dark-theme: mat.define-dark-theme((
     @include mat.core-color($dark-theme);
     @include mat.all-component-themes($dark-theme);
 
+    a {
+        color: #ffffff;
+    }
+
     .mat-datepicker-content {
         background-color: #303030;
     }
@@ -67,14 +67,14 @@ $dark-theme: mat.define-dark-theme((
     .tasks-table {
 
         tr {
-            border-bottom: 1px solid rgba(255,255,255,0.5);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
 
             &:hover {
-                background-color: rgba(255,255,255,0.15);
+                background-color: rgba(255, 255, 255, 0.15);
             }
         }
 
-        th {    
+        th {
             color: rgba(255, 255, 255, 0.50)
         }
     }
@@ -91,8 +91,8 @@ $dark-theme: mat.define-dark-theme((
 }
 
 
-html, 
-body { 
+html,
+body {
     margin: 0;
     padding: 0;
 }
@@ -109,7 +109,7 @@ mat-icon {
     font-family: 'Material Icons';
     font-weight: normal;
     font-style: normal;
-    font-size: 24px; 
+    font-size: 24px;
     display: inline-block;
     line-height: 1;
     text-transform: none;
@@ -138,4 +138,8 @@ mat-icon {
 
 .mt-32 {
     margin-top: 32px;
+}
+
+.mt-64 {
+    margin-top: 64px;
 }

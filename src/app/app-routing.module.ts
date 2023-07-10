@@ -8,6 +8,8 @@ import { CustomerComponent } from './customer/customer/customer.component';
 import { CustomerDetailComponent } from './customer/customer-detail/customer-detail.component';
 import { CustomerRequestsDetailComponent } from './customer-requests/customer-requests-detail/customer-requests-detail.component';
 import { TasksComponent } from './tasks/tasks.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { ImprintComponent } from './imprint/imprint.component';
 
 
 const routes: Routes = [
@@ -19,7 +21,9 @@ const routes: Routes = [
   { path: 'customer', component: CustomerComponent },
   { path: 'customer/:id', component: CustomerDetailComponent },
   { path: 'customer-requests/:id', component: CustomerRequestsDetailComponent },
-  { path: 'tasks', component: TasksComponent }
+  { path: 'tasks', component: TasksComponent },
+  { path: 'privacy-policy', component: PrivacyPolicyComponent },
+  { path: 'imprint', component: ImprintComponent }
 ];
 
 @NgModule({

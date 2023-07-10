@@ -5,17 +5,19 @@
         <img *ngIf="(isLightTheme$ | async)" routerLink="dashboard" src="../assets/img/logo-light.png" alt="simpleCRM Logo" class="logo">
         <img *ngIf="!(isLightTheme$ | async)" routerLink="dashboard" src="../assets/img/logo-dark.png" alt="simpleCRM Logo" class="logo">
       </div>
-
       <mat-divider></mat-divider>
-
       <ul class="menu-items">
         <li routerLink="dashboard"><mat-icon>space_dashboard</mat-icon> Dashboard</li>
         <li routerLink="tasks"><mat-icon>assignment</mat-icon>Tasks</li>
         <li routerLink="customer"><mat-icon>person_outline</mat-icon>Customer</li>
         <li routerLink="user"><mat-icon>people</mat-icon>User</li>
       </ul>
+      <mat-divider></mat-divider>
+      <ul class="menu-items mt-64">
+        <li routerLink="privacy-policy">Privacy Policy</li>
+        <li routerLink="imprint">Imprint</li>
+      </ul>
     </mat-drawer>
-
     <mat-toolbar color="primary">
       <div class="toolbar-left">
         <button (click)="drawer.toggle()" [disabled]="!authService.isUserLoggedIn" type="button" mat-icon-button matTooltip="Menu">
@@ -23,7 +25,6 @@
         </button>
         <span>simpleCRM</span>
       </div>
-
       <div class="toolbar-right">
         <button mat-icon-button [matMenuTriggerFor]="userMenu" class="btn-edit-user">
           <mat-icon>manage_accounts</mat-icon>
