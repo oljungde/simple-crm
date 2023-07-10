@@ -40,9 +40,23 @@ export class TasksComponent implements OnInit {
           await this.loadCustomerNames(data).then((tasks: any) => {
             this.customerRequestsAsTasks = tasks;
             this.filteredCustomerRequestsAsTasks = [...tasks];
-            this.searchTask(); // Erstmalige Suche nach dem Laden der Daten
+            this.sortTasksByDueDate();
+            this.searchTask();
           });
         });
+    }
+  }
+
+
+  /**
+   * sort the customer requests as tasks by due date
+   */
+  sortTasksByDueDate() {
+    if (this.customerRequestsAsTasks.length > 0) {
+      this.customerRequestsAsTasks = this.customerRequestsAsTasks.sort((a: any, b: any) => a.dueDate - b.dueDate);
+    }
+    if (this.filteredCustomerRequestsAsTasks.length > 0) {
+      this.filteredCustomerRequestsAsTasks = this.filteredCustomerRequestsAsTasks.sort((a: any, b: any) => a.dueDate - b.dueDate);
     }
   }
 

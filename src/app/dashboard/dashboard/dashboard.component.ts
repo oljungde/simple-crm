@@ -86,6 +86,10 @@ export class DashboardComponent implements OnInit {
   }
 
 
+  /**
+   * get requests by priority
+   * @param priority is a string that is used to filter the allCustomerRequests array
+   */
   getCustomerRequestsByPriority(priority: string) {
     this.allCustomerRequests.filter((customerRequest: any) => {
       if (customerRequest.priority === priority) {

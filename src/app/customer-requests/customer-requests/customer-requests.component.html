@@ -7,30 +7,30 @@
         <input #searchInput (input)="searchCustomerRequest()" matInput placeholder="Search">
         <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
-
-
       <button (click)="openDialog(this.isLightTheme)" mat-mini-fab color="accent" matTooltip="Add customer request" matTooltipPosition="above" class="btn">
         <mat-icon>add</mat-icon>
       </button>
     </div>
     <table class="request-table">
       <tr>
-        <th>Request date</th>
-        <th>Subject area</th>
+        <th class="hide-on-small-screen-900">Request date</th>
+        <th class="show-on-screen-900">Request date</th>
+        <th class="hide-on-small-screen-900">Subject area</th>
         <th>Title</th>
-        <th>Contact Person</th>
+        <th class="hide-on-small-screen-700">Contact Person</th>
         <th>Status</th>
         <th>Assigned to</th>
-        <th>Created by</th>
+        <th class="hide-on-small-screen-900">Created by</th>
       </tr>
       <tr *ngFor="let customerRequest of this.customerRequests" [routerLink]="['/customer-requests/'+customerRequest.id]">
-        <td>{{ customerRequest.dateRequested | date:'dd.MM.yy, HH:mm':'':'de' }}</td>
-        <td>{{ customerRequest.subjectArea.replace('_', ' ') }}</td>
+        <td class="hide-on-small-screen-900">{{ customerRequest.dateRequested | date:'dd.MM.yy, HH:mm':'':'de' }}</td>
+        <td class="show-on-screen-900">{{ customerRequest.dateRequested | date:'dd.MM.yy':'':'de' }}</td>
+        <td class="hide-on-small-screen-900">{{ customerRequest.subjectArea.replace('_', ' ') }}</td>
         <td>{{ customerRequest.title }}</td>
-        <td>{{ customerRequest.customerContactName }}</td>
+        <td class="hide-on-small-screen-700">{{ customerRequest.customerContactName }}</td>
         <td>{{ customerRequest.status.replace('_', ' ') }}</td>
         <td>{{ customerRequest.assignedToUserName }}</td>
-        <td>{{ customerRequest.createdBy }}</td>
+        <td class="hide-on-small-screen-900">{{ customerRequest.createdBy }}</td>
       </tr>
     </table>
   </mat-card-content>

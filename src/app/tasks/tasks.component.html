@@ -12,18 +12,18 @@
       <tr>
         <th>Due date</th>
         <th>Customer name</th>
-        <th>Subject area</th>
+        <th class="hide-on-small-screen-900">Subject area</th>
         <th>Title</th>
         <th>Priority</th>
-        <th>Status</th>
+        <th class="hide-on-small-screen-900">Status</th>
       </tr>
       <tr *ngFor="let customerRequestAsTask of filteredCustomerRequestsAsTasks" [routerLink]="['/customer-requests/'+customerRequestAsTask.id]">
         <td>{{ customerRequestAsTask.dueDate | date:'dd.MM.yy':'':'de' }}</td>
         <td>{{ customerRequestAsTask.customerName }}</td>
-        <td>{{ customerRequestAsTask.subjectArea }}</td>
+        <td class="hide-on-small-screen-900">{{ customerRequestAsTask.subjectArea.replace('_', ' ') }}</td>
         <td>{{ customerRequestAsTask.title }}</td>
         <td>{{ customerRequestAsTask.priority }}</td>
-        <td>{{ customerRequestAsTask.status.replace('_', ' ') }}</td>
+        <td class="hide-on-small-screen-900">{{ customerRequestAsTask.status.replace('_', ' ') }}</td>
       </tr>
     </table>
   </mat-card-content>
