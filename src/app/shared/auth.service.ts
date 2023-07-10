@@ -1,5 +1,5 @@
 import { Injectable, OnInit, Inject } from '@angular/core';
-import { Auth, signOut, updateEmail, updatePassword } from '@angular/fire/auth';
+import { Auth, signOut, updatePassword } from '@angular/fire/auth';
 import { User, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { Router } from '@angular/router';
 

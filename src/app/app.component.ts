@@ -1,11 +1,10 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ThemeService } from './shared/theme.service';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, combineLatest, map, of, startWith } from 'rxjs';
 import { AuthService } from './shared/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogChangeUserLoginComponent } from './user/dialog-change-user-login/dialog-change-user-login.component';
-import { User } from './models/user.class';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { MatDrawer, MatDrawerMode } from '@angular/material/sidenav';
 
@@ -20,6 +19,7 @@ export class AppComponent implements OnInit {
   @ViewChild('drawer') drawer: MatDrawer | undefined;
   drawerMode$: BehaviorSubject<MatDrawerMode> = new BehaviorSubject<MatDrawerMode>('side');
   isSmallScreen: boolean = false;
+  isDrawerOpen$!: Observable<boolean>;
 
   constructor(
     private route: ActivatedRoute,
@@ -34,6 +34,7 @@ export class AppComponent implements OnInit {
    */
   ngOnInit() {
     this.isLightTheme$ = this.themeService.isLightTheme$;
+
   }
 
 
@@ -62,6 +63,30 @@ export class AppComponent implements OnInit {
    */
   toggleTheme() {
     this.themeService.toggleTheme();
+
+    const isScreenLarge$ = this.breakpointObserver.observe([
+      Breakpoints.Medium,
+      Breakpoints.Large,
+      Breakpoints.XLarge
+    ]).pipe(map(result => result.matches));
+
+    this.isDrawerOpen$ = combineLatest([
+      of(this.authService.isUserLoggedIn),
+      isScreenLarge$
+    ]).pipe(
+      map(([isLoggedIn, isScreenLarge]) => isLoggedIn && isScreenLarge),
+      startWith(false)
+    );
+
+    this.isDrawerOpen$.subscribe(isOpen => {
+      if (isOpen) {
+        this.drawer?.open();
+        this.drawerMode$.next('side');
+      } else {
+        this.drawer?.close();
+        this.drawerMode$.next('over');
+      }
+    });
   }
 
 
@@ -84,6 +109,9 @@ export class AppComponent implements OnInit {
   }
 
 
+  /**
+   * remove the focus from the focused element
+   */
   removeFocus() {
     const focusedElement = document.querySelector(':focus');
     if (focusedElement) {

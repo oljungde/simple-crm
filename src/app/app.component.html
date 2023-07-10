@@ -1,6 +1,6 @@
 <div [class.light-theme]="isLightTheme$ | async" [class.dark-theme]="!(isLightTheme$ | async)" class="site">
   <mat-drawer-container autosize class="side-menu">
-    <mat-drawer #drawer [mode]="(drawerMode$ | async) || 'side'" [opened]="authService.isUserLoggedIn" class="side-menu-content">
+    <mat-drawer #drawer [mode]="(drawerMode$ | async) || 'side'" [opened]="isDrawerOpen$ | async" class="side-menu-content">
       <div class="logo-container">
         <img *ngIf="(isLightTheme$ | async)" routerLink="dashboard" src="../assets/img/logo-light.png" alt="simpleCRM Logo" class="logo">
         <img *ngIf="!(isLightTheme$ | async)" routerLink="dashboard" src="../assets/img/logo-dark.png" alt="simpleCRM Logo" class="logo">

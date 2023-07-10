@@ -50,7 +50,6 @@ export class LoginComponent implements OnInit {
     await this.userService.getUserIdByEmail(userloggedInEmail);
     this.loggedInUserId = this.userService.userLoggedInId
     sessionStorage.setItem('userLoggedInId', this.loggedInUserId);
-    console.log('user logged in id is ', this.loggedInUserId);
   }
 
 
