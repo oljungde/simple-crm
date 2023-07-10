@@ -1,5 +1,15 @@
+.dashboard-section {
+    display: flex;
+    flex-direction: column;
+    margin-top: 32px;
+
+    &:first-child {
+        margin-top: 0;
+    }
+}
+
 .dashboard-row {
     display: flex;
+    flex-direction: row;
     gap: 32px;
-    margin-bottom: 32px;
 }

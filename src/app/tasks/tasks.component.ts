@@ -11,9 +11,7 @@ import { CustomerService } from '../shared/customer.service';
 })
 export class TasksComponent implements OnInit {
   isLightTheme: boolean = false;
-  // Die ursprüngliche Liste der Aufgaben
   customerRequestsAsTasks: any = [];
-  // Die gefilterte Liste der Aufgaben
   filteredCustomerRequestsAsTasks: any = [];
   searchTerm: string = '';
 
@@ -73,7 +71,6 @@ export class TasksComponent implements OnInit {
    */
   searchTask() {
     if (!this.searchTerm) {
-      // Wenn das Suchfeld leer ist, setzen wir die Liste der Aufgaben auf die ursprüngliche Liste
       this.filteredCustomerRequestsAsTasks = [...this.customerRequestsAsTasks];
       return;
     }

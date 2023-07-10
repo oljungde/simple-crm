@@ -18,6 +18,9 @@ export class DashboardComponent implements OnInit {
   OrderCustomerRequests: number = 0;
   SalesCustomerRequests: number = 0;
   InvoiceCustomerRequests: number = 0;
+  LowPriorityCustomerRequests: number = 0;
+  MediumPriorityCustomerRequests: number = 0;
+  HighPriorityCustomerRequests: number = 0;
 
   constructor(
     public authService: AuthService,
@@ -51,6 +54,9 @@ export class DashboardComponent implements OnInit {
     this.getCustomerRequestsBySubjectArea('Order');
     this.getCustomerRequestsBySubjectArea('Sales');
     this.getCustomerRequestsBySubjectArea('Invoice');
+    this.getCustomerRequestsByPriority('Low');
+    this.getCustomerRequestsByPriority('Medium');
+    this.getCustomerRequestsByPriority('High');
   }
 
 
@@ -75,6 +81,15 @@ export class DashboardComponent implements OnInit {
     this.allCustomerRequests.filter((customerRequest: any) => {
       if (customerRequest.subjectArea === subjectArea) {
         (this as { [key: string]: any })[`${subjectArea}CustomerRequests`] = (this as { [key: string]: any })[`${subjectArea}CustomerRequests`] + 1;
+      }
+    });
+  }
+
+
+  getCustomerRequestsByPriority(priority: string) {
+    this.allCustomerRequests.filter((customerRequest: any) => {
+      if (customerRequest.priority === priority) {
+        (this as { [key: string]: any })[`${priority}PriorityCustomerRequests`] = (this as { [key: string]: any })[`${priority}PriorityCustomerRequests`] + 1;
       }
     });
   }
