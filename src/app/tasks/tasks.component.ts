@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ThemeService } from '../shared/theme.service';
 import { CustomerRequestsService } from '../shared/customer-requests.service';
 import { UserService } from '../shared/user.service';
@@ -11,7 +11,11 @@ import { CustomerService } from '../shared/customer.service';
 })
 export class TasksComponent implements OnInit {
   isLightTheme: boolean = false;
+  // Die ursprüngliche Liste der Aufgaben
   customerRequestsAsTasks: any = [];
+  // Die gefilterte Liste der Aufgaben
+  filteredCustomerRequestsAsTasks: any = [];
+  searchTerm: string = '';
 
 
   constructor(
@@ -37,6 +41,8 @@ export class TasksComponent implements OnInit {
         .subscribe(async (data: any) => {
           await this.loadCustomerNames(data).then((tasks: any) => {
             this.customerRequestsAsTasks = tasks;
+            this.filteredCustomerRequestsAsTasks = [...tasks];
+            this.searchTask(); // Erstmalige Suche nach dem Laden der Daten
           });
         });
     }
@@ -66,6 +72,19 @@ export class TasksComponent implements OnInit {
    * searchTask() is called when the user clicks the "Search" button
    */
   searchTask() {
-    console.log("searchTask");
+    if (!this.searchTerm) {
+      // Wenn das Suchfeld leer ist, setzen wir die Liste der Aufgaben auf die ursprüngliche Liste
+      this.filteredCustomerRequestsAsTasks = [...this.customerRequestsAsTasks];
+      return;
+    }
+    const searchTerm = this.searchTerm.toLowerCase();
+    this.filteredCustomerRequestsAsTasks = this.customerRequestsAsTasks.filter((task: any) => {
+      return (task.customerName.toLowerCase().includes(searchTerm) ||
+        task.title.toLowerCase().includes(searchTerm) ||
+        task.description.toLowerCase().includes(searchTerm) ||
+        task.status.toLowerCase().includes(searchTerm) ||
+        task.priority.toLowerCase().includes(searchTerm) ||
+        task.subjectArea.toLowerCase().includes(searchTerm));
+    });
   }
 }

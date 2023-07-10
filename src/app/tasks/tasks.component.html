@@ -4,11 +4,10 @@
       <h2>My tasks</h2>
       <mat-form-field appearance="outline">
         <mat-label>Search task</mat-label>
-        <input #searchInput (input)="searchTask()" matInput placeholder="Search">
+        <input #searchInput [(ngModel)]="searchTerm" (ngModelChange)="searchTask()" matInput placeholder="Search">
         <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
     </div>
-
     <table class="tasks-table">
       <tr>
         <th>Due date</th>
@@ -18,7 +17,7 @@
         <th>Priority</th>
         <th>Status</th>
       </tr>
-      <tr *ngFor="let customerRequestAsTask of customerRequestsAsTasks" [routerLink]="['/customer-requests/'+customerRequestAsTask.id]">
+      <tr *ngFor="let customerRequestAsTask of filteredCustomerRequestsAsTasks" [routerLink]="['/customer-requests/'+customerRequestAsTask.id]">
         <td>{{ customerRequestAsTask.dueDate | date:'dd.MM.yy':'':'de' }}</td>
         <td>{{ customerRequestAsTask.customerName }}</td>
         <td>{{ customerRequestAsTask.subjectArea }}</td>
