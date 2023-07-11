@@ -34,7 +34,11 @@ export class AppComponent implements OnInit {
    */
   ngOnInit() {
     this.isLightTheme$ = this.themeService.isLightTheme$;
-
+    this.authService.isUserLoggedIn.subscribe(loggedIn => {
+      if (!loggedIn && this.drawer) {
+        this.drawer.close();
+      }
+    });
   }
 
 
@@ -42,28 +46,6 @@ export class AppComponent implements OnInit {
    * ngAfterViewInit() is called after the view is initialized and sets the drawerMode$ BehaviorSubject for brakepoints
    */
   ngAfterViewInit() {
-    this.breakpointObserver.observe([
-      Breakpoints.XSmall,
-      Breakpoints.Small
-    ]).subscribe((result) => {
-      this.isSmallScreen = result.matches;
-      if (this.isSmallScreen) {
-        this.drawer?.close();
-        this.drawerMode$.next('over');
-      } else {
-        this.drawer?.open();
-        this.drawerMode$.next('side');
-      }
-    });
-  }
-
-
-  /**
-   * toggle the theme about the finction toggleTheme() in the themeService
-   */
-  toggleTheme() {
-    this.themeService.toggleTheme();
-
     const isScreenLarge$ = this.breakpointObserver.observe([
       Breakpoints.Medium,
       Breakpoints.Large,
@@ -71,7 +53,7 @@ export class AppComponent implements OnInit {
     ]).pipe(map(result => result.matches));
 
     this.isDrawerOpen$ = combineLatest([
-      of(this.authService.isUserLoggedIn),
+      this.authService.isUserLoggedIn,
       isScreenLarge$
     ]).pipe(
       map(([isLoggedIn, isScreenLarge]) => isLoggedIn && isScreenLarge),
@@ -87,6 +69,21 @@ export class AppComponent implements OnInit {
         this.drawerMode$.next('over');
       }
     });
+
+    this.authService.isUserLoggedIn.subscribe(loggedIn => {
+      if (!loggedIn && this.drawer) {
+        this.drawer.close();
+      }
+    });
+  }
+
+
+
+  /**
+   * toggle the theme about the finction toggleTheme() in the themeService
+   */
+  toggleTheme() {
+    this.themeService.toggleTheme();
   }
 
 
@@ -102,6 +99,8 @@ export class AppComponent implements OnInit {
    * close the drawer on small screens
    */
   closeOnSmallScreen() {
+    if (!this.authService.isUserLoggedIn.value) return;
+
     if (this.isSmallScreen) {
       this.drawer?.close();
       this.removeFocus();

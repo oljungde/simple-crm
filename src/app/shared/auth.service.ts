@@ -2,14 +2,15 @@ import { Injectable, OnInit, Inject } from '@angular/core';
 import { Auth, signOut, updatePassword } from '@angular/fire/auth';
 import { User, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService implements OnInit {
-  isUserLoggedIn: boolean = sessionStorage.getItem('isUserLoggedIn') === 'true';
-  isGuestLogin: boolean = sessionStorage.getItem('isGuestLogin') === 'true';
+  isUserLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(sessionStorage.getItem('isUserLoggedIn') === 'true');
+  isGuestLogin: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(sessionStorage.getItem('isGuestLogin') === 'true');
   loginError: boolean = false;
   passwordChangeError: boolean = false;
   user: User | null = null;
@@ -83,7 +84,7 @@ export class AuthService implements OnInit {
   async signIn(email: string, password: string) {
     const userCredential = await signInWithEmailAndPassword(this.auth, email, password);
     sessionStorage.setItem('isUserLoggedIn', 'true');
-    this.isUserLoggedIn = sessionStorage.getItem('isUserLoggedIn') === 'true';
+    this.isUserLoggedIn.next(true);
     this.loginError = false;
     this.router.navigate(['/dashboard']);
   }
@@ -113,9 +114,9 @@ export class AuthService implements OnInit {
   async authGuestLogin() {
     const userCredential = await signInWithEmailAndPassword(this.auth, 'guest@oliver-jung.dev', '123456');
     sessionStorage.setItem('isGuestLogin', 'true');
-    this.isGuestLogin = sessionStorage.getItem('isGuestLogin') === 'true';
+    this.isGuestLogin.next(true);
     sessionStorage.setItem('isUserLoggedIn', 'true');
-    this.isUserLoggedIn = sessionStorage.getItem('isUserLoggedIn') === 'true';
+    this.isUserLoggedIn.next(true);
     this.user = userCredential.user;
     this.loginError = false;
     this.router.navigate(['/dashboard']);
@@ -134,10 +135,10 @@ export class AuthService implements OnInit {
     signOut(this.auth)
       .then(() => {
         sessionStorage.removeItem('isUserLoggedIn');
+        this.isUserLoggedIn.next(false);
         sessionStorage.removeItem('userLoggedInId');
-        this.isUserLoggedIn = sessionStorage.getItem('isUserLoggedIn') === 'true';
         sessionStorage.removeItem('isGuestLogin');
-        this.isGuestLogin = sessionStorage.getItem('isGuestLogin') === 'true';
+        this.isGuestLogin.next(false);
         this.router.navigate(['/login']);
       });
   }
