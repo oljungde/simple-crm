@@ -8,7 +8,7 @@
       <input #searchInput (input)="searchContact()" matInput placeholder="Search">
       <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
-    <button (click)="openDialogAddContact(this.isLightTheme)" mat-mini-fab color="primary">
+    <button (click)="openDialogAddContact(this.isLightTheme)" matTooltip="Add customer contact" mat-mini-fab color="primary">
       <mat-icon>add</mat-icon>
     </button>
   </div>

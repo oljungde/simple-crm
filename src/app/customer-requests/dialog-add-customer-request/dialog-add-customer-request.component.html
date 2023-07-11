@@ -12,7 +12,6 @@
           <mat-error *ngIf="newCustomerRequestForm.get('subjectArea')?.invalid && newCustomerRequestForm.get('subjectArea')?.errors?.['required']">Please enter a subject area</mat-error>
         </mat-form-field>
       </div>
-
       <div class="form-row">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label for="title">Title</mat-label>
@@ -20,7 +19,6 @@
           <mat-error *ngIf="newCustomerRequestForm.get('title')?.invalid && newCustomerRequestForm.get('title')?.errors?.['required']">Please enter a title</mat-error>
         </mat-form-field>
       </div>
-
       <div class="form-row">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label for="description">Description</mat-label>
@@ -28,24 +26,20 @@
           <mat-error *ngIf="newCustomerRequestForm.get('description')?.invalid && newCustomerRequestForm.get('description')?.errors?.['required']">Please enter a description</mat-error>
         </mat-form-field>
       </div>
-
       <div class="form-row">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label for="customerContactName">Customer contact</mat-label>
-          <mat-select id="customerContactName" [disabled]="customerRequestsService.loading" formControlName="customerContactName" required="" placeholder="Customer contact">
+          <mat-select id="customerContactName" [disabled]="customerRequestsService.loading" formControlName="customerContactName" placeholder="Customer contact">
             <mat-option *ngFor="let customerContactName of customerContactNames" value="{{ customerContactName }}">{{ customerContactName }}</mat-option>
           </mat-select>
-          <mat-error *ngIf="newCustomerRequestForm.get('customerContactName')?.invalid && newCustomerRequestForm.get('customerContactName')?.errors?.['required']">Please select a customer
-            contact</mat-error>
+          <mat-error *ngIf="newCustomerRequestForm.get('customerContactName')?.invalid && newCustomerRequestForm.get('customerContactName')?.errors?.['required']">Please select a customer contact</mat-error>
         </mat-form-field>
-
         <mat-form-field *ngIf="showTurnover()" appearance="outline" class="w-100">
           <mat-label for="turnover">Turnover</mat-label>
           <input id="turnover" type="text" [disabled]="customerRequestsService.loading" formControlName="turnover" matInput placeholder="Enter the turnover">
           <mat-error *ngIf="newCustomerRequestForm.get('description')?.invalid && newCustomerRequestForm.get('description')?.errors?.['required']">Please enter a turnover</mat-error>
         </mat-form-field>
       </div>
-
       <div class="form-row">
         <mat-form-field appearance="outline" class="w-50">
           <mat-label for="priority">Priority</mat-label>
@@ -54,7 +48,6 @@
           </mat-select>
           <mat-error *ngIf="newCustomerRequestForm.get('priority')?.invalid && newCustomerRequestForm.get('priority')?.errors?.['required']">Please select a priority</mat-error>
         </mat-form-field>
-
         <mat-form-field appearance="outline" class="w-50">
           <mat-label for="status">Status</mat-label>
           <mat-select id="status" [disabled]="customerRequestsService.loading" formControlName="status" required="" placeholder="Enter a status">
@@ -63,7 +56,6 @@
           <mat-error *ngIf="newCustomerRequestForm.get('status')?.invalid && newCustomerRequestForm.get('status')?.errors?.['required']">Please select a status</mat-error>
         </mat-form-field>
       </div>
-
       <div class="form-row">
         <mat-form-field appearance="outline" class="w-50">
           <mat-label for="assignedToUserRef">Assign to</mat-label>
@@ -71,7 +63,6 @@
             <mat-option *ngFor="let userDetail of userDetails" value="{{ userDetail.id }}">{{ userDetail.name }}</mat-option>
           </mat-select>
         </mat-form-field>
-
         <mat-form-field appearance="outline" class="w-50">
           <mat-label>Choose a due date</mat-label>
           <input matInput [disabled]="customerRequestsService.loading" [min]="minDate" [matDatepicker]="picker" formControlName="dueDate">
@@ -79,12 +70,10 @@
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
       </div>
-
       <div mat-dialog-actions>
         <button [disabled]="customerRequestsService.loading" (click)="dialogRef.close()" mat-button>Cancel</button>
         <button type="submit" [disabled]="customerRequestsService.loading" mat-button cdkFocusInitial>Save</button>
       </div>
     </form>
   </div>
-
 </div>

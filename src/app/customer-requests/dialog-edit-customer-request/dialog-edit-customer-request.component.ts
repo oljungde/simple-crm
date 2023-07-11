@@ -41,7 +41,7 @@ export class DialogEditCustomerRequestComponent implements OnInit {
   dueDate = new FormControl(new Date(this.customerRequestsService.currentCustomerRequest.dueDate));
   updateCustomerRequestForm = this.formBuilder.group({
     title: [this.customerRequestsService.currentCustomerRequest.title, Validators.required],
-    customerContactName: [this.customerRequestsService.currentCustomerRequest.customerContactName, Validators.required],
+    customerContactName: [this.customerRequestsService.currentCustomerRequest.customerContactName],
     description: [this.customerRequestsService.currentCustomerRequest.description, Validators.required],
     subjectArea: [this.customerRequestsService.currentCustomerRequest.subjectArea, Validators.required],
     priority: [this.customerRequestsService.currentCustomerRequest.priority, Validators.required],

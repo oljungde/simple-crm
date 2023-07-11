@@ -26,13 +26,13 @@
         <span>simpleCRM</span>
       </div>
       <div class="toolbar-right">
-        <button mat-icon-button [matMenuTriggerFor]="userMenu" class="btn-edit-user">
+        <button mat-icon-button [matMenuTriggerFor]="userMenu" matTooltip="User options" class="btn-edit-user">
           <mat-icon>manage_accounts</mat-icon>
         </button>
         <mat-menu #userMenu="matMenu" xPosition="before">
           <button *ngIf="isLightTheme$ | async" (click)="toggleTheme()" mat-menu-item><mat-icon fontIcon="nights_stay"></mat-icon>Dark Mode</button>
           <button *ngIf="!(isLightTheme$ | async)" (click)="toggleTheme()" mat-menu-item><mat-icon fontIcon="light_mode"></mat-icon>Light Mode</button>
-          <button *ngIf="authService.isUserLoggedIn && !authService.isGuestLogin" (click)="changePassword()" mat-menu-item><mat-icon fontIcon="password"></mat-icon>Change password</button>
+          <button *ngIf="authService.isUserLoggedIn.value && !authService.isGuestLogin.value" (click)="changePassword()" mat-menu-item><mat-icon fontIcon="password"></mat-icon>Change password</button>
           <button *ngIf="authService.isUserLoggedIn" (click)="authService.userSignOut()" mat-menu-item><mat-icon fontIcon="logout"></mat-icon>Logout</button>
         </mat-menu>
       </div>

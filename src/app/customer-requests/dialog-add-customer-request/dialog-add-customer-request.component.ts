@@ -53,7 +53,7 @@ export class DialogAddCustomerRequestComponent implements OnInit {
       subjectArea: ['', Validators.required],
       title: ['', Validators.required],
       description: ['', Validators.required],
-      customerContactName: ['', Validators.required],
+      customerContactName: [''],
       turnover: ['', Validators.required],
       priority: ['', Validators.required],
       status: ['', Validators.required],
