@@ -134,7 +134,9 @@ export class DialogAddCustomerRequestComponent implements OnInit {
       Object.assign(newCustomerRequest, this.newCustomerRequestForm.value);
       await this.setCustomerRequestData(newCustomerRequest);
       await this.setAssignedTo(newCustomerRequest)
-      this.identifyCustomerContactId(this.newCustomerRequestForm.value.customerContactName);
+      if (newCustomerRequest.customerContactName) {
+        this.identifyCustomerContactId(this.newCustomerRequestForm.value.customerContactName);
+      }
       this.setDueDate(newCustomerRequest);
       this.customerRequestsService.saveNewCustomerRequest(newCustomerRequest);
       if (newCustomerRequest.customerRef) {
