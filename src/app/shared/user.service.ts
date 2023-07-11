@@ -84,14 +84,15 @@ export class UserService {
 
 
   /**
-   * save a new user
-   * @param newUser is an instance of User
-   */
+    * save a new user
+    * @param newUser is an instance of User
+    */
   saveNewUser(newUser?: User) {
     this.loading = true;
     const userToSave = newUser ? newUser : this.newUser;
     addDoc(this.usersCollection, userToSave.toJSON())
       .then((docRef: DocumentReference) => {
+        console.log('User added successfully', docRef);
         this.userId = docRef.id;
         updateDoc(docRef, { userId: docRef.id });
         this.loading = false;

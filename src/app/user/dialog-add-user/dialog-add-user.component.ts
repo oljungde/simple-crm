@@ -71,35 +71,26 @@ export class DialogAddUserComponent implements OnInit {
 
 
   /**
-   * saveUser() is called when the user clicks the "Save" button in the dialog.
+   * save the new user to firestore and firebase auth
    */
   saveUser() {
     if (this.registerForm.valid) {
       const newUser = new User();
       Object.assign(newUser, this.registerForm.value);
-      this.registerUser(newUser);
+      this.authService.registerUser(this.registerForm.value.email, this.registerForm.value.password)
+        .then(() => {
+          this.emailIsRegistered = false;
+          newUser.fullName = `${newUser.firstName} ${newUser.lastName}`;
+          this.userService.saveNewUser(newUser);
+          this.resetForm();
+          this.dialogRef.close();
+        })
+        .catch((error) => {
+          this.emailIsRegistered = true;
+          console.error('Registrierung fehlgeschlagen: ', error);
+        });
     } else {
       console.log('Form is invalid');
     }
-  }
-
-
-  /**
-   * auth the new user in firebase and save the user in the database
-   * @param newUser is an instance of the User class from the registerForm
-   */
-  registerUser(newUser: User) {
-    this.authService.registerUser(this.registerForm.value.email, this.registerForm.value.password)
-      .then(() => {
-        this.emailIsRegistered = false;
-        newUser.fullName = `${newUser.firstName} ${newUser.lastName}`;
-        this.userService.saveNewUser(newUser);
-        this.resetForm();
-        this.dialogRef.close();
-      })
-      .catch((error) => {
-        this.emailIsRegistered = true;
-        console.error('Registrierung fehlgeschlagen: ', error);
-      });
   }
 }

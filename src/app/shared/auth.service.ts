@@ -24,9 +24,9 @@ export class AuthService implements OnInit {
 
 
   /**
-   * function to register a new user in firebase auth
-   * @param email adress of the user to register
-   * @param password of the user to register
+   * register the user with email and password with firebase auth
+   * @param email to register the user with in firebase auth
+   * @param password to register the user with in firebase auth
    * @returns 
    */
   registerUser(email: string, password: string): Promise<void> {
@@ -36,30 +36,20 @@ export class AuthService implements OnInit {
         reject('Firebase has not been initialized yet.');
         return;
       }
-      this.createUser(email, password);
+      createUserWithEmailAndPassword(this.auth, email, password)
+        .then((userCredential) => {
+          resolve();
+        })
+        .catch((error) => {
+          if (error.code === 'auth/email-already-in-use') {
+            console.error('Email already in use');
+            reject('Email already in use');
+          } else {
+            console.error(error);
+          }
+          reject(error);
+        });
     });
-  }
-
-
-  /**
-   * create a new user in firebase auth
-   * @param email adress of the user to register
-   * @param password of the user to register
-   */
-  createUser(email: string, password: string) {
-    createUserWithEmailAndPassword(this.auth, email, password)
-      .then((userCredential) => {
-        resolve();
-      })
-      .catch((error) => {
-        if (error.code === 'auth/email-already-in-use') {
-          console.error('Email already in use');
-          reject('Email already in use');
-        } else {
-          console.error(error);
-        }
-        reject(error);
-      });
   }
 
 
